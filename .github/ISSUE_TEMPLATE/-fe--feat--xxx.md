@@ -1,9 +1,9 @@
 ---
-name: Issue Task Card
+name: "[FE] feat: xxx"
 about: Issue Task Card
 title: ''
 labels: ''
-assignees: nayoseb
+assignees: ''
 
 ---
 
