@@ -17,7 +17,7 @@ public class Review extends Auditable {
     @Column(nullable = false, length = 2000)
     private String content;
 
-//TODO: Specify
+    //TODO: Specify & double check annotations.
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
