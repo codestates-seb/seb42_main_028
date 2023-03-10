@@ -8,6 +8,7 @@ import Reviewpage from './pages/Review/Reviewpage.jsx';
 import Adminpage from './pages/Review/Adminpage.jsx';
 import Reviewwrite from './pages/Review/Reviewwrite.jsx';
 import Errorpage from './pages/Error/Errorpage.jsx';
+import Header from './components/Header';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ function App() {
 	return (
 		<Router>
 			<GlobalStyle />
+			<Header />
 			<Routes>
 				<Route path='/' element={<Landingpage />} />
 				<Route path='/main' element={<Mainpage />} />
