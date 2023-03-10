@@ -1,13 +1,13 @@
 import GlobalStyle from './GlobalStyle';
-import Landingpage from './pages/Landingpage';
-import Mainpage from './pages/Main/Mainpage';
-import Loginpage from './pages/Login/Loginpage';
-import Signuppage from './pages/Login/Signuppage';
-import Mypage from './pages/Mypage/Mypage';
-import Reviewpage from './pages/Review/Reviewpage';
-import Adminpage from './pages/Review/Adminpage';
-import Reviewwrite from './pages/Review/Reviewwrite';
-import Errorpage from './pages/Error/Errorpage';
+import Landingpage from './pages/Landingpage.jsx';
+import Mainpage from './pages/Main/Mainpage.jsx';
+import Loginpage from './pages/Login/Loginpage.jsx';
+import Signuppage from './pages/Login/Signuppage.jsx';
+import Mypage from './pages/Mypage/Mypage.jsx';
+import Reviewpage from './pages/Review/Reviewpage.jsx';
+import Adminpage from './pages/Review/Adminpage.jsx';
+import Reviewwrite from './pages/Review/Reviewwrite.jsx';
+import Errorpage from './pages/Error/Errorpage.jsx';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
