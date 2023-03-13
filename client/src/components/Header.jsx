@@ -31,7 +31,7 @@ const SearchWrap = styled.div`
 	margin-top: -48px;
 `;
 
-const SearchBox = styled.input`
+const SearchBox = styled.input` 
 	width: 696px;
 	height: 42px;
 	padding-left: 40px;
