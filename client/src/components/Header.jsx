@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import search from '../assets/search.png';
+import profile from '../assets/profile.png';
 
 const HeaderWrap = styled.div`
 	top: 0;
@@ -33,7 +34,7 @@ const SearchWrap = styled.div`
 const SearchBox = styled.input`
 	width: 696px;
 	height: 42px;
-	padding-left: 600px;
+	padding-left: 40px;
 	border-radius: 10px;
 	border: 1px solid #d9d9d9;
 `;
@@ -41,7 +42,7 @@ const SearchBox = styled.input`
 const SearchImg = styled.img`
 	position: absolute;
 	width: 24px;
-	left: 660px;
+	left: 12px;
 	top: 12px;
 `;
 
@@ -79,6 +80,15 @@ const SignUpButton = styled.a`
 	cursor: pointer;
 `;
 
+const UserInfo = styled.img`
+	width: 38px;
+	height: 38px;
+	margin-top: -50px;
+	margin-bottom: 12px;
+	margin-left: 1320px;
+	cursor: pointer;
+`;
+
 const Header = () => {
 	const location = useLocation().pathname;
 	const navigate = useNavigate();
@@ -101,6 +111,19 @@ const Header = () => {
 				</SignUpButton>
 			</HeaderWrap>
 		</>
+		// <>
+		// 	<HeaderWrap>
+		// 		<LogoImg onClick={() => navigate('/')} src={logo} />
+		// 		<SearchWrap>
+		// 			<SearchBox />
+		// 			<SearchImg src={search} />
+		// 		</SearchWrap>
+		// 		<LoginLogoutButton onClick={() => navigate('/main')}>
+		// 			로그아웃
+		// 		</LoginLogoutButton>
+		// 		<UserInfo onClick={() => navigate('/mypage')} src={profile}></UserInfo>
+		// 	</HeaderWrap>
+		// </>
 	);
 };
 
