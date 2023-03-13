@@ -2,25 +2,32 @@ import React from 'react';
 import landinglogo from '../assets/landinglogo.png';
 import main from '../assets/main.png';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 
 const LandingImg = styled.img`
 	width: 100%;
 	height: 100%;
-	margin-top: 150px;
+	position: absolute;
+	cursor: pointer;
 `;
 
 const LogoImg = styled.img`
-	width: 150;
+	width: 440px;
+	height: 360px;
+	position: absolute;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	margin-top: 200px;
+	margin-left: 480px;
+	cursor: pointer;
 `;
 
 const Landingpage = () => {
+	const navigate = useNavigate();
+
 	return (
 		<>
-			{/* <LogoImg src={landinglogo} /> */}
-			<LandingImg src={main} />
+			<LandingImg onClick={() => navigate('/main')} src={main} />
+			<LogoImg onClick={() => navigate('/main')} src={landinglogo} />
 		</>
 	);
 };
