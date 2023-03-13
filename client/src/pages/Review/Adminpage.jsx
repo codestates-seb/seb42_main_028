@@ -1,7 +1,8 @@
 import React from 'react';
 
+
 function Adminpage() {
-	return <div>운영자페이지입니다.</div>;
+ return <></>
 }
 
 export default Adminpage;

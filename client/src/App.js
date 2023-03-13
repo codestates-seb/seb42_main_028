@@ -9,6 +9,7 @@ import Adminpage from './pages/Review/Adminpage.jsx';
 import Reviewwrite from './pages/Review/Reviewwrite.jsx';
 import Errorpage from './pages/Error/Errorpage.jsx';
 import Header from './components/Header';
+import Card2 from './pages/Review/card2';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ function App() {
 				<Route path='/admin' element={<Adminpage />} />
 				<Route path='/reviewwrite' element={<Reviewwrite />} />
 				<Route path='404' element={<Errorpage />} />
+				<Route path='test' element={<Card2 />} />
 			</Routes>
 		</Router>
 	);
