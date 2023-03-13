@@ -69,7 +69,7 @@ function Reviewpage() {
 			</Container>
 			<Container display='flex' margin_bottom='120px'>
 				<Img width='522px' height='290px' margin_left='4px' margin_right='32px'>
-					이미지자리
+					이미지자리 
 				</Img>
 				<Card2/>
 			</Container>
