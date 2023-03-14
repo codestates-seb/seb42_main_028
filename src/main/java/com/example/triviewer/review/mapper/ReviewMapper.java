@@ -7,9 +7,12 @@ import com.example.triviewer.review.entity.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ReviewMapper {
     Review reviewPostDtoToReview(ReviewPostDto reviewPostDto);
     Review reviewPatchDtoToReview(ReviewPatchDto reviewPatchDto);
     ReviewResponseDto reviewToReviewResponseDto(Review review);
+    List<ReviewResponseDto> reviewsToReviewResponseDto(List<Review> reviews);
 }

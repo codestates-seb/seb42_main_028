@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
 public class ReviewPatchDto {
 
     private long reviewId;

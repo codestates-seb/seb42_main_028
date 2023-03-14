@@ -2,10 +2,14 @@ package com.example.triviewer.review.entity;
 
 import com.example.triviewer.audit.Auditable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class Review extends Auditable {
     @Id
@@ -18,6 +22,14 @@ public class Review extends Auditable {
     @Column(nullable = false, length = 2000)
     private String content;
 
+    public Review(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
+
+    public Review(Long reviewId){
+        this.reviewId = reviewId;
+    }
     //TODO: Specify & double check annotations.
 
     @Enumerated(EnumType.STRING)
