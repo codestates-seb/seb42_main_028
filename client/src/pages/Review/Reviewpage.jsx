@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import Reviewcard from './Reviewcard';
 import Card from './card';
 import Card2 from './card2';
+import Star from '../../components/Star';
+import Reviewlist from '../Review/Reviewlist'
+
+import Searchicon from './search.png'
 
 import {AiOutlineSearch} from 'react-icons/ai'
 
@@ -12,6 +16,8 @@ margin-bottom: ${(props) => props.margin_buttom };
 font-size: ${(props) => props.font_size || '14px' };
 font-weight:  ${(props) => props.font_weight };
 color:${(props) => props.color }; 
+cursor: ${(props) => props.cursor };
+text-decoration:${(props) => props.text_decoration };
 `
 
 const Adminpage1 = styled.div`
@@ -22,6 +28,7 @@ const Container=styled.div`
 margin-top:${(props) => props.margin_top  };
 margin-bottom:${(props) => props.margin_bottom  };
 display:${(props) => props.display || 'block' }; 
+align-items: ${(props) => props.align_items ||'center'};
 `
 
 const Img = styled.div`
@@ -29,23 +36,32 @@ margin-left: ${(props) => props.margin_left };
 margin-right: ${(props) => props.margin_right };
 width: ${(props) => props.width };
 height: ${(props) => props.height };
-
 background-color: #424242;
 `
 
 
-const Search = styled.div`
-	width: 815px;
+const Search = styled.input`
+   background-image:Searchicon;
+	width: 800px;
 	height: 33px;
 	border-radius: 10px;
 	border: 1px solid #D9D9D9;
+	margin-right: 20px;
 `
-const Button = styled.div`
+const Button = styled.button`
+box-shadow: 0px 1px 2px 2px rgb(0,0,0,0.2);
+cursor: pointer;
+font-size: 15px;
 	width: 75px;
 	height: 33px;
 	border-radius: 10px;
-	border: 1px solid #D9D9D9;
+	color:${(props) => props.color }; 
+	text-align: center;
+	background-color: ${(props) => props.background_color || '#FD8E0D' };
+	margin-right: ${(props) => props.margin_right }; 
+	
 `
+
 
 function Reviewpage() {
 	return <div>
@@ -55,9 +71,9 @@ function Reviewpage() {
 				카메스시
 			   </Text>
 			   <Text  margin_buttom = '4px'>
-				별점자리입니다
+				<Star/>
 			   </Text>
-			   <Text margin_buttom='32px' >
+			   <Text margin_buttom='32px'cursor='pointer'text_decoration='underline' >
 				리뷰쓰기
 			   </Text>
 			</Container>
@@ -79,17 +95,20 @@ function Reviewpage() {
 			   </Text>
 			</Container>
 			<Container margin_bottom='16px' display='felx'>
-			<Search className='써치바'>
-				<AiOutlineSearch />
-				</Search>
-				<Button>
-				리뷰쓰기</Button>
-				<Button>
-				정렬</Button>
+			 <Search className='써치바'/>
+			
+			 <div>
+			 <Button background_color='white' margin_right='4px'>
+				리뷰쓰기
+			 </Button>
+			 <Button>
+				정렬
+			 </Button>
+			 </div>
 			</Container>
 			   
                <Reviewcard></Reviewcard>
-			
+			   <Reviewlist/>
 
 		</Adminpage1>
 		
