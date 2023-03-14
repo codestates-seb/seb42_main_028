@@ -6,6 +6,8 @@ import {AiOutlineLike} from 'react-icons/ai'
 import {FaUserCircle} from 'react-icons/fa' 
 import {MdExpandMore} from 'react-icons/md'
 
+import Star from '../../components/Star';
+
 const Card = styled.div`
 	width: 1000px;
     height: 331px;
@@ -15,7 +17,9 @@ const Card = styled.div`
 `
 const Flex = styled.div`
 align-items: ${(props) => props.align_items};
+text-align:  ${(props) => props.text_align};
 flex: ${(props) => props.flex ||'1' }
+
 `
 const Icon = styled.div`
 margin: ${(props) => props.margin ||'10px 10px 10px 10px' };
@@ -56,12 +60,12 @@ function Reviewcard(){
     2023-03-13
     </Text>
     <div>
-    별점
+    <Star/>
     </div>
     </Flex>
-    <Flex>
+    <Flex text_align='center'>
      <AiOutlineLike size="30" color='#424242'/>
-     <Flex >0</Flex>
+     <Flex text_align='center' >0</Flex>
     </Flex>
     </Container>
     <Container display='block' margin_left='48px' margin_right='48px' >

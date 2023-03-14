@@ -9,7 +9,8 @@ import Adminpage from './pages/Review/Adminpage.jsx';
 import Reviewwrite from './pages/Review/Reviewwrite.jsx';
 import Errorpage from './pages/Error/Errorpage.jsx';
 import Header from './components/Header';
-import Card2 from './pages/Review/card2';
+import Reviewlist from './pages/Review/Reviewlist';
+import Card2 from './pages/Review/Reviewlist';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
