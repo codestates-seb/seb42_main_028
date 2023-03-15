@@ -13,4 +13,6 @@ public class CommentPatchDto {
     @NotBlank(message = "댓글은 공백일 수 없습니다.")
     private String answerContent;
 
+    public static void setCommentId(long commentId) {
+    }
 }
