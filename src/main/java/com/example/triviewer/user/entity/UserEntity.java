@@ -22,7 +22,7 @@ public class UserEntity {
     @Column(length = 20)
     private String userPassword;
     @Column(length = 20)
-    private String userNmae;
+    private String userName;
     @Column(length = 20)
     private String userMobile;
 
