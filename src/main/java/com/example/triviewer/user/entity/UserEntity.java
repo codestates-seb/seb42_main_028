@@ -1,6 +1,5 @@
 package com.example.triviewer.user.entity;
 
-import com.example.triviewer.user.UserApplication;
 import com.example.triviewer.user.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Table(name = "user_table")
+@Table(name = "user")
 public class UserEntity {
 
     @Id
