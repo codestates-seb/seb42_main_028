@@ -11,14 +11,28 @@ const LandingImg = styled.img`
 	cursor: pointer;
 `;
 
+// const LogoImg = styled.img`
+//  width: 440px;
+//  height: 360px;
+//  position: absolute;
+//  display: flex;
+//  margin-top: 200px;
+//  margin-left: 480px;
+//  cursor: pointer;
+// `;
+
 const LogoImg = styled.img`
-	width: 440px;
-	height: 360px;
+	max-width: 40%;
+	height: 30%;
 	position: absolute;
 	display: flex;
-	margin-top: 200px;
-	margin-left: 480px;
 	cursor: pointer;
+	margin-top: 160px;
+`;
+
+const Text = styled.div`
+	display: flex;
+	justify-content: center;
 `;
 
 const Landingpage = () => {
@@ -27,7 +41,9 @@ const Landingpage = () => {
 	return (
 		<>
 			<LandingImg onClick={() => navigate('/main')} src={main} />
-			<LogoImg onClick={() => navigate('/main')} src={landinglogo} />
+			<Text>
+				<LogoImg onClick={() => navigate('/main')} src={landinglogo} />
+			</Text>
 		</>
 	);
 };

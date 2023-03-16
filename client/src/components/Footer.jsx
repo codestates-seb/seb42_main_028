@@ -12,6 +12,7 @@ const Container = styled.div`
 	background-color: #e9e9e9;
 	border-top: 1px solid #fd8e0d;
 	justify-content: space-between;
+	margin-top: 40px;
 `;
 
 const Left = styled.div`
