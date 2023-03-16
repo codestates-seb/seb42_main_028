@@ -10,6 +10,12 @@ const GlobalStyle = createGlobalStyle`
     *{
         box-sizing: border-box;
     }
+    body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
     input, textarea { 
       -moz-user-select: auto;
       -webkit-user-select: auto;
