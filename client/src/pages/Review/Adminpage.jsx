@@ -8,14 +8,17 @@ align-items: ${(props) => props.align_items ||'center' };
 `
 const Input=styled.input`
 width: 900px;
-height: ${(props) => props.height};
+height: ${(props) => props.height || '30px'};
 margin-bottom: ${(props) => props.margin_buttom };
+padding-left: 8px;
 `
 const Img=styled.div`
 width: ${(props) => props.width};
 height: ${(props) => props.height};
 background-color: gray;
-margin: auto;
+margin-right:${(props) => props.margin_rright}; 
+
+/* margin: auto; */
 `
 const Text = styled.div`
 margin-Top: ${(props) => props.margin_top };
@@ -47,7 +50,11 @@ font-size: 12px;
 function Adminpage() {
  return <>
  <Adminpage1>
- <Img width='360px' height='230px'></Img>
+ <Container>
+ <Img width='200px' height='230px' margin_rright='4px'></Img>
+ <Img width='200px' height='230px' margin_rright='4px'></Img>
+ <Img width='200px' height='230px' margin_rright='4px'></Img>
+ </Container>
  <Container display='block' padding='20px 0px'>
  <Text margin_buttom='8px'>제목</Text>
  <Input margin_buttom='16px'></Input>

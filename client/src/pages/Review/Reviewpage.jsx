@@ -35,6 +35,7 @@ align-items: ${(props) => props.align_items ||'center'};
 const Img = styled.div`
 margin-left: ${(props) => props.margin_left };
 margin-right: ${(props) => props.margin_right };
+margin-bottom: ${(props) => props.margin_bottom };
 width: ${(props) => props.width };
 height: ${(props) => props.height };
 background-color: #424242;
@@ -79,13 +80,21 @@ function Reviewpage() {
 			   </Text>
 			</Container>
 			<Container display='flex' margin_bottom='120px'>
-				<Img width='522px' height='290px' margin_left='4px' margin_right='32px'>
+				<Img width='340px' height='380px' margin_left='4px' margin_right='8px'>
 					이미지자리
 				</Img>
+				<Container display='block'>
+				<Img width='170px' height='186px' margin_left='4px' margin_right='32px'margin_bottom='8px'>
+					이미지자리
+				</Img>
+				<Img width='170px' height='186px' margin_left='4px' margin_right='32px'>
+					이미지자리
+				</Img>
+				</Container>
 				<Card/>
 			</Container>
 			<Container display='flex' margin_bottom='120px'>
-				<Img width='522px' height='290px' margin_left='4px' margin_right='32px'>
+				<Img width='525px' height='290px' margin_left='4px' margin_right='32px'>
 					이미지자리 
 				</Img>
 				<Card2/>
