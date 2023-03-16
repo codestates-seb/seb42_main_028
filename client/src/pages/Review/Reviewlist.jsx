@@ -71,7 +71,6 @@ function Reviewlist(){
      <Input type="text"  maxLength="300" placeholder='댓글을 작성해 주세요'/>
     </Flex>
     <Button background_color='white' margin_right='4px'>확인</Button>
-    <Button>정렬</Button>
  </Container>
  <Container margin='0px 0 4px 0px' >
     <List padding='28px 44px '>
