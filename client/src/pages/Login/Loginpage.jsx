@@ -34,7 +34,7 @@ const GoogleLogin = styled.a`
 	display: flex;
 	justify-content: center;
 	padding: 3px;
-	box-shadow: 0 0 5px 5px #e4e4e4;
+	box-shadow: 0 0 2px 2px #e4e4e4;
 	cursor: pointer;
 
 	&:hover {
@@ -73,7 +73,7 @@ const LoginForm = styled.div`
 	width: 360px;
 	height: max-content;
 	background-color: white;
-	box-shadow: 0 0 5px 5px #e4e4e4;
+	box-shadow: 0 0 2px 2px #e4e4e4;
 	padding: 40px 0 40px 0;
 `;
 
@@ -162,7 +162,7 @@ const Loginpage = () => {
 						<LoginButton>로그인</LoginButton>
 					</LoginForm>
 					<Text>
-						회원이 아닌신가요?
+						회원이 아닌신가요? &nbsp;
 						<Linker
 							onClick={() => {
 								navigate('/signup');

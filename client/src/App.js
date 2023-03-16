@@ -11,7 +11,11 @@ import Errorpage from './pages/Error/Errorpage.jsx';
 import Header from './components/Header';
 import Reviewlist from './pages/Review/Reviewlist';
 import Card2 from './pages/Review/Reviewlist';
+
+import Footer from './components/Footer';
+
 import Layout from './layout/Layout';
+
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -36,6 +40,7 @@ function App() {
 					<Route path='test' element={<Card2 />} />
 				</Routes>
 			</Layout>
+      <Footer />
 		</Router>
 	);
 }
