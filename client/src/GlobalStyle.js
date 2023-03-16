@@ -26,6 +26,14 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
       cursor: pointer;
     }
+
+    body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 `;
 
 export default GlobalStyle;
