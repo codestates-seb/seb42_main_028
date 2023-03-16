@@ -11,7 +11,11 @@ import Errorpage from './pages/Error/Errorpage.jsx';
 import Header from './components/Header';
 import Reviewlist from './pages/Review/Reviewlist';
 import Card2 from './pages/Review/Reviewlist';
+
 import Footer from './components/Footer';
+
+import Layout from './layout/Layout';
+
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -22,17 +26,21 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path='/' element={<Landingpage />} />
-				<Route path='/main' element={<Mainpage />} />
-				<Route path='/login' element={<Loginpage />} />
-				<Route path='/signup' element={<Signuppage />} />
-				<Route path='/mypage' element={<Mypage />} />
-				<Route path='/review' element={<Reviewpage />} />
-				<Route path='/admin' element={<Adminpage />} />
-				<Route path='/reviewwrite' element={<Reviewwrite />} />
-				<Route path='404' element={<Errorpage />} />
-				<Route path='test' element={<Card2 />} />
 			</Routes>
-			<Footer />
+			<Layout>
+				<Routes>
+					<Route path='/main' element={<Mainpage />} />
+					<Route path='/login' element={<Loginpage />} />
+					<Route path='/signup' element={<Signuppage />} />
+					<Route path='/mypage' element={<Mypage />} />
+					<Route path='/review' element={<Reviewpage />} />
+					<Route path='/admin' element={<Adminpage />} />
+					<Route path='/reviewwrite' element={<Reviewwrite />} />
+					<Route path='404' element={<Errorpage />} />
+					<Route path='test' element={<Card2 />} />
+				</Routes>
+			</Layout>
+      <Footer />
 		</Router>
 	);
 }
