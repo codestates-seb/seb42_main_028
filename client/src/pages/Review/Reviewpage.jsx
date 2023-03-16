@@ -6,6 +6,7 @@ import Card from './card';
 import Card2 from './card2';
 import Star from '../../components/Star';
 import Reviewlist from '../Review/Reviewlist'
+import Layout  from '../../layout/Layout';
 
 import Searchicon from './search.png'
 
@@ -21,8 +22,8 @@ text-decoration:${(props) => props.text_decoration };
 `
 
 const Adminpage1 = styled.div`
-	margin-left: 450px;
-	margin-right: 450px;
+	/* margin-left: 450px;
+	margin-right: 450px; */
 `
 const Container=styled.div`
 margin-top:${(props) => props.margin_top  };

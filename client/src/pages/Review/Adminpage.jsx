@@ -9,11 +9,13 @@ align-items: ${(props) => props.align_items ||'center' };
 const Input=styled.input`
 width: 900px;
 height: ${(props) => props.height};
+margin-bottom: ${(props) => props.margin_buttom };
 `
 const Img=styled.div`
 width: ${(props) => props.width};
 height: ${(props) => props.height};
 background-color: gray;
+margin: auto;
 `
 const Text = styled.div`
 margin-Top: ${(props) => props.margin_top };
@@ -25,8 +27,9 @@ color:${(props) => props.color };
 `
 const Container = styled.div`
 margin : ${(props)=> props.margin || '1px 1px 1px 1px'};
+padding: ${(props)=> props.padding || '1px 1px 1px 1px'};
 display: ${(props) => props.display ||'flex' };
-align-items: ${(props) => props.align_items ||'center' }
+align-items: ${(props) => props.align_items || 'center' }
 `
 const Button = styled.button`
 box-shadow: 0px 1px 1px 1px rgb(0,0,0,0.2);
@@ -45,17 +48,21 @@ function Adminpage() {
  return <>
  <Adminpage1>
  <Img width='360px' height='230px'></Img>
- <Text>제목</Text>
- <Input></Input>
- <Text>장소 소개를 작성해주세요</Text>
- <Input></Input>
- <Text>영업시간을 작성해주세요</Text>
- <Input></Input>
+ <Container display='block' padding='20px 0px'>
+ <Text margin_buttom='8px'>제목</Text>
+ <Input margin_buttom='16px'></Input>
+ <Text margin_buttom='8px'>장소 소개를 작성해주세요</Text>
+ <Input margin_buttom='16px'></Input>
+ <Text margin_buttom='8px'>영업시간을 작성해주세요</Text>
+ <Input margin_buttom='16px'></Input>
+ </Container>
  <Img width='480px' height='186px'></Img>
- <Text>위치를 작성해주세요</Text>
- <Input></Input>
- <Text>인근지역을 작성해주세요</Text>
- <Input></Input>
+ <Container display='block' padding='20px 0px'>
+ <Text margin_buttom='8px'>위치를 작성해주세요</Text>
+ <Input margin_buttom='16px'></Input>
+ <Text margin_buttom='8px'>인근지역을 작성해주세요</Text>
+ <Input margin_buttom='16px'></Input>
+ </Container>
  <Button background_color='white'>취소</Button>
  <Button>게시</Button>
  </Adminpage1>
