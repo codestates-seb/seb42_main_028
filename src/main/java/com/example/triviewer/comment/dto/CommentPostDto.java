@@ -2,6 +2,7 @@ package com.example.triviewer.comment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotBlank;
 
@@ -10,11 +11,13 @@ import javax.validation.constraints.NotBlank;
 public class CommentPostDto {
 
     private long reviewId;
-
     private long userId;
-    private long commentId;
-
     @NotBlank(message = "댓글은 공백일 수 없습니다.")
     private String answerContent;
+
+    public void setReviewId(long reviewId) {
+        Assert.notNull(reviewId, "Review ID는 null일 수 없습니다.");
+        this.reviewId = reviewId;
+    }
 
 }
