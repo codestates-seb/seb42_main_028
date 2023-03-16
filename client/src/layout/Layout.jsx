@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	margin: auto auto;
+	margin: auto auto;  
 `
 
 const Layout = ({children, style})=>{
