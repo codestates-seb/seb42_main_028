@@ -43,37 +43,37 @@ public class CommentController {
     }
 
     // 댓글 조회 및 댓글 수정 코드 수정 필요
-//    // 댓글 조회
-//    @GetMapping("/{comment-id}")
-//    public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId) {
-//        Comment comment = commentService.findComment(commentId);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity getComments(@Positive @RequestParam int page,
-//                                      @Positive @RequestParam int size) {
-//        Page<Comment> pageComments = commentService.findComments(page - 1, size);
-//        List<Comment> comments = pageComments.getContent();
-//
-//        return new ResponseEntity(new MultiResponseDto<>(commentMapper.commentToCommentResponseDto(comments), pageComments),
-//                HttpStatus.OK);
-//    }
+    // 댓글 조회
+    @GetMapping("/{review-id}/{comment-id}")
+    public ResponseEntity getComment(@PathVariable("review-id") @Positive long reviewId, @PathVariable("comment-id") @Positive long commentId) {
+        Comment comment = commentService.findComment(commentId);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getComments(@Positive @RequestParam int page,
+                                      @Positive @RequestParam int size) {
+        Page<Comment> pageComments = commentService.findComments(page - 1, size);
+        List<Comment> comments = pageComments.getContent();
+
+        return new ResponseEntity(new MultiResponseDto<>(commentMapper.commentToCommentResponseDto(comments), pageComments),
+                HttpStatus.OK);
+    }
 
 
-//    // 댓글 수정
-//    @PatchMapping("/{comment-id}/edit")
-//    public ResponseEntity patchComment(@PathVariable("comment-id") @Positive long commentId,
-//                                       @Valid @RequestBody CommentPatchDto commentPatchDto) {
-//        commentPatchDto.setCommentId(commentId);
-//
-//        Comment comment = commentService.updateComment(commentMapper.commentPatchDtoToComment(commentPatchDto));
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
-//    }
+    // 댓글 수정
+    @PatchMapping("/{comment-id}/edit")
+    public ResponseEntity patchComment(@PathVariable("comment-id") @Positive long commentId,
+                                       @Valid @RequestBody CommentPatchDto commentPatchDto) {
+        commentPatchDto.setCommentId(commentId);
+
+        Comment comment = commentService.updateComment(commentMapper.commentPatchDtoToComment(commentPatchDto));
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
+    }
 
     // 댓글 삭제
     @DeleteMapping("/{comment-id}/delete")
