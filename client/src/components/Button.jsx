@@ -2,113 +2,115 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 
+// 3버튼 css
 const colorStyles = css`
-  ${({ theme, color }) => {
-    const selected = theme.palette[color];
-    return css`
-      background: ${selected};
-      &:hover {
-        background: ${lighten(0.1, selected)};
-      }
-      &:active {
-        background: ${darken(0.1, selected)};
-      }
-      ${(props) =>
-        props.outline &&
-        css`
-          color: ${selected};
-          background: none;
-          border: 1px solid ${selected};
-          &:hover {
-            background: ${selected};
-            color: white;
-          }
-        `}
-    `;
-  }}
+	${({ theme, color }) => {
+		const selected = theme.palette[color];
+		return css`
+			background: ${selected};
+			&:hover {
+				background: ${lighten(0.1, selected)};
+			}
+			&:active {
+				background: ${darken(0.1, selected)};
+			}
+			/* ${(props) =>
+				props.outline &&
+				css`
+					color: ${selected};
+					background: y;
+					border: 1px solid ${selected};
+					&:hover {
+						background: ${selected};
+						color: yellowgreen;
+					}
+				`} */
+		`;
+	}}
 `;
 
 const sizes = {
-  large: {
-    height: '1rem',
-    fontSize: '1.25rem',
-  },
-  medium: {
-    height: '300px',
-    fontSize: '1rem',
-  },
-  small: {
-    height: '1.75rem',
-    fontSize: '0.875rem',
-  },
+	// large: {
+	// 	height: '1rem',
+	// 	fontSize: '1.25rem',
+	// },
+	medium: {
+		height: '300px',
+		fontSize: '1rem',
+	},
+	small: {
+		height: '1.75rem',
+		fontSize: '0.875rem',
+	},
 };
 
 const sizeStyles = css`
-  ${({ size }) => css`
-    height: ${sizes[size].height};
-    font-size: ${sizes[size].fontSize};
-  `}
+	${({ size }) => css`
+		height: ${sizes[size].height};
+		font-size: ${sizes[size].fontSize};
+	`}
 `;
 
 const GroupStyle = css`
-  ${(props) =>
-    props.group &&
-    css`
-      width: 100%;
+	${(props) =>
+		props.group &&
+		css`
+			width: 100%;
 
-      justify-content: center;
-      & + & {
-        margin-left: 0;
-        margin-top: 1rem;
-      }
-    `}
+			justify-content: center;
+			& + & {
+				margin-left: 0;
+				margin-top: 1rem;
+			}
+		`}
 `;
 // const StyleGroupButton = styled.groupbutton`
-// margin-top100px`;
+// margin-top:100px`;
 
 const StyledButton = styled.button`
-  /* 공통 스타일 */
-  display: flex;
-  outline: none;
-  border: none;
-  border-radius: 15px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  padding-left: 1rem;
-  padding-right: 1rem;
+	/* 3공통 버튼안 스타일 */
+	display: flex;
 
-  /* 크기 */
-  ${sizeStyles}
+	outline: none;
+	border: none;
+	border-radius: 15px;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	padding-left: 1rem;
+	padding-right: 1rem;
 
-  /* 색상 */
+	/* 크기 */
+	${sizeStyles}
+
+	/* 색상 */
   ${colorStyles}
 
   /* 기타 */
   & + & {
-    margin-left: 1rem;
-  }
+		margin-left: 1rem;
+	}
 
-  ${GroupStyle}
+	${GroupStyle}
 `;
 
 function Button({ children, color, size, outline, Group, ...rest }) {
-  return (
-    <StyledButton
-      color={color}
-      size={size}
-      outline={outline}
-      Group={Group}
-      {...rest}
-    >
-      {children}
-    </StyledButton>
-  );
+	return (
+		<StyledButton
+			color={color}
+			size={size}
+			outline={outline}
+			Group={Group}
+			{...rest}
+		>
+			{children}
+		</StyledButton>
+	);
 }
 
 Button.defaultProps = {
-  color: 'blue',
-  size: 'medium',
+	color: 'blue',
+	size: 'medium',
 };
 
 export default Button;

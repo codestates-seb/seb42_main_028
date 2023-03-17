@@ -1,40 +1,67 @@
 import React from 'react';
+import ad from '../../assets/ad.png';
+import { useNavigate } from 'react-router';
 import styled, { ThemeProvider } from 'styled-components';
 import Button from '../../components/Button';
 
+//✭
 const ContainerButton = styled.div`
+	/* box-shadow: 0 1px 1px 0; */
 	padding: 0.2rem 1rem;
 	grid-template-columns: repeat(3, 1fr);
 `;
 
-const GroupButton = styled.div`
-	display: grid;
+//배너
+const GroupButtonImg = styled.img`
+	width: 125%;
 
-	padding: 6rem;
+	/* height: 1200%; */
+`;
+const GroupButton = styled.div`
+
+	justify-content: center;
+	align-items: center;
+	display: flex;
 	width: 1000px;
-	margin-top: 160px;
-	margin: 100px auto;
+	width:100% 
+	width: max-content;
+	padding: 6rem;
+	margin: 160px auto 80px auto;
+	border: 1px solid white;
+
+	color:red;
+   font-size: 1.6rem;
+   font-weight: 700;
+   /* font-shadow:4px; */
+   /* font-shadow: 0 4px 4px 0; */
+  
+
+   /* border-radius: 0.5rem; */
+	/* max-width:1000px; */
 	/* margin-left: 450px; */
 	/* margin-right: 450px; */
-	border: 1px solid black;
 `;
 
+//3버튼
 const AppBlock = styled.div`
-	margin: 0 auto;
-	margin-top: 100px;
+	display: grid;
+	width: 1000px;
+	margin: 28px auto;
+	margin-top: 28px;
 	border: 1px solid black;
 	padding: 1rem;
-	display: grid;
-	/* grid-template-rows: repeat(3, 1fr); */
 	grid-template-columns: repeat(3, 1fr);
-	width: 1000px;
-	/* width: 100%; */
+	gap: 16px 32px;
+	font-size: 1.2rem;
+	/* box-shadow: 0 4px 4px 0; */
+	/* border-left: 1px solid #000; 배너박스*/
+	/* grid-template-rows: repeat(3, 1fr); */
 	/* justify-content: space-between; */
 	/* align-content: stretch; */
-	gap: 20px 32px;
 `;
 
 function Mainpage() {
+	const navigate = useNavigate();
 	return (
 		<ThemeProvider
 			theme={{
@@ -45,10 +72,14 @@ function Mainpage() {
 				},
 			}}
 		>
-			<GroupButton name='sss' event>
-				사람들이 좋아하는 <br />
-				<span>놀이동산 리뷰 알아보러 가기</span>
-			</GroupButton>
+			<>
+				<GroupButton name='sss' event>
+					<GroupButtonImg onClick={() => navigate('/review')} src={ad} />
+
+					{/* 사람들이 좋아하는 <br />
+				놀이동산 리뷰 알아보러 가기 */}
+				</GroupButton>
+			</>
 			<AppBlock>
 				<Button></Button>
 				<Button color='gray'></Button>
@@ -71,8 +102,7 @@ function Mainpage() {
 			</AppBlock>
 			<GroupButton name='sss' event>
 				일본 벚꽃 명소
-				<br />
-				<span>한 눈에 알아보러 가기</span>
+				<br />한 눈에 알아보러 가기
 			</GroupButton>
 			<AppBlock>
 				<Button></Button>
@@ -97,7 +127,7 @@ function Mainpage() {
 			<GroupButton name='sss' event>
 				동백꽃
 				<br />
-				<span>인스타 인생사진</span>
+				인스타 인생사진
 			</GroupButton>
 			<AppBlock>
 				<Button></Button>
