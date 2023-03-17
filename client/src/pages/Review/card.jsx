@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import 이미지 from '../../assets/footerlogo.png'
 const Cardbox = styled.div`
 display: block;
 align-items: ${(props) => props.align_items ||'center' };
@@ -29,6 +30,7 @@ function Card(){
   return <>
   <Cardbox>
     <Container margin_top='16px' margin_left='16px' margin_right='16px'>
+      <div src={이미지}></div>
         <Text font_size='16px' font_weight='bold' color='#313131' margin_buttom='8px'>
         소개
         </Text>

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {AiFillStar} from 'react-icons/ai'
-import {AiOutlineStar} from 'react-icons/ai'
+import {AiFillStar} from 'react-icons/ai' //채워진별
+import {AiOutlineStar} from 'react-icons/ai' //안채워진별
 
 const Card = styled.div`
 
