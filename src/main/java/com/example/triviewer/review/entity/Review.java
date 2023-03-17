@@ -1,11 +1,15 @@
 package com.example.triviewer.review.entity;
 
 import com.example.triviewer.audit.Auditable;
+import com.example.triviewer.comment.entity.Comment;
+import com.example.triviewer.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -21,6 +25,20 @@ public class Review extends Auditable {
 
     @Column(nullable = false, length = 2000)
     private String content;
+
+    @OneToMany(mappedBy = "review", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Comment> comments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+    public void setComment(Comment comment) {
+        comments.add(comment);
+        if (comment.getReview() != this) {
+            comment.setReview(this);
+        }
+    }
 
     public Review(String title, String content){
         this.title = title;
