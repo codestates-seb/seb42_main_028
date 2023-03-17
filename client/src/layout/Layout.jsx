@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `
 
 const Layout = ({children, style})=>{
-  return <Wrapper style={style}>{children}</Wrapper>
+  return (<Wrapper style={style}>{children}</Wrapper>);
 }
 
 export default Layout
