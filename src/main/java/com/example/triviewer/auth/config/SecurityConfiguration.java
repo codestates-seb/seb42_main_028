@@ -8,6 +8,7 @@ import com.example.triviewer.auth.handler.UserAuthenticationFailureHandler;
 import com.example.triviewer.auth.handler.UserAuthenticationSuccessHandler;
 import com.example.triviewer.auth.jwt.JwtTokenizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+@Configuration
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
 
@@ -53,6 +55,9 @@ public class SecurityConfiguration {
                          조건 추가
                          */
                         .anyRequest().permitAll()
+//                        .oauth2Login()
+//                        .userInfoEndpoint()
+//                        .userService(customOAuth2UserService)
                 );
         return http.build();
     }

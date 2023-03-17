@@ -2,17 +2,21 @@ package com.example.triviewer.auth.filter;
 
 import com.example.triviewer.auth.dto.LoginDto;
 import com.example.triviewer.auth.jwt.JwtTokenizer;
+import com.example.triviewer.auth.userdetails.MemberDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
+import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,54 +43,55 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 //        Useremail과 Password 정보를 포함한 UsernamePasswordAuthenticationToken을 생성
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 //        UsernamePasswordAuthenticationToken을 AuthenticationManager에게 전달하면서 인증 처리를 위임
         return authenticationManager.authenticate(authenticationToken);
     }
 
-//    @Override
-//    protected void successfulAuthentication(HttpServletRequest request,
-//                                            HttpServletResponse response,
-//                                            FilterChain chain,
-//                                            Authentication authResult) {
-////        인증된 Authentication 객체가 생성되면서 principal 필드에 User 객체가 할당
-//        User user = (User) authResult.getPrincipal();
-////        Access Token을 생성
-//        String accessToken = delegateAccessToken(user);
-////        Refresh Token을 생성
-//        String refreshToken = delegateRefreshToken(user);
-//
-//        response.setHeader("Authorization", "Bearer " + accessToken);
-//        response.setHeader("Refresh", refreshToken);
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request,
+                                            HttpServletResponse response,
+                                            FilterChain chain,
+                                            Authentication authResult) throws ServletException, IOException {
+//        인증된 Authentication 객체가 생성되면서 principal 필드에 User 객체가 할당
+        MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
+        User user = memberDetails.getUser();
+//        Access Token을 생성
+        String accessToken = delegateAccessToken(user);
+//        Refresh Token을 생성
+        String refreshToken = delegateRefreshToken(user);
 
-//            this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // (1) 추가
+        response.setHeader("Authorization", "Bearer " + accessToken);
+        response.setHeader("Refresh", refreshToken);
 
-//    }
-//
-//    private String delegateAccessToken(User user) {
-//        Map<String, Object> claims = new HashMap<>();
-//        claims.put("useremail", user.getEmail());
-//        claims.put("roles", user.getRoles());
-//
-//        String subject = member.getEmail();
-//        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
-//
-//        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-//
-//        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
-//
-//        return accessToken;
-//    }
+            this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // (1) 추가
 
-//    private String delegateRefreshToken(User user) {
-//        String subject = user.getEmail();
-//        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
-//        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-//
-//        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
-//
-//        return refreshToken;
-//    }
+    }
+//    Access Token과 Refresh Token을 생성하는 구체적인 로직
+    private String delegateAccessToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", user.getEmail());
+        claims.put("roles", user.getRoles());
+
+        String subject = user.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+
+        return accessToken;
+    }
+
+    private String delegateRefreshToken(User user) {
+        String subject = user.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+
+        return refreshToken;
+    }
 
 
 
