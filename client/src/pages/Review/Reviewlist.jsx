@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {FaUserCircle} from 'react-icons/fa';
-import {MdExpandMore}from 'react-icons/md'
+import {FaUserCircle} from 'react-icons/fa'; //프로필 아이콘
+import {MdExpandMore}from 'react-icons/md';
 
 const Card = styled.div`
 margin-top: 20px;

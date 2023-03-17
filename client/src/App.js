@@ -25,6 +25,7 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path='/' element={<Landingpage />} />
+				<Route path='/reviewwrite' element={<Reviewwrite />} />
 			</Routes>
 			<Layout>
 				<Routes>
@@ -34,7 +35,6 @@ function App() {
 					<Route path='/mypage' element={<Mypage />} />
 					<Route path='/review' element={<Reviewpage />} />
 					<Route path='/admin' element={<Adminpage />} />
-					<Route path='/reviewwrite' element={<Reviewwrite />} />
 					<Route path='/404' element={<Errorpage />} />
 					<Route path='test' element={<Card2 />} />
 				</Routes>
