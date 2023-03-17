@@ -103,6 +103,7 @@ const LoginInput = styled.input`
 	height: 36px;
 	border: 1px solid #babbba;
 	border-radius: 4px;
+	padding-left: 8px;
 `;
 
 const LoginButton = styled.button`

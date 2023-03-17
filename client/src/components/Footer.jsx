@@ -99,7 +99,12 @@ const Right = styled.div`
 
 const Footer = () => {
 	const location = useLocation().pathname;
-	if (location === '/' || location === '/login' || location === '/signup')
+	if (
+		location === '/' ||
+		location === '/login' ||
+		location === '/signup' ||
+		location === '/404'
+	)
 		return null;
 
 	return (

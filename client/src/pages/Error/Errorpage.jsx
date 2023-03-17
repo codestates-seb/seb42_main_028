@@ -1,30 +1,67 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import logo from '../../assets/logo.png';
+
+const Container = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 90vh;
+`;
+
+const Button = styled.a`
+	color: #000000;
+	padding: 12px 12px;
+	background-color: #fff;
+	font-size: 13px;
+	margin-right: 8px;
+	border: 1px solid #787878;
+	box-shadow: 0px 1px 1px 1px rgb(0, 0, 0, 0.2);
+	border-radius: 15px;
+	cursor: pointer;
+	white-space: nowrap;
+
+	&:hover {
+		background-color: #fd8e0d;
+		cursor: pointer;
+		transition: 1s;
+	}
+`;
+
+const BtnWrapper = styled.div`
+	display: flex;
+	margin-top: 24px;
+`;
 
 const Text = styled.div`
-margin-bottom: ${(props) => props.margin_buttom };
-font-size: ${(props) => props.font_size || '14px' };
-font-weight:  ${(props) => props.font_weight };
-color:${(props) => props.color }; ;
-`
-const Button = styled.button`
-box-shadow: 0px 1px 1px 1px rgb(0,0,0,0.2);
-cursor: pointer;
-font-size: 12px;
-	width: 47px;
-	height: 24px;
-	border-radius: 10px;
-	color:${(props) => props.color }; 
-    margin-right:${(props) => props.margin_right };
-	background-color: ${(props) => props.background_color || '#FD8E0D' };
+	font-size: 18px;
+`;
 
-`
-function Errorpage() {
-	return 
-	<>
-	<Text>"요청하신 페이지를 찾을 수 없습니다"</Text>
-	<Button></Button>
-	</>
-}
+const LogoImg = styled.img`
+	width: 60%;
+	max-width: 300px;
+	height: auto;
+	cursor: pointer;
+	margin-bottom: 36px;
+`;
+
+const Errorpage = () => {
+	const navigate = useNavigate();
+
+	return (
+		<>
+			<Container>
+				<LogoImg onClick={() => navigate('/')} src={logo} />
+				<Text>"요청하신 페이지를 찾을 수 없습니다"</Text>
+				<BtnWrapper>
+					<Button onClick={() => navigate(-1)}>이전 페이지</Button>
+					<Button onClick={() => navigate('/main')}>홈으로 이동</Button>
+				</BtnWrapper>
+			</Container>
+		</>
+	);
+};
 
 export default Errorpage;
