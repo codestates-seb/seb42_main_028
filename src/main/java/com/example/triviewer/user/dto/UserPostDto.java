@@ -10,10 +10,10 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.*;
 
 
+
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserPostDto {
 
     @NotBlank(message = "이메일은 공백일 수 없습니다.")

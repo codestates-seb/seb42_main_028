@@ -26,14 +26,14 @@ public class User extends Auditable {
     @Column
     private Long userId;
 
-    @Column(length = 50, unique = true)
+    @Column(length = 100, unique = true)
     private String email;
 
-    @Column(length = 20)
+    @Column(length = 1000000000)
     private String password;
-    @Column(length = 20)
+    @Column(length = 100)
     private String userName;
-    @Column(length = 20)
+    @Column(length = 100)
     private String userMobile;
 
     private String profileImage;
