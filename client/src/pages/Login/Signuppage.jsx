@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import logo from '../../assets/logo.png';
 import google from '../../assets/google.png';
+import axios from 'axios';
 
 const Logoimg = styled.img`
 	width: 200px;
@@ -113,6 +114,7 @@ const LoginnameInput = styled.input`
 		isNameError ? '1px solid #d0393e' : '1px solid rgb(186, 191, 196)'};
 	border-radius: 4px;
 	font-size: 10px;
+	padding-left: 8px;
 `;
 
 const LgoinEmailInput = styled.input`
@@ -122,6 +124,7 @@ const LgoinEmailInput = styled.input`
 		isEmailError ? '1px solid #d0393e' : '1px solid rgb(186, 191, 196)'};
 	border-radius: 4px;
 	font-size: 10px;
+	padding-left: 8px;
 `;
 
 const LoginPwInput = styled.input`
@@ -131,6 +134,7 @@ const LoginPwInput = styled.input`
 		isPwError ? '1px solid #d0393e' : '1px solid rgb(186, 191, 196)'};
 	border-radius: 4px;
 	font-size: 10px;
+	padding-left: 8px;
 `;
 
 const LoginButton = styled.button`
@@ -249,6 +253,31 @@ const Signuppage = () => {
 		}
 	}, [name, email, password]);
 
+	const signupHandler = async () => {
+		if (
+			!email ||
+			!name ||
+			!password ||
+			namelErrorMessage ||
+			emailErrorMessage ||
+			pwErrorMessage
+		) {
+			console.log('회원가입 실패', '빈 칸이 없어야 합니다.', 'error');
+		} else {
+			try {
+				await axios
+					.post(`${process.env.REACT_APP_API_URL}/members`, {
+						email: email,
+						username: name,
+						password: password,
+					})
+					.then(navigate('/login'));
+			} catch (error) {
+				alert(error);
+			}
+		}
+	};
+
 	return (
 		<>
 			<Container>
@@ -302,7 +331,7 @@ const Signuppage = () => {
 								</Message>
 							</LoginInputInnerContainer>
 						</LoginInputContainer>
-						<LoginButton>회원가입</LoginButton>
+						<LoginButton onClick={signupHandler}>회원가입</LoginButton>
 					</LoginForm>
 					<Text>
 						회원이신가요? &nbsp;

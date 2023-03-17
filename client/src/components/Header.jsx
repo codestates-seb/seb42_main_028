@@ -9,83 +9,88 @@ const HeaderWrap = styled.div`
 	top: 0;
 	position: fixed;
 	left: 0;
-	width: 100vw;
+	width: 100%;
 	height: 70px;
 	box-shadow: 0 1px 2px 0 #fd8e0d;
 	background-color: #fff;
 	z-index: 100;
+	display: flex;
+	justify-content: center;
+	padding: 8px;
+`;
+
+const Wrapper = styled.div`
+	max-width: 1200px;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+	min-width: 100px;
 `;
 
 const LogoImg = styled.img`
-	width: 200px;
+	width: 40%;
+	max-width: 200px;
+	height: auto;
 	margin-top: 4px;
-	margin-left: 120px;
 	cursor: pointer;
 `;
 
 const SearchWrap = styled.div`
-	position: relative;
-	width: 656px;
-	height: 32.5px;
-	margin-left: 420px;
-	margin-top: -48px;
+	display: flex;
+	max-width: 700px;
+	width: 100%;
+	min-width: 100px;
+	border: 1px solid #d9d9d9;
+	align-items: center;
+	padding: 0px 8px;
+	border-radius: 10px;
+	margin: 0px 8px;
 `;
 
 const SearchBox = styled.input`
-	width: 696px;
 	height: 42px;
-	padding-left: 40px;
-	border-radius: 10px;
-	border: 1px solid #d9d9d9;
+	width: 100%;
+	border: none;
+	outline: none;
 `;
 
 const SearchImg = styled.img`
-	position: absolute;
 	width: 24px;
-	left: 12px;
-	top: 12px;
+	height: 24px;
 `;
 
 const LoginLogoutButton = styled.a`
-	width: 78px;
-	height: 33px;
 	color: #000000;
+	padding: 12px 12px;
 	background-color: #fff;
 	font-size: 13px;
-	border: 1px solid #fff;
-	border-radius: 3px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	margin-right: 8px;
+	border: 1px solid #787878;
+	border-radius: 4px;
 	cursor: pointer;
-	margin-top: -24px;
-	margin-left: 85%;
+	white-space: nowrap;
 `;
 
 const SignUpButton = styled.a`
-	width: 78px;
-	height: 33px;
 	color: white;
+	white-space: nowrap;
+	padding: 12px 12px;
 	background-color: #fd8e0d;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	border-radius: 10px;
 	border: 1px solid rgb(255, 255, 255, 0);
 	font-size: 13px;
-	position: relative;
-	margin-left: 90%;
-	margin-top: -36px;
-	margin-bottom: 32px;
 	cursor: pointer;
+`;
+
+const BtnWrapper = styled.div`
+	display: flex;
 `;
 
 const UserInfo = styled.img`
 	width: 38px;
 	height: 38px;
-	margin-top: -50px;
-	margin-bottom: 12px;
-	margin-left: 1320px;
+	white-space: nowrap;
 	cursor: pointer;
 `;
 
@@ -93,35 +98,46 @@ const Header = () => {
 	const location = useLocation().pathname;
 	const navigate = useNavigate();
 
-	if (location === '/') return null;
+	if (location === '/' || location === '/404') return null;
 
 	return (
 		<>
 			<HeaderWrap>
-				<LogoImg onClick={() => navigate('/')} src={logo} />
-				<SearchWrap>
-					<SearchBox />
-					<SearchImg src={search} />
-				</SearchWrap>
-				<LoginLogoutButton onClick={() => navigate('/login')}>
-					로그인
-				</LoginLogoutButton>
-				<SignUpButton onClick={() => navigate('/signup')}>
-					회원가입
-				</SignUpButton>
+				<Wrapper>
+					<LogoImg onClick={() => navigate('/')} src={logo} />
+					<SearchWrap>
+						<SearchBox />
+						<SearchImg src={search} />
+					</SearchWrap>
+					<BtnWrapper>
+						<LoginLogoutButton onClick={() => navigate('/login')}>
+							로그인
+						</LoginLogoutButton>
+						<SignUpButton onClick={() => navigate('/signup')}>
+							회원가입
+						</SignUpButton>
+					</BtnWrapper>
+				</Wrapper>
 			</HeaderWrap>
 		</>
 		// <>
 		// 	<HeaderWrap>
-		// 		<LogoImg onClick={() => navigate('/')} src={logo} />
-		// 		<SearchWrap>
-		// 			<SearchBox />
-		// 			<SearchImg src={search} />
-		// 		</SearchWrap>
-		// 		<LoginLogoutButton onClick={() => navigate('/main')}>
-		// 			로그아웃
-		// 		</LoginLogoutButton>
-		// 		<UserInfo onClick={() => navigate('/mypage')} src={profile}></UserInfo>
+		// 		<Wrapper>
+		// 			<LogoImg onClick={() => navigate('/')} src={logo} />
+		// 			<SearchWrap>
+		// 				<SearchBox />
+		// 				<SearchImg src={search} />
+		// 			</SearchWrap>
+		// 			<BtnWrapper>
+		// 				<LoginLogoutButton onClick={() => navigate('/main')}>
+		// 					로그아웃
+		// 				</LoginLogoutButton>
+		// 				<UserInfo
+		// 					onClick={() => navigate('/mypage')}
+		// 					src={profile}
+		// 				></UserInfo>
+		// 			</BtnWrapper>
+		// 		</Wrapper>
 		// 	</HeaderWrap>
 		// </>
 	);
