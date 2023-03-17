@@ -1,22 +1,43 @@
 package com.example.triviewer.user.controller;
 
 
+import com.example.triviewer.global.dto.SingleResponseDto;
 import com.example.triviewer.user.dto.UserDTO;
+import com.example.triviewer.user.dto.UserPostDto;
+import com.example.triviewer.user.entity.User;
+import com.example.triviewer.user.mapper.UserMapper;
+import com.example.triviewer.user.repository.UserRepository;
 import com.example.triviewer.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import javax.validation.Valid;
+
+
+@Slf4j
+@RestController
 @RequiredArgsConstructor //생성자
-@RequestMapping("/user") //user
+@RequestMapping("/users") //user
 public class UserController {
+
+    private final UserRepository userRepository;
     private final UserService userService;
+
+    private final UserMapper mapper;
 //    private com.example.triviewer.user.dto.UserDTO UserDTO;
+
+
+    @PostMapping("/signup")
+    public ResponseEntity postUser(@Valid @RequestBody UserPostDto requestBody) {
+
+        User user = userService.createUser(mapper.userPostDtoToUser(requestBody));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.userToUserResponseDto(user)), HttpStatus.CREATED);
+    }
 
 /*    @GetMapping("/save-form")
     public  String saveForm(){
