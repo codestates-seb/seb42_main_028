@@ -6,11 +6,9 @@ import Card from './card';
 import Card2 from './card2';
 import Star from '../../components/Star';
 import Reviewlist from '../Review/Reviewlist'
-import Layout  from '../../layout/Layout';
+// import Reviewwrite from './Reviewwrite';
 
-import Searchicon from './search.png'
-
-import {AiOutlineSearch} from 'react-icons/ai'
+// import {AiOutlineSearch} from 'react-icons/ai'
 
 const Text = styled.div`
 margin-bottom: ${(props) => props.margin_buttom };
@@ -41,7 +39,6 @@ height: ${(props) => props.height };
 background-color: #424242;
 `
 
-
 const Search = styled.input`
    background-image:Searchicon;
 	width: 800px;
@@ -68,6 +65,7 @@ font-size: 15px;
 function Reviewpage() {
 	return <div>
 		<Adminpage1>
+			{/* <Reviewwrite/> */}
 			<Container margin_top='130px' >
                <Text font_size = '22px' font_weight= 'bold' margin_buttom='28px'>
 				카메스시

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from "styled-components"
+
 import {FaUserCircle} from 'react-icons/fa';
 
+import 이미지 from '../../assets/default.jpg'
 
 const Review = styled.div`
 	position : absolute;
@@ -22,37 +24,47 @@ position : relative;
 	padding: 10px;
 
 	min-width: 380px;
-width: 45%;
-height: 70%;
+width: 37%;
+height:680px;
 /* text-align: center; */
 padding :16px;
 background-color:  rgb(245, 245, 245);
-/* align-items:center; */
-
+align-items:center;
+border-radius:10px;
+display: block;
+justify-content: center;
+box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px;
 
 `
 const Text = styled.p`
     margin: 0;
-	font-size: 15px;
+	font-size: 14px;
 	margin-bottom: 4px;
+	text-align: left;
+	padding-left:75px;
 `
 const Container = styled.div`
-margin : 12px 4px;
-align-items: ${(props) => props.align_items};
+margin : 16px 4px;
+text-align: center;
+align-items: center;
 `
-const Img=styled.div`
+const Img=styled.img`
 min-width: 113px;
-width:23% ;
+width:25% ;
 height: 200px;
-background-color: gray;
+border:solid 1px gray;
+color: gray;
+/* background-color: gray; */
 /* margin: auto; */
 `
 const Input=styled.input`
 width: 80%;
 min-width: 346px;
+height: 24px;
 margin-bottom:8px;
 padding-left: 8px;
-
+border-radius: 3px;
+border: 0.5px solid gray;
 `
 const Button = styled.button`
 box-shadow: 0px 1px 1px 1px rgb(0,0,0,0.2);
@@ -62,32 +74,42 @@ font-size: 12px;
 	height: 27px;
 	border-radius: 10px;
 	background-color: #FD8E0D; 
-
+`
+const UserID = styled.p`
+    margin-left:8px;
+	font-size: 15px;
+	margin-bottom: 4px;
+	align-items: center;
+	justify-content: center;
+	justify-items: center;
+	font-weight: bold;
 `
 function Reviewwrite() {
 	return <Review>
 	<Modal>
-	<Container style={{display:'flex'}}>
+	<Container style={{display:'flex',paddingLeft:'74px'}}>
     <FaUserCircle size="60" color='#BDBDBD'/>
-	<Text style={{fontWeight:'bold',textAlign:'left'}}>사용자아이디</Text>
+	<UserID >사용자아이디</UserID>
 	</Container>
-	<Container style={{display:'flex'}}>
-		<Img style={{marginRight:'4px'}}></Img><Img style={{backgroundColor:'white',marginRight:'4px'}}></Img><Img></Img>
+	<Container style={{display:'flex',justifyContent:'center'}}>
+		<Img style={{marginRight:'4px'}} src={이미지}/>
+		<Img style={{backgroundColor:'white',marginRight:'4px'}}src={이미지}/>
+		<Img src={이미지}/>
 	</Container>
-	<Container style={{borderBottom:'solid 1px black',padding:'12px 100px'}}>
+	<Container style={{borderBottom:'solid 1px gray'}}>
      별점 자리
 	</Container>
 	<Container >
-	<Input style={{height:'100px',marginbottom: '12px'}}></Input>
-	<Text style={{fontSize:'14px'}}>리뷰 제목을 달아주세요</Text>
+	<Input placeholder='이곳에 다녀온 경험을 자세히 공유해 주세요'style={{height:'100px',marginbottom: '12px',textAlign:'start'}}/>
+	<Text>리뷰 제목을 달아주세요</Text>
 	<Input />
-	<Text style={{fontSize:'14px'}}>방문한 날짜를 선택해주세요</Text>
-	<Input/>
-	<Text style={{fontSize:'14px'}}>태그를 작성해주세요</Text>
+	<Text >방문한 날짜를 선택해주세요</Text>
+	<Input type='date'/>
+	<Text >태그를 작성해주세요</Text>
 	<Input/>
 </Container>
-<Container style={{alignItems:'center'}}>
-	<Button style={{backgroundColor:'white'}}>취소</Button>
+<Container >
+	<Button style={{backgroundColor:'white',marginRight:'8px'}}>취소</Button>
 	<Button>게시</Button>
 </Container>
 	</Modal>
