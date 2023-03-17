@@ -2,6 +2,7 @@ package com.example.triviewer.auth.userdetails;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import com.example.triviewer.user.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -18,6 +19,11 @@ public class MemberDetails implements UserDetails, OAuth2User {
     // Local 로그인 사용
 
 
+    public MemberDetails(User user) {
+        this.user = user;
+    }
+
+    // OAuth2 로그인 사용
     public MemberDetails(User user, Map<String, Object> attributes) {
         this.user = user;
         this.attributes = attributes;

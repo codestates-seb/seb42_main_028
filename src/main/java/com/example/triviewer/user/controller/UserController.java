@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user") //user
 public class UserController {
     private final UserService userService;
-    private com.example.triviewer.user.dto.UserDTO UserDTO;
+//    private com.example.triviewer.user.dto.UserDTO UserDTO;
 
-    @GetMapping("/save-form")
+/*    @GetMapping("/save-form")
     public  String saveForm(){
         return "userPages/save";
     }
@@ -39,5 +39,5 @@ public String save(@ModelAttribute UserDTO userDTO) {
             return "userPages/main";
             }else
                 return "userPages/login";
-        }
+        }*/
     }

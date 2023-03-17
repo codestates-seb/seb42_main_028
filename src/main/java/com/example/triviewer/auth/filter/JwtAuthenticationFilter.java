@@ -3,9 +3,9 @@ package com.example.triviewer.auth.filter;
 import com.example.triviewer.auth.dto.LoginDto;
 import com.example.triviewer.auth.jwt.JwtTokenizer;
 import com.example.triviewer.auth.userdetails.MemberDetails;
+import com.example.triviewer.user.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws ServletException, IOException {
 //        인증된 Authentication 객체가 생성되면서 principal 필드에 User 객체가 할당
         MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
-        User user = memberDetails.getUser();
+        com.example.triviewer.user.entity.User user = memberDetails.getUser();
 //        Access Token을 생성
         String accessToken = delegateAccessToken(user);
 //        Refresh Token을 생성
