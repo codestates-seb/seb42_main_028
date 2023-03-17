@@ -11,7 +11,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update # (1) ??? ?? ??  update -> create 변ㄱ
+      ddl-auto: create # (1) ??? ?? ??  update -> create 변ㄱ
     show-sql: true      # (2) SQL ?? ??
     properties:
       hibernate:
