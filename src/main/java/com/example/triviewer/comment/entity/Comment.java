@@ -2,10 +2,10 @@ package com.example.triviewer.comment.entity;
 
 import com.example.triviewer.global.audit.Auditable;
 import com.example.triviewer.review.entity.Review;
-import com.example.triviewer.user.entity.UserEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,14 +22,14 @@ public class Comment extends Auditable {
     private String answerContent;
 
     // 리뷰 관계매핑
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewId")
     private Review review;
 
-    // 유저 관계매핑
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private UserEntity user;
+//    // 유저 관계매핑
+//    @ManyToOne
+//    @JoinColumn(name = "userId")
+//    private User user;
 
     public void addReview(Review review) {
         this.review = review;

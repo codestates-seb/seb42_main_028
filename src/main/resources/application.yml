@@ -5,15 +5,19 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306
-    username: root
-    password: 1q2w3e4r!!B
+    url: jdbc:mysql://localhost:3306/triviewer
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: update # (1) ??? ?? ??  update -> create 변ㄱ
+      ddl-auto: create # (1) ??? ?? ??  update -> create 변ㄱ
     show-sql: true      # (2) SQL ?? ??
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
     database: mysql
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420

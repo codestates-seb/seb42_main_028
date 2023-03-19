@@ -1,6 +1,7 @@
 package com.example.triviewer.review.controller;
 
 import com.example.triviewer.global.dto.SingleResponseDto;
+import com.example.triviewer.review.dto.ReviewPatchDto;
 import com.example.triviewer.review.dto.ReviewPostDto;
 import com.example.triviewer.review.entity.Review;
 import com.example.triviewer.review.mapper.ReviewMapper;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
-
+//TODO: R-mapping.
 @RestController
 @RequestMapping("/reviews")
 @Validated
@@ -38,14 +39,30 @@ public class ReviewController {
         return ResponseEntity.created(location).build();
     }
 
+    @PatchMapping("/{review-id}/edit")
+    public ResponseEntity patchReview(@PathVariable("review-id") @Positive long reviewId,
+                                      @Valid @RequestBody ReviewPatchDto reviewPatchDto){
+        reviewPatchDto.setReviewId(reviewId);
+
+        Review review = reviewService.updateReview(mapper.reviewPatchDtoToReview(reviewPatchDto));
+
+        return new ResponseEntity(
+                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
+                HttpStatus.OK
+        );
+    }
+
     @GetMapping("/{review-id}")
     public ResponseEntity getReview(@PathVariable("review-id") @Positive long reviewId){
         Review review = reviewService.findReview(reviewId);
 
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)), HttpStatus.OK);
     }
+//TODO: Check the service.deleteReview before merge.
+    @DeleteMapping("/{review-id}")
+    public ResponseEntity deleteReview(@PathVariable("review-id") @Positive long reviewId) {
+        reviewService.deleteReview(reviewId);
 
-//    @DeleteMapping("/{review-id}")
-//    public ResponseEntity deleteReview(@PathVariable("review-id") @Positive long reviewId) {
-//    }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
