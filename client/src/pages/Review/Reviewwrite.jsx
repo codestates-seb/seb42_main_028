@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from "styled-components"
 
 import {FaUserCircle} from 'react-icons/fa';
@@ -84,7 +84,52 @@ const UserID = styled.p`
 	justify-items: center;
 	font-weight: bold;
 `
+const StarContainer =styled.div`
+   border-bottom: solid 1px gray;
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: center;
+  
+`
+const StarInput =styled.input`
+	display: none;
+	&:checked~label{
+		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+`
+const StarLabel=styled.label`
+	cursor: pointer;
+	color: transparent;
+	text-shadow: 0 0 0 gray;
+	&:hover {
+		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99)
+		};
+	&:hover~label{
+		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	
+`
+const InputImg = styled.input`
+	
+`
+const 미리보기 = styled.img`
+	
+`
+
 function Reviewwrite() {
+
+	const [fileImg,setFileimg] = useState(이미지);
+
+	const saveFileImg=(e)=>{ //퍄일 저장
+		setFileimg(URL.createObjectURL(e.target.files[0]));
+
+	}
+
+	const deleteFileImg=()=>{
+		URL.revokeObjectURL(fileImg);
+		setFileimg('');
+	}
+
 	return <Review>
 	<Modal>
 	<Container style={{display:'flex',paddingLeft:'74px'}}>
@@ -92,13 +137,74 @@ function Reviewwrite() {
 	<UserID >사용자아이디</UserID>
 	</Container>
 	<Container style={{display:'flex',justifyContent:'center'}}>
-		<Img style={{marginRight:'4px'}} src={이미지}/>
+		<div>
+		{
+			fileImg && (
+				<Img
+				alt='simple'
+				src={fileImg}
+				style={{margin:'auto'}} 
+				/>
+			)
+         }
+		 <input
+		  name='imgUpload'
+         type='file'
+		 accept='image/*'
+		 onChange={saveFileImg} 
+		  />
+		 </div>
+		 <div>
+		{
+			fileImg && (
+				<Img
+				alt='simple'
+				src={fileImg}
+				style={{margin:'auto'}} 
+				/>
+			)
+         }
+		 <input
+		  name='imgUpload'
+         type='file'
+		 accept='image/*'
+		 onChange={saveFileImg} 
+		  />
+		 </div>
+		 <div>
+		{
+			fileImg && (
+				<Img
+				alt='simple'
+				src={fileImg}
+				style={{margin:'auto'}} 
+				/>
+			)
+         }
+		 <input
+		  name='imgUpload'
+         type='file'
+		 multiple={true}
+		 accept='image/*'
+		 onChange={saveFileImg} 
+		  />
+		 </div>
+		{/* <Img style={{marginRight:'4px'}} src={이미지}/>
 		<Img style={{backgroundColor:'white',marginRight:'4px'}}src={이미지}/>
-		<Img src={이미지}/>
+		<Img src={이미지}/> */}
 	</Container>
-	<Container style={{borderBottom:'solid 1px gray'}}>
-     별점 자리
-	</Container>
+	<StarContainer>
+     <StarInput type='radio' name='star' value='5' id='5-star' />
+	 <StarLabel for='5-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='4' id='4-star'/>
+	 <StarLabel for='4-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='3' id='3-star'/>
+	 <StarLabel for='3-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='2' id='2-star'/>
+	 <StarLabel for='2-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='1' id='1-star'/>
+	 <StarLabel for='1-star'>★</StarLabel>
+	</StarContainer>
 	<Container >
 	<Input placeholder='이곳에 다녀온 경험을 자세히 공유해 주세요'style={{height:'100px',marginbottom: '12px',textAlign:'start'}}/>
 	<Text>리뷰 제목을 달아주세요</Text>
@@ -115,6 +221,7 @@ function Reviewwrite() {
 	</Modal>
 
 	</Review>
+	
 }
 
 export default Reviewwrite;
