@@ -5,38 +5,54 @@ import Reviewcard from './Reviewcard';
 import Card from './card';
 import Card2 from './card2';
 import Star from '../../components/Star';
-import Reviewlist from '../Review/Reviewlist'
-// import Reviewwrite from './Reviewwrite';
+import Reviewlist from '../Review/Reviewlist';
+
+import 이미지 from '../../assets/default.jpg'
 
 // import {AiOutlineSearch} from 'react-icons/ai'
 
 const Text = styled.div`
 margin-bottom: ${(props) => props.margin_buttom };
-font-size: ${(props) => props.font_size || '14px' };
+font-size: 14px;
 font-weight:  ${(props) => props.font_weight };
-color:${(props) => props.color }; 
 cursor: ${(props) => props.cursor };
 text-decoration:${(props) => props.text_decoration };
 `
 
 const Adminpage1 = styled.div`
-	/* margin-left: 450px;
-	margin-right: 450px; */
+	margin-top: 150px;
 `
-const Container=styled.div`
-margin-top:${(props) => props.margin_top  };
-margin-bottom:${(props) => props.margin_bottom  };
-display:${(props) => props.display || 'block' }; 
-align-items: ${(props) => props.align_items ||'center'};
+const TittleContainer=styled.div`
+/* display: block; */
+/* margin-bottom: 28px; */
+
+`
+const Review= styled.div`
+margin-top: 150px;
+min-width: 100px;
+max-width: 1000px;
+width: 100%;
+`
+const TittleText=styled.div`
+font-size:22px;
+font-weight: bold;
 `
 
-const Img = styled.div`
-margin-left: ${(props) => props.margin_left };
-margin-right: ${(props) => props.margin_right };
-margin-bottom: ${(props) => props.margin_bottom };
-width: ${(props) => props.width };
-height: ${(props) => props.height };
+/* align-items: ; */
+
+const Container=styled.div`
+display: flex;
+margin-right: 8px;
+margin-bottom: 8px;
+
+/* align-items: ; */
+`
+const Img = styled.img`
+width: 170px;
+height: 186px;
 background-color: #424242;
+margin-bottom: 8px;
+margin-right:8px ;
 `
 
 const Search = styled.input`
@@ -60,49 +76,55 @@ font-size: 15px;
 	margin-right: ${(props) => props.margin_right }; 
 	
 `
+const MainImg = styled.img`
+min-width: 115px;
+width: 40%;
+height: 380px;
+margin-right: 8px;
+background-color: #424242;
+`
 
+const MapImg=styled.img`
+	width: 520px;
+	height: 280px;
+	margin-right: 14px;
+	
+`
 
 function Reviewpage() {
 	return <div>
 		<Adminpage1>
+			<Review>
 			{/* <Reviewwrite/> */}
-			<Container margin_top='130px' >
-               <Text font_size = '22px' font_weight= 'bold' margin_buttom='28px'>
+			<TittleContainer >
+               <TittleText>
 				카메스시
-			   </Text>
+			   </TittleText>
 			   <Text  margin_buttom = '4px'>
 				<Star/>
 			   </Text>
 			   <Text margin_buttom='32px'cursor='pointer'text_decoration='underline' >
 				리뷰쓰기
 			   </Text>
-			</Container>
-			<Container display='flex' margin_bottom='120px'>
-				<Img width='340px' height='380px' margin_left='4px' margin_right='8px'>
-					이미지자리
-				</Img>
-				<Container display='block'>
-				<Img width='170px' height='186px' margin_left='4px' margin_right='32px'margin_bottom='8px'>
-					이미지자리
-				</Img>
-				<Img width='170px' height='186px' margin_left='4px' margin_right='32px'>
-					이미지자리
-				</Img>
+			</TittleContainer>
+			<Container >
+				<MainImg src={이미지}/>
+				<Container style={{flexDirection:'column'}}>
+				 <Img src={이미지}/>
+				 <Img src={이미지}/>
 				</Container>
 				<Card/>
 			</Container>
-			<Container display='flex' margin_bottom='120px'>
-				<Img width='525px' height='290px' margin_left='4px' margin_right='32px'>
-					이미지자리 
-				</Img>
+			<Container >
+				<MapImg />
 				<Card2/>
 			</Container>
-			<Container margin_bottom='40px'>
-			    <Text font_size= '22px' font_weight= 'bold'>
+			<Container >
+			    <TittleText >
 				리뷰
-			   </Text>
+			   </TittleText>
 			</Container>
-			<Container margin_bottom='16px' display='felx'>
+			<Container >
 			 <Search className='써치바'/>
 			
 			 <div>
@@ -117,7 +139,7 @@ function Reviewpage() {
 			   
                <Reviewcard></Reviewcard>
 			   <Reviewlist/>
-
+</Review>
 		</Adminpage1>
 		
 		</div>;
