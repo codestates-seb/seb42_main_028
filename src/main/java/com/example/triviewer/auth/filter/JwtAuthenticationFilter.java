@@ -54,8 +54,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws ServletException, IOException {
 //        인증된 Authentication 객체가 생성되면서 principal 필드에 User 객체가 할당
-        MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
-        com.example.triviewer.user.entity.User user = memberDetails.getUser();
+        User user = (User) authResult.getPrincipal();
+
 //        Access Token을 생성
         String accessToken = delegateAccessToken(user);
 //        Refresh Token을 생성

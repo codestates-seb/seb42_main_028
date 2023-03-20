@@ -25,5 +25,5 @@ public class MemberResponseDto {
     private String userMobile;
 
     private String profileImage;
-    private User.Role roles;
+    private User roles;
 }
