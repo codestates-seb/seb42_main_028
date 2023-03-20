@@ -2,6 +2,7 @@ package com.example.triviewer.comment.entity;
 
 import com.example.triviewer.global.audit.Auditable;
 import com.example.triviewer.review.entity.Review;
+import com.example.triviewer.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,14 +23,14 @@ public class Comment extends Auditable {
     private String answerContent;
 
     // 리뷰 관계매핑
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "reviewId")
     private Review review;
 
-//    // 유저 관계매핑
-//    @ManyToOne
-//    @JoinColumn(name = "userId")
-//    private User user;
+    // 유저 관계매핑
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     public void addReview(Review review) {
         this.review = review;
