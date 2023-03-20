@@ -4,14 +4,18 @@ import { useNavigate } from 'react-router-dom';
 // import search from '../assets/search.png';
 import profile from '../assets/profile.png';
 
-const profile = styled.img``;
+const Button = styled.div``;
+
+const ButtonImg = styled.img``;
+
+// const profile = styled.img``;
 
 function Rename() {
 	const navigate = useNavigate();
 	return (
 		<>
 			<Button event>
-				<ButtonImg onClick={() => navigate('/mypage')} src={Button} />
+				<ButtonImg onClick={() => navigate('/mypage')} src={profile} />
 			</Button>
 		</>
 	);
