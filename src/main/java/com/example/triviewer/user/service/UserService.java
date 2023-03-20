@@ -8,6 +8,9 @@ import com.example.triviewer.user.dto.UserDTO;
 import com.example.triviewer.user.entity.User;
 import com.example.triviewer.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,6 +47,7 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
 
     public User updateUser(User user) {
         return userRepository.save(user);
