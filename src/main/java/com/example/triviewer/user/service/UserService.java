@@ -50,7 +50,22 @@ public class UserService {
 
 
     public User updateUser(User user) {
-        return userRepository.save(user);
+        User finduser = findVerifiedUser(user.getUserId());
+        Optional.ofNullable(user.getUserMobile())
+                .ifPresent(usermobile -> finduser.setUserMobile(usermobile));
+        Optional.ofNullable(user.getPassword())
+                .ifPresent(password -> finduser.setPassword(encoder.encode(password)));
+        Optional.ofNullable(user.getProfileImage())
+                .ifPresent(profileImage -> finduser.setProfileImage(profileImage));
+
+        return userRepository.save(finduser);
+
+    }
+
+    @Transactional(readOnly = true)
+    public User findUser(long userId) {
+        User findUser = findVerifiedUser(userId);
+        return findUser;
     }
 
     public void deleteUser(Long userId) {
