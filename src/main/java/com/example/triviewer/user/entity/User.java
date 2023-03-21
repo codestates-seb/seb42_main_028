@@ -38,9 +38,10 @@ public class User extends Auditable {
 
     private String profileImage;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
-    private Role roles;
+    // (1) User의 권한 정보 테이블과 매핑되는 정보
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
 
     //멤버 삭제하면 댓글도 삭제
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
@@ -68,6 +69,7 @@ public class User extends Auditable {
 //    return  userEntity;
 //    }
 
+
     public enum Role {
         USER("ROLE_USER"),
         ADMIN("ROLE_ADMIN");
@@ -81,5 +83,11 @@ public class User extends Auditable {
 
     public void addVote(Vote vote) {
         votes.add(vote);
+        }
+
+    public enum UserRole {
+        ROLE_USER,
+        ROLE_ADMIN
+
     }
 }
