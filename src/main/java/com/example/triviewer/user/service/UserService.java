@@ -1,17 +1,26 @@
 package com.example.triviewer.user.service;
 
 
+import com.example.triviewer.auth.utils.CustomAuthorityUtils;
 import com.example.triviewer.exception.BusinessLogicException;
 import com.example.triviewer.exception.ExceptionCode;
 import com.example.triviewer.user.dto.UserDTO;
 import com.example.triviewer.user.entity.User;
 import com.example.triviewer.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -21,21 +30,24 @@ public class UserService {
     private final UserRepository userRepository;
     private PasswordEncoder encoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
+    private CustomAuthorityUtils customAuthorityUtils;
+
+    public UserService(UserRepository userRepository, PasswordEncoder encoder, CustomAuthorityUtils customAuthorityUtils) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.customAuthorityUtils = customAuthorityUtils;
     }
 
     public User createUser(User user) {
         verifyExistsEmail(user.getEmail());
+        List<GrantedAuthority> authorities = createAuthorities(User.UserRole.ROLE_USER.name());
         user.setPassword(encoder.encode(user.getPassword()));
-        if (user.getEmail().equals("admin@gmail.com")) {
-            user.setRoles(User.Role.ADMIN);
-        } else {
-            user.setRoles(User.Role.USER);
-        }
+        List<String> roles = customAuthorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
+
         return userRepository.save(user);
     }
+
 
     public User updateUser(User user) {
         return userRepository.save(user);
@@ -60,6 +72,13 @@ public class UserService {
         Optional<User> Optionaluser = userRepository.findByEmail(email);
         if (Optionaluser.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+    }
+
+    private List<GrantedAuthority> createAuthorities(String... roles) {
+
+        return Arrays.stream(roles)
+                .map(role -> new SimpleGrantedAuthority(role))
+                .collect(Collectors.toList());
     }
 
     //    public Long save(UserDTO userDTO) {
