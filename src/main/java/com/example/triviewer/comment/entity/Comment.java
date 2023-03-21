@@ -23,11 +23,11 @@ public class Comment extends Auditable {
     private String answerContent;
 
     // 리뷰 관계매핑
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "reviewId")
     private Review review;
 
-//    // 유저 관계매핑
+    // 유저 관계매핑
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;

@@ -3,6 +3,7 @@ package com.example.triviewer.review.entity;
 import com.example.triviewer.audit.Auditable;
 import com.example.triviewer.comment.entity.Comment;
 import com.example.triviewer.user.entity.User;
+import com.example.triviewer.vote.entity.Vote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,12 +27,20 @@ public class Review extends Auditable {
     @Column(nullable = false, length = 2000)
     private String content;
 
+    // 좋아요 초깃값을 0으로 설정
+    @Column(nullable = false)
+    private int likeCount = 0;
+
     @OneToMany(mappedBy = "review", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    @OrderBy("voteId")
+    @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE)
+    private List<Vote> votes = new ArrayList<>();
 
     public void setComment(Comment comment) {
         comments.add(comment);
@@ -66,5 +75,9 @@ public class Review extends Auditable {
         ReviewStatus(String status) {
             this.status = status;
         }
+    }
+
+    public void addVote(Vote vote) {
+        votes.add(vote);
     }
 }

@@ -15,7 +15,7 @@ public class CommentPatchDto {
     private String answerContent;
 
     public void setCommentId(long commentId) {
-        Assert.notNull(commentId, "Review ID must not be null.");
+        Assert.notNull(commentId, "Comment ID는 null일 수 없습니다..");
         this.commentId = commentId;
     }
 }
