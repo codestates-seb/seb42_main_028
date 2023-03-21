@@ -3,6 +3,7 @@ package com.example.triviewer.user.controller;
 
 import com.example.triviewer.global.dto.SingleResponseDto;
 import com.example.triviewer.user.dto.UserDTO;
+import com.example.triviewer.user.dto.UserPatchDto;
 import com.example.triviewer.user.dto.UserPostDto;
 import com.example.triviewer.user.entity.User;
 import com.example.triviewer.user.mapper.UserMapper;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 
 @Slf4j
@@ -39,26 +41,28 @@ public class UserController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.userToUserResponseDto(user)), HttpStatus.CREATED);
     }
 
-/*    @GetMapping("/save-form")
-    public  String saveForm(){
-        return "userPages/save";
+    @PatchMapping(value = "/{user-id}")
+    public ResponseEntity patchMember(@PathVariable("user-id") @Positive long userId,
+                                      @Valid @RequestBody UserPatchDto requestBody) {
+        requestBody.setUserId(userId);
+
+        User user = userService.updateUser(mapper.userPatchDtoToUser(requestBody));
+
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.userToUserResponseDto(user)), HttpStatus.OK);
     }
-    @GetMapping("/login-form")
-    public  String loginForm(){
-        return "userPages/login";
-    }
-@PostMapping("/save") //가입정보불러오기
-public String save(@ModelAttribute UserDTO userDTO) {
-    userService.save(UserDTO);
-    return  "userPages/login";
+//mypage 엔드포인드
+    @GetMapping("/{user-id}")
+    public ResponseEntity getMember(@PathVariable("user-id") @Positive long userId) {
+        User user = userService.findUser(userId);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.userToUserResponseDto(user)), HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public String login(@ModelAttribute UserDTO userDTO){
-        boolean loginResult = userService.login(userDTO);
-        if(loginResult) {
-            return "userPages/main";
-            }else
-                return "userPages/login";
-        }*/
+    @DeleteMapping("/{user-id}")
+    public ResponseEntity deleteMember(@PathVariable("user-id") @Positive long userId) {
+        userService.deleteUser(userId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     }
