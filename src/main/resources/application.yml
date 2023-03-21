@@ -5,11 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-<<<<<<< HEAD
     url: jdbc:mysql://${RDS_ENDPOINT}:3306/triviewer
-=======
-    url: jdbc:mysql://${RDS_ENDPOINT}:3306/triviewr
->>>>>>> 771e23c9cedf46cafee879ede06563362d8fcd2d
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
