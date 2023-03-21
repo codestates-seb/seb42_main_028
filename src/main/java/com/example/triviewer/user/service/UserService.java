@@ -59,8 +59,8 @@ public class UserService {
         userRepository.delete(findUser);
     }
 
-
-    private User findVerifiedUser(Long userId) {
+    // voteController에서 받아오기 위해 public으로 수정
+    public User findVerifiedUser(Long userId) {
         Optional<User> optionalMember = userRepository.findById(userId);
         User findUser =
                 optionalMember.orElseThrow(() ->
