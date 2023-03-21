@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Positive;
@@ -25,6 +26,7 @@ import javax.validation.constraints.Positive;
 @Slf4j
 @Validated
 @RestController
+@RequestMapping("likes")
 @RequiredArgsConstructor
 public class VoteController {
 
@@ -34,7 +36,7 @@ public class VoteController {
     private final ReviewService reviewService;
     private final VoteRepository voteRepository;
 
-    @PostMapping("/{user-id}/{review-id}/likes")
+    @PostMapping("/{user-id}/{review-id}/review")
     public ResponseEntity likeInsert(@PathVariable("user-id") @Positive long userId,
                                      @PathVariable("review-id") @Positive long reviewId) {
         User user = userService.findVerifiedUser(userId);
