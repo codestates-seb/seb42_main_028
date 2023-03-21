@@ -45,11 +45,11 @@ public class CommentService {
     // 댓글 수정
     public Comment updateComment(Comment comment) {
         // 1. 답변이 있는지 확인 없으면 오류 출력
-        Comment findComment = findVerifiedComment(comment.getCommentId());
+//        Comment findComment = findVerifiedComment(comment.getCommentId());
         // 2. 답변은 답변 작성자만 수정이 가능
 
 
-        return commentRepository.save(findComment);
+        return commentRepository.save(comment);
     }
 
     private void verifiedComment(Comment comment) {
