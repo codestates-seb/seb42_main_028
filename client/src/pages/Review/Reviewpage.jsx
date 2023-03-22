@@ -13,7 +13,7 @@ import 이미지 from '../../assets/default.jpg'
 // import {AiOutlineSearch} from 'react-icons/ai'
 
 const ReviewPage = styled.div`
-	margin-top: 150px;
+   margin-top: 150px;
 `
 const TittleContainer=styled.div`
 /* display: block; */
@@ -21,34 +21,28 @@ const TittleContainer=styled.div`
 
 `
 const Review= styled.div`
-margin-top: 150px;
-min-width: 100px;
-max-width: 1000px;
-width: 100%;
+   margin-top: 150px;
+   min-width: 100px;
+   max-width: 1000px;
+   width: 100%;
 `
 const TittleText=styled.div`
-font-size:22px;
-font-weight: bold;
+   font-size:22px;
+   font-weight: bold;
 `
-
-/* align-items: ; */
-
 const Container=styled.div`
-display: flex;
-margin-right: 8px;
-margin-bottom: 8px;
-
-
+   display: flex;
+   margin-right: 8px;
+   margin-bottom: 8px;
 /* align-items: ; */
 `
 const Img = styled.img`
-width: 170px;
-height: 186px;
-background-color: #424242;
-margin-bottom: 8px;
-margin-right:8px ;
+   width: 170px;
+   height: 186px;
+   background-color: #424242;
+   margin-bottom: 8px;
+   margin-right:8px ;
 `
-
 const Button = styled.button`
    box-shadow: 0px 1px 2px 2px rgb(0,0,0,0.2);
    cursor: pointer;
@@ -68,28 +62,26 @@ const MainImg = styled.img`
    margin-right: 8px;
    background-color: #424242;
 `
-
 const MapImg=styled.img`
-	width: 520px;
-	height: 280px;
-	margin-right: 14px;
+   width: 520px;
+   height: 280px;
+   margin-right: 14px;
 `
 const Text = styled.div`
-	margin-bottom: 32px;
-	cursor: pointer;
-	text-decoration:underline;
-	font-size: 14px;
+   margin-bottom: 32px;
+   cursor: pointer;
+   text-decoration:underline;
+   font-size: 14px;
 `
 const Search = styled.input`
    padding-left: 12px;
-	width: 800px;
-	height: 36px;
-	border-radius: 10px;
-	border: 1px solid #D9D9D9;
-	margin-right: 20px;
-	cursor: default;
+   width: 800px;
+   height: 36px;
+   border-radius: 10px;
+   border: 1px solid #D9D9D9;
+   margin-right: 20px;
+   cursor: default;
 `
-
 function Reviewpage() {
 	return <div>
 		<ReviewPage>
@@ -136,10 +128,10 @@ function Reviewpage() {
 			 </Button>
 			 </div>
 			</Container>
-			   <Reviewcard/>
-               {/* <DefaultReviewCard/> */}
+			   {/* <Reviewcard/> */}
+               <DefaultReviewCard/>
 			   {/* <Reviewlist/> */}
-</Review>
+          </Review>
 		</ReviewPage>
 		
 		</div>;

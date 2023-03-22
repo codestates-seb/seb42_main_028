@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
-import styled from "styled-components"
+import styled from "styled-components";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import {FaUserCircle} from 'react-icons/fa';
 
@@ -9,113 +11,103 @@ import { useUserInfoStore } from '../../store/userInfo';
 import { useIsLoginStore } from '../../store/loginstore';
 
 const Review = styled.div`
-	position : absolute;
-	top:0 ;
-	left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-	width: 100%;
-	height: 100%;
-	background-color:  rgba(0,0,0,0.2);
-
+   position : absolute;
+   top:0 ;
+   left: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   height: 100%;
+   background-color:  rgba(0,0,0,0.2);
 `
 const Modal = styled.div`
-position : relative;
-	top:50px;
-	padding: 10px;
-
-	min-width: 380px;
-width: 37%;
-height:680px;
+   position : relative;
+   top:50px;
+   padding: 10px;
+   min-width: 380px;
+   width: 37%;
+   height:680px;
 /* text-align: center; */
-padding :16px;
-background-color:  rgb(245, 245, 245);
-align-items:center;
-border-radius:10px;
-display: block;
-justify-content: center;
-box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px;
-
+   padding :16px;
+   background-color:  rgb(245, 245, 245);
+   align-items:center;
+   border-radius:10px;
+   display: block;
+   justify-content: center;
+   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px;
 `
 const Text = styled.p`
-    margin: 0;
-	font-size: 14px;
-	margin-bottom: 4px;
-	text-align: left;
-	padding-left:75px;
+   margin: 0;
+   font-size: 14px;
+   margin-bottom: 4px;
+   text-align: left;
+   padding-left:75px;
 `
 const Container = styled.div`
-margin : 16px 4px;
-text-align: center;
-align-items: center;
+   margin : 16px 4px;
+   text-align: center;
+   align-items: center;
 `
 const Img=styled.img`
-min-width: 113px;
-width:25% ;
-height: 200px;
-border:solid 1px gray;
-color: gray;
+   min-width: 113px;
+   width:25% ;
+   height: 200px;
+   border:solid 1px gray;
+   color: gray;
 /* background-color: gray; */
 /* margin: auto; */
 `
 const Input=styled.input`
-width: 80%;
-min-width: 346px;
-height: 24px;
-margin-bottom:8px;
-padding-left: 8px;
-border-radius: 3px;
-border: 0.5px solid gray;
+   width: 80%;
+   min-width: 346px;
+   height: 24px;
+   margin-bottom:8px;
+   padding-left: 8px;
+   border-radius: 3px;
+   border: 0.5px solid gray;
 `
 const Button = styled.button`
-box-shadow: 0px 1px 1px 1px rgb(0,0,0,0.2);
-cursor: pointer;
-font-size: 12px;
-	width: 45px;
-	height: 27px;
-	border-radius: 10px;
-	background-color: #FD8E0D; 
+   box-shadow: 0px 1px 1px 1px rgb(0,0,0,0.2);
+   cursor: pointer;
+   font-size: 12px;
+   width: 45px;
+   height: 27px;
+   border-radius: 10px;
+   background-color: #FD8E0D; 
 `
 const UserID = styled.p`
-    margin-left:8px;
-	font-size: 15px;
-	margin-bottom: 4px;
-	align-items: center;
-	justify-content: center;
-	justify-items: center;
-	font-weight: bold;
+   margin-left:8px;
+   font-size: 15px;
+   margin-bottom: 4px;
+   align-items: center;
+   justify-content: center;
+   justify-items: center;
+   font-weight: bold;
 `
 const StarContainer =styled.div`
    border-bottom: solid 1px gray;
    display: flex;
    flex-direction: row-reverse;
    justify-content: center;
-  
 `
 const StarInput =styled.input`
-	display: none;
+   display: none;
 	&:checked~label{
-		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
 `
 const StarLabel=styled.label`
-	cursor: pointer;
-	color: transparent;
-	text-shadow: 0 0 0 gray;
+   cursor: pointer;
+   color: transparent;
+   text-shadow: 0 0 0 gray;
 	&:hover {
 		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99)
 		};
 	&:hover~label{
 		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
-	
-`
-const InputImg = styled.input`
-	
-`
-const 미리보기 = styled.img`
 	
 `
 
@@ -129,15 +121,18 @@ const pathData = {
 	tag:'',
     memberId: null,
 	fileImg:''
-  };
+};
 
 const [title, setTitle] = useState('');
 const [content, setContent] = useState('');
 const [tag, setTag] = useState('');
 const [date, setDate] = useState('');
 
+const navigate = useNavigate();
+
 const [fileImg,setFileimg] = useState(이미지);
 
+//Handler
 const titleHandlerChange = e => {
     console.log(e.target.value);
     setTitle(e.target.value);
@@ -154,27 +149,42 @@ const dateHandlerChange = e => {
     console.log(e.target.value);
     setDate(e.target.value);
   };
-const handlerSubmit = e => {
-    // if (isLogin) {
-    //   e.preventDefault();
-    //   pathData.title = title;
-    //   pathData.body = body;
-    //   pathData.memberId = userInfo.memberId;
-    //   const currentTime = new Date();
-    //   pathData.createdAt = currentTime.toString();
-    //   pathQuestionData();
-    //   console.log(
-    //     'pathData',
-    //     pathData.title,
-    //     pathData.body,
-    //     pathData.memberId,
-    //     pathData.createdAt,
-    //   );
-    // } else {
-    //   alert('You need to Login.');
-    //   navigate('/login');
-    // }
+
+//axios
+const pathUserWriteData = async () => {
+    const response = await axios
+      .post('http://', pathData)
+      .catch(error => {
+        console.error(error);
+      });
+    if (response && response.data) {
+      console.log(response);
+    }
   };
+
+//Submit
+const handlerSubmit = e => {
+    if (isLogin) {
+      e.preventDefault();
+      pathData.title = title;
+      pathData.content = content;
+      pathData.memberId = userInfo.memberId;
+      const currentTime = new Date();
+      pathData.createdAt = currentTime.toString();
+      pathUserWriteData();
+      console.log(
+      'pathData',
+       pathData.title,
+       pathData.content
+        
+	      );
+    } else {
+      alert('You need to Login.');
+      navigate('/login');
+    }
+  };
+
+
 	// const [ previewImg, setPreviewImg ] = useState([]);
 
 	// const insertImg = (e) => {
