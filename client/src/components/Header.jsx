@@ -4,6 +4,8 @@ import logo from '../assets/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import search from '../assets/search.png';
 import profile from '../assets/profile.png';
+import { useIsLoginStore } from '../store/loginstore';
+import axios from 'axios';
 
 const HeaderWrap = styled.div`
 	top: 0;
@@ -97,49 +99,73 @@ const UserInfo = styled.img`
 const Header = () => {
 	const location = useLocation().pathname;
 	const navigate = useNavigate();
+	const { isLogin, setIsLogin } = useIsLoginStore((state) => state);
 
 	if (location === '/' || location === '/404') return null;
 
+	const logoutHandler = () => {
+		const accessToken = localStorage.getItem('accessToken');
+		const refreshToken = localStorage.getItem('refreshToken');
+		const headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${accessToken}`,
+			Refresh: refreshToken,
+		};
+
+		return axios
+			.get(`${process.env.REACT_APP_SERVER_URI}/auth/logout`, { headers })
+			.finally((response) => {
+				localStorage.clear();
+				window.alert('로그아웃 되었습니다!');
+				window.location.reload();
+			});
+	};
+
 	return (
 		<>
-			<HeaderWrap>
-				<Wrapper>
-					<LogoImg onClick={() => navigate('/')} src={logo} />
-					<SearchWrap>
-						<SearchBox />
-						<SearchImg src={search} />
-					</SearchWrap>
-					<BtnWrapper>
-						<LoginLogoutButton onClick={() => navigate('/login')}>
-							로그인
-						</LoginLogoutButton>
-						<SignUpButton onClick={() => navigate('/signup')}>
-							회원가입
-						</SignUpButton>
-					</BtnWrapper>
-				</Wrapper>
-			</HeaderWrap>
+			{isLogin ? (
+				<>
+					<HeaderWrap>
+						<Wrapper>
+							<LogoImg onClick={() => navigate('/')} src={logo} />
+							<SearchWrap>
+								<SearchBox />
+								<SearchImg src={search} />
+							</SearchWrap>
+							<BtnWrapper>
+								<LoginLogoutButton onClick={logoutHandler}>
+									로그아웃
+								</LoginLogoutButton>
+								<UserInfo
+									onClick={() => navigate('/mypage')}
+									src={profile}
+								></UserInfo>
+							</BtnWrapper>
+						</Wrapper>
+					</HeaderWrap>
+				</>
+			) : (
+				<>
+					<HeaderWrap>
+						<Wrapper>
+							<LogoImg onClick={() => navigate('/')} src={logo} />
+							<SearchWrap>
+								<SearchBox />
+								<SearchImg src={search} />
+							</SearchWrap>
+							<BtnWrapper>
+								<LoginLogoutButton onClick={() => navigate('/login')}>
+									로그인
+								</LoginLogoutButton>
+								<SignUpButton onClick={() => navigate('/signup')}>
+									회원가입
+								</SignUpButton>
+							</BtnWrapper>
+						</Wrapper>
+					</HeaderWrap>
+				</>
+			)}
 		</>
-		// <>
-		// 	<HeaderWrap>
-		// 		<Wrapper>
-		// 			<LogoImg onClick={() => navigate('/')} src={logo} />
-		// 			<SearchWrap>
-		// 				<SearchBox />
-		// 				<SearchImg src={search} />
-		// 			</SearchWrap>
-		// 			<BtnWrapper>
-		// 				<LoginLogoutButton onClick={() => navigate('/main')}>
-		// 					로그아웃
-		// 				</LoginLogoutButton>
-		// 				<UserInfo
-		// 					onClick={() => navigate('/mypage')}
-		// 					src={profile}
-		// 				></UserInfo>
-		// 			</BtnWrapper>
-		// 		</Wrapper>
-		// 	</HeaderWrap>
-		// </>
 	);
 };
 

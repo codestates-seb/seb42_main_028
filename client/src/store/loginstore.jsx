@@ -11,4 +11,12 @@ const useIsLoginStore = create((set) => ({
 	setIsLogin: (loginstate) => set(() => ({ isLogin: loginstate })),
 }));
 
-export { useErrorMessageStore, useIsLoginStore };
+const useLoginInfoStore = create((set) => ({
+	loginInfo: {
+		email: '',
+		password: '',
+	},
+	setLoginInfo: (state) => set(() => ({ loginInfo: state })),
+}));
+
+export { useErrorMessageStore, useIsLoginStore, useLoginInfoStore };
