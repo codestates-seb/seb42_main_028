@@ -16,6 +16,9 @@ public class VoteDto {
         private long reviewId;
 
         @NotBlank
+        private long commentId;
+
+        @NotBlank
         private String voteType;
     }
 
@@ -28,6 +31,7 @@ public class VoteDto {
         private long userId;
         private long voteId;
         private long reviewId;
+        private long commentId;
         private String voteType;
     }
 }
