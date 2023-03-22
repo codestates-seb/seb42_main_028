@@ -1,8 +1,11 @@
-import React from 'react';
 import logo from '../../assets/logo.png';
 import google from '../../assets/google.png';
 import styled from 'styled-components';
+
+import { React, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
+import { useIsLoginStore } from '../../store/loginstore';
+import axios from 'axios';
 
 const Logoimg = styled.img`
 	width: 200px;

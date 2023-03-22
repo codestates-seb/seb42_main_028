@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from "styled-components"
 
 import {FaUserCircle} from 'react-icons/fa';
 
 import 이미지 from '../../assets/default.jpg'
+
+import { useUserInfoStore } from '../../store/userInfo';
+import { useIsLoginStore } from '../../store/loginstore';
 
 const Review = styled.div`
 	position : absolute;
@@ -84,7 +87,126 @@ const UserID = styled.p`
 	justify-items: center;
 	font-weight: bold;
 `
+const StarContainer =styled.div`
+   border-bottom: solid 1px gray;
+   display: flex;
+   flex-direction: row-reverse;
+   justify-content: center;
+  
+`
+const StarInput =styled.input`
+	display: none;
+	&:checked~label{
+		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+`
+const StarLabel=styled.label`
+	cursor: pointer;
+	color: transparent;
+	text-shadow: 0 0 0 gray;
+	&:hover {
+		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99)
+		};
+	&:hover~label{
+		text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	
+`
+const InputImg = styled.input`
+	
+`
+const 미리보기 = styled.img`
+	
+`
+
 function Reviewwrite() {
+const { userInfo } = useUserInfoStore(state => state);
+const { isLogin } = useIsLoginStore(state => state);
+
+const pathData = {
+    content: '',
+	title: '',
+	tag:'',
+    memberId: null,
+	fileImg:''
+  };
+
+const [title, setTitle] = useState('');
+const [content, setContent] = useState('');
+const [tag, setTag] = useState('');
+const [date, setDate] = useState('');
+
+const [fileImg,setFileimg] = useState(이미지);
+
+const titleHandlerChange = e => {
+    console.log(e.target.value);
+    setTitle(e.target.value);
+  };
+const contentHandlerChange = e => {
+    console.log(e.target.value);
+    setContent(e.target.value);
+  };
+const tagHandlerChange = e => {
+    console.log(e.target.value);
+    setTag(e.target.value);
+  };
+const dateHandlerChange = e => {
+    console.log(e.target.value);
+    setDate(e.target.value);
+  };
+const handlerSubmit = e => {
+    // if (isLogin) {
+    //   e.preventDefault();
+    //   pathData.title = title;
+    //   pathData.body = body;
+    //   pathData.memberId = userInfo.memberId;
+    //   const currentTime = new Date();
+    //   pathData.createdAt = currentTime.toString();
+    //   pathQuestionData();
+    //   console.log(
+    //     'pathData',
+    //     pathData.title,
+    //     pathData.body,
+    //     pathData.memberId,
+    //     pathData.createdAt,
+    //   );
+    // } else {
+    //   alert('You need to Login.');
+    //   navigate('/login');
+    // }
+  };
+	// const [ previewImg, setPreviewImg ] = useState([]);
+
+	// const insertImg = (e) => {
+	// 	let reader = new FileReader()
+	  
+	// 	if(e.target.files[0]) {
+	// 	  reader.readAsDataURL(e.target.files[0])
+		  
+	// 	  setFileimg([...fileImg, e.target.files[0]])
+	// 	}
+	  
+	// 	reader.onloadend = () => {
+	// 	  const previewImgUrl = reader.result
+	  
+	// 	  if(previewImgUrl) {
+	// 		setPreviewImg([...previewImg, previewImgUrl])
+	// 	  }
+	// 	}
+	//   }
+
+
+
+	const saveFileImg=(e)=>{ //파일 저장
+		setFileimg(URL.createObjectURL(e.target.files[0]));
+
+	}
+
+	// const deleteFileImg=()=>{ //파일 삭제
+	// 	URL.revokeObjectURL(fileImg);
+	// 	setFileimg('');
+	// }
+
 	return <Review>
 	<Modal>
 	<Container style={{display:'flex',paddingLeft:'74px'}}>
@@ -92,29 +214,95 @@ function Reviewwrite() {
 	<UserID >사용자아이디</UserID>
 	</Container>
 	<Container style={{display:'flex',justifyContent:'center'}}>
-		<Img style={{marginRight:'4px'}} src={이미지}/>
+		
+		<div>
+		{
+			
+			fileImg && (
+				<Img
+				alt='simple'
+				src={fileImg}
+				style={{margin:'auto'}} 
+				/>
+			)
+         }
+		 <input
+		  name='imgUpload'
+         type='file'
+		 accept='image/*'
+		 onChange={saveFileImg} 
+		  />
+		 </div>
+		 <div>
+		{
+			fileImg && (
+				<Img
+				alt='simple'
+				src={fileImg}
+				style={{margin:'auto'}} 
+				/>
+			)
+         }
+		 <input
+		  name='imgUpload'
+         type='file'
+		 accept='image/*'
+		 onChange={saveFileImg} 
+		  />
+		 </div>
+		 <div>
+		{
+			fileImg && (
+				<Img
+				alt='simple'
+				src={fileImg}
+				style={{margin:'auto'}} 
+				/>
+			)
+         }
+		 <input
+		  name='imgUpload'
+         type='file'
+		 multiple={true}
+		 accept='image/*'
+		 onChange={saveFileImg} 
+		  />
+		 </div>
+		{/* <Img style={{marginRight:'4px'}} src={이미지}/>
 		<Img style={{backgroundColor:'white',marginRight:'4px'}}src={이미지}/>
-		<Img src={이미지}/>
+		<Img src={이미지}/> */}
 	</Container>
-	<Container style={{borderBottom:'solid 1px gray'}}>
-     별점 자리
-	</Container>
+	<StarContainer>
+     <StarInput type='radio' name='star' value='5' id='5-star' />
+	 <StarLabel for='5-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='4' id='4-star'/>
+	 <StarLabel for='4-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='3' id='3-star'/>
+	 <StarLabel for='3-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='2' id='2-star'/>
+	 <StarLabel for='2-star'>★</StarLabel>
+	 <StarInput type='radio' name='star' value='1' id='1-star'/>
+	 <StarLabel for='1-star'>★</StarLabel>
+	</StarContainer>
 	<Container >
-	<Input placeholder='이곳에 다녀온 경험을 자세히 공유해 주세요'style={{height:'100px',marginbottom: '12px',textAlign:'start'}}/>
+	<Input
+	type='text' value={content} onChange={contentHandlerChange} maxLength="500"
+	placeholder='이곳에 다녀온 경험을 자세히 공유해 주세요'style={{height:'100px',marginbottom: '12px',textAlign:'start'}}/>
 	<Text>리뷰 제목을 달아주세요</Text>
-	<Input />
+	<Input type='text' value={title} onChange={titleHandlerChange} />
 	<Text >방문한 날짜를 선택해주세요</Text>
-	<Input type='date'/>
+	<Input type='date' value={date} onChange={dateHandlerChange}/>
 	<Text >태그를 작성해주세요</Text>
-	<Input/>
+	<Input value={tag} onChange={tagHandlerChange}/>
 </Container>
 <Container >
 	<Button style={{backgroundColor:'white',marginRight:'8px'}}>취소</Button>
-	<Button>게시</Button>
+	<Button onClick={handlerSubmit}>게시</Button>
 </Container>
 	</Modal>
 
 	</Review>
+	
 }
 
 export default Reviewwrite;
