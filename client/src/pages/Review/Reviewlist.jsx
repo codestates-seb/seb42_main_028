@@ -23,10 +23,10 @@ const List = styled.div`
 
 `
 const Input = styled.input`
-	width: 696px;
-	height: 42px;
+	width: 800px;
+	height: 36px;
 	padding-left: 12px;
-	border-radius: 15px;
+	border-radius: 10px;
 	border: 1px solid #d9d9d9;
     outline: none;
 
@@ -67,8 +67,8 @@ function Reviewlist(){
     return <>
 <Card>
  <Container margin='0px 0 18px 0px' >
-    <Flex>
-     <Input type="text"  maxLength="300" placeholder='댓글을 작성해 주세요'/>
+    <Flex style={{justifyContent:'center'}}>
+     <Input type="text"  maxLength="300" placeholder='로그인 후 댓글 작성이 가능합니다'/>
     </Flex>
     <Button background_color='white' margin_right='4px'>확인</Button>
  </Container>
