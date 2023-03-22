@@ -5,6 +5,9 @@ import {FaUserCircle} from 'react-icons/fa';
 
 import 이미지 from '../../assets/default.jpg'
 
+import { useUserInfoStore } from '../../store/userInfo';
+import { useIsLoginStore } from '../../store/loginstore';
+
 const Review = styled.div`
 	position : absolute;
 	top:0 ;
@@ -117,18 +120,92 @@ const 미리보기 = styled.img`
 `
 
 function Reviewwrite() {
+const { userInfo } = useUserInfoStore(state => state);
+const { isLogin } = useIsLoginStore(state => state);
 
-	const [fileImg,setFileimg] = useState(이미지);
+const pathData = {
+    content: '',
+	title: '',
+	tag:'',
+    memberId: null,
+	fileImg:''
+  };
 
-	const saveFileImg=(e)=>{ //퍄일 저장
+const [title, setTitle] = useState('');
+const [content, setContent] = useState('');
+const [tag, setTag] = useState('');
+const [date, setDate] = useState('');
+
+const [fileImg,setFileimg] = useState(이미지);
+
+const titleHandlerChange = e => {
+    console.log(e.target.value);
+    setTitle(e.target.value);
+  };
+const contentHandlerChange = e => {
+    console.log(e.target.value);
+    setContent(e.target.value);
+  };
+const tagHandlerChange = e => {
+    console.log(e.target.value);
+    setTag(e.target.value);
+  };
+const dateHandlerChange = e => {
+    console.log(e.target.value);
+    setDate(e.target.value);
+  };
+const handlerSubmit = e => {
+    // if (isLogin) {
+    //   e.preventDefault();
+    //   pathData.title = title;
+    //   pathData.body = body;
+    //   pathData.memberId = userInfo.memberId;
+    //   const currentTime = new Date();
+    //   pathData.createdAt = currentTime.toString();
+    //   pathQuestionData();
+    //   console.log(
+    //     'pathData',
+    //     pathData.title,
+    //     pathData.body,
+    //     pathData.memberId,
+    //     pathData.createdAt,
+    //   );
+    // } else {
+    //   alert('You need to Login.');
+    //   navigate('/login');
+    // }
+  };
+	// const [ previewImg, setPreviewImg ] = useState([]);
+
+	// const insertImg = (e) => {
+	// 	let reader = new FileReader()
+	  
+	// 	if(e.target.files[0]) {
+	// 	  reader.readAsDataURL(e.target.files[0])
+		  
+	// 	  setFileimg([...fileImg, e.target.files[0]])
+	// 	}
+	  
+	// 	reader.onloadend = () => {
+	// 	  const previewImgUrl = reader.result
+	  
+	// 	  if(previewImgUrl) {
+	// 		setPreviewImg([...previewImg, previewImgUrl])
+	// 	  }
+	// 	}
+	//   }
+
+
+
+	const saveFileImg=(e)=>{ //파일 저장
 		setFileimg(URL.createObjectURL(e.target.files[0]));
 
 	}
 
-	const deleteFileImg=()=>{
-		URL.revokeObjectURL(fileImg);
-		setFileimg('');
-	}
+	// const deleteFileImg=()=>{ //파일 삭제
+	// 	URL.revokeObjectURL(fileImg);
+	// 	setFileimg('');
+	// }
 
 	return <Review>
 	<Modal>
@@ -137,8 +214,10 @@ function Reviewwrite() {
 	<UserID >사용자아이디</UserID>
 	</Container>
 	<Container style={{display:'flex',justifyContent:'center'}}>
+		
 		<div>
 		{
+			
 			fileImg && (
 				<Img
 				alt='simple'
@@ -206,17 +285,19 @@ function Reviewwrite() {
 	 <StarLabel for='1-star'>★</StarLabel>
 	</StarContainer>
 	<Container >
-	<Input placeholder='이곳에 다녀온 경험을 자세히 공유해 주세요'style={{height:'100px',marginbottom: '12px',textAlign:'start'}}/>
+	<Input
+	type='text' value={content} onChange={contentHandlerChange} maxLength="500"
+	placeholder='이곳에 다녀온 경험을 자세히 공유해 주세요'style={{height:'100px',marginbottom: '12px',textAlign:'start'}}/>
 	<Text>리뷰 제목을 달아주세요</Text>
-	<Input />
+	<Input type='text' value={title} onChange={titleHandlerChange} />
 	<Text >방문한 날짜를 선택해주세요</Text>
-	<Input type='date'/>
+	<Input type='date' value={date} onChange={dateHandlerChange}/>
 	<Text >태그를 작성해주세요</Text>
-	<Input/>
+	<Input value={tag} onChange={tagHandlerChange}/>
 </Container>
 <Container >
 	<Button style={{backgroundColor:'white',marginRight:'8px'}}>취소</Button>
-	<Button>게시</Button>
+	<Button onClick={handlerSubmit}>게시</Button>
 </Container>
 	</Modal>
 
