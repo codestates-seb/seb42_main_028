@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import Modal from './Modal';
 // import Button from '../../components/Button';
 import profile from '../../assets/profile.png';
 
@@ -21,7 +22,6 @@ const ProfileImg = styled.img`
 	width: 30%;
 	/* height: auto; */
 	display: flex;
-
 	justify-content: center;
 	align-items: center;
 	text-align: center;
@@ -93,14 +93,18 @@ const Button = styled.div`
 	border: 1px solid #fd8e0d;
 	border-radius: 5px;
 	box-shadow: inset 0 1px 0 0 #e4e4e4;
-
 	&:hover {
 		cursor: pointer;
 	}
 `;
 
 function Mypage() {
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
+	const [isOpen, setIsOpen] = useState(false);
+
+	const onClickButton = () => {
+		setIsOpen(true);
+	};
 	return (
 		<>
 			{/* <profileButton name='sss' event>
@@ -111,7 +115,7 @@ function Mypage() {
 				{/* 파일업로드 부분 찾아서 
 				<ProfileImg onClick={() => navigate('/review')} src={profile} /><ProfileImg onClick={() => navigate('/review')} src={profile} /> */}
 				<ProfileImg src={profile} />
-				<Name>김개똥</Name>
+				<Name>김코딩</Name>
 				<NavBox>
 					<Nav>이름변경</Nav>
 					<Nav>내가 쓴 글</Nav>
@@ -122,14 +126,22 @@ function Mypage() {
 				<ChangeName>이름</ChangeName>
 
 				<Input />
-
-				<Button
+				<Button onClick={onClickButton}>Click Me !</Button>
+				{isOpen && (
+					<Modal
+						open={isOpen}
+						onClose={() => {
+							setIsOpen(false);
+						}}
+					/>
+				)}
+				{/* <Button
 					onClick={() => {
 						navigate('/mypage');
 					}}
 				>
 					변경
-				</Button>
+				</Button> */}
 			</Container>
 		</>
 	);
