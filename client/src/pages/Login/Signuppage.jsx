@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import logo from '../../assets/logo.png';
 import google from '../../assets/google.png';
 import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 
 const Logoimg = styled.img`
 	width: 200px;
@@ -180,7 +181,7 @@ const Message = styled.div`
 const Signuppage = () => {
 	const navigate = useNavigate();
 
-	const [name, setName] = useState('');
+	const [userName, setName] = useState('');
 	const [isNameError, setIsNameError] = useState(false);
 	const [namelErrorMessage, setnameErrorMessage] = useState('');
 	const [nameState, setNameState] = useState(false);
@@ -195,6 +196,8 @@ const Signuppage = () => {
 	const [pwErrorMessage, setPwErrorMessage] = useState('');
 	const [pwState, setPwState] = useState(false);
 
+	const [isInputEmpty, setIsInputEmpty] = useState(false);
+
 	const nameHandler = (e) => {
 		setName(e.target.value);
 	};
@@ -207,9 +210,9 @@ const Signuppage = () => {
 	};
 
 	useEffect(() => {
-		if (name === '') {
+		if (userName === '') {
 			setIsNameError(false);
-		} else if (name.match(/^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$/)) {
+		} else if (userName.match(/^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]{1,5}$/)) {
 			setIsNameError(false);
 			setNameState(true);
 		} else {
@@ -251,31 +254,76 @@ const Signuppage = () => {
 			setIsPwError(true);
 			setPwState(false);
 		}
-	}, [name, email, password]);
+	}, [userName, email, password]);
 
-	const signupHandler = async () => {
-		if (
-			!email ||
-			!name ||
-			!password ||
-			namelErrorMessage ||
-			emailErrorMessage ||
-			pwErrorMessage
-		) {
-			console.log('회원가입 실패', '빈 칸이 없어야 합니다.', 'error');
-		} else {
-			try {
-				await axios
-					.post(`${process.env.REACT_APP_API_URL}/members`, {
-						email: email,
-						username: name,
-						password: password,
-					})
-					.then(navigate('/login'));
-			} catch (error) {
-				alert(error);
-			}
+	// const signupHandler = async () => {
+	// 	if (
+	// 		!email ||
+	// 		!userName ||
+	// 		!password ||
+	// 		namelErrorMessage ||
+	// 		emailErrorMessage ||
+	// 		pwErrorMessage
+	// 	) {
+	// 		console.log('회원가입 실패', '빈 칸이 없어야 합니다.', 'error');
+	// 	} else {
+	// 		try {
+	// 			await axios
+	// 				.post(`${process.env.REACT_APP_API_URL}/users/signup`, {
+	// 					email: email,
+	// 					userName: userName,
+	// 					password: password,
+	// 				})
+	// 				.then(navigate('/login'));
+	// 		} catch (error) {
+	// 			alert(error);
+	// 		}
+	// 	}
+	// };
+
+	const data = {
+		email: email,
+		password: password,
+		userName: userName,
+		// roles: 'USER',
+	};
+
+	const postSignupData = () => {
+		const headers = {
+			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json',
+		};
+
+		return axios.post(
+			`${process.env.REACT_APP_SERVER_URL}/users/signup`,
+			data,
+			headers,
+			{ withCredentials: true },
+		);
+	};
+
+	const createMemberOnSuccess = () => {
+		window.alert('회원가입이 성공적으로 완료되었습니다!');
+		navigate('/login');
+	};
+
+	const createMemberOnError = () => {
+		window.alert('일시적인 오류입니다. 잠시 후에 다시 시도해주세요.');
+	};
+
+	const { mutate: createMember } = useMutation({
+		mutationKey: ['postSignupData'],
+		mutationFn: postSignupData,
+		onSuccess: createMemberOnSuccess,
+		onError: createMemberOnError,
+	});
+
+	const signupHandler = () => {
+		if (!userName || !email || !password) {
+			setIsInputEmpty(true);
+			return;
 		}
+		createMember();
 	};
 
 	return (

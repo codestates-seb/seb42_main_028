@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 import { React, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { useIsLoginStore } from '../../store/loginstore';
+import { useMutation } from '@tanstack/react-query';
+import { useIsLoginStore, useLoginInfoStore } from '../../store/loginstore';
 import axios from 'axios';
 
 const Logoimg = styled.img`
@@ -138,13 +139,84 @@ const Linker = styled.a`
 `;
 
 const Loginpage = () => {
+	const [email, setEmail] = useState();
+	const [password, setPassword] = useState();
+
+	const [errorMessageContent, setErrorMessageContent] = useState();
+	const [checked, setChecked] = useState(false);
+	const emailInputRef = useRef();
+	const passwordInputRef = useRef();
+
 	const navigate = useNavigate();
+
+	const { setIsLogin } = useIsLoginStore((state) => state);
+
+	const { loginInfo, setLoginInfo } = useLoginInfoStore((state) => state);
+
+	const data = { email: email, password: password };
+
+	const postLoginData = () => {
+		const headers = {
+			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json',
+		};
+
+		return axios.post(
+			`${process.env.REACT_APP_SERVER_URL}/auth/login`,
+			data,
+			headers,
+			{ withCredentials: true },
+		);
+	};
+
+	const postLoginOnSuccess = (response) => {
+		localStorage.setItem('refreshToken', response.headers.get('Refresh'));
+		localStorage.setItem('accessToken', response.headers.get('Authorization'));
+		localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
+
+		setIsLogin(true);
+		navigate('/');
+	};
+
+	const postLoginOnError = (err) => {
+		if (err.response.status === 401) {
+			setErrorMessageContent('이메일 또는 비밀번호를 다시 확인해주세요');
+		}
+	};
+
+	const { mutate: postLogin } = useMutation({
+		mutationKey: ['postLoginData'],
+		mutationFn: postLoginData,
+		onSuccess: postLoginOnSuccess,
+		onError: postLoginOnError,
+	});
+
+	const loginHandler = () => {
+		if (!email) {
+			emailInputRef.current.focus();
+			setErrorMessageContent('이메일을 입력해주세요');
+			return;
+		} else if (!password) {
+			passwordInputRef.current.focus();
+			setErrorMessageContent('비밀번호를 입력해주세요');
+		} else {
+			setErrorMessageContent('');
+			postLogin();
+		}
+	};
+
+	const EnterLogin = (e) => {
+		if (e.key === 'Enter') {
+			loginHandler();
+		}
+	};
+
 	return (
 		<>
 			<Container>
 				<Logoimg src={logo} />
 				<SocialLoginContainer>
-					<GoogleLogin>
+					<GoogleLogin href={`${process.env.REACT_APP_SERVER_URI}/`}>
 						<SocialLoginIcon src={google} />
 						<SocialLoginText>Google 로그인</SocialLoginText>
 					</GoogleLogin>
@@ -154,16 +226,37 @@ const Loginpage = () => {
 						<LoginInputContainer>
 							<LoginLabel>이메일</LoginLabel>
 							<LoginInputInnerContainer>
-								<LoginInput />
+								<LoginInput
+									className='login-input'
+									id='e-mail'
+									onKeyPress={EnterLogin}
+									onChange={(e) => {
+										setEmail(e.target.value);
+									}}
+									placeholder='이메일'
+									ref={emailInputRef}
+									value={email || ''}
+								/>
 							</LoginInputInnerContainer>
 						</LoginInputContainer>
 						<LoginInputContainer>
 							<LoginLabel>비밀번호</LoginLabel>
 							<LoginInputInnerContainer>
-								<LoginInput />
+								<LoginInput
+									className='login-input'
+									id='password'
+									ref={passwordInputRef}
+									onChange={(e) => {
+										setPassword(e.target.value);
+									}}
+									onKeyPress={EnterLogin}
+									placeholder='비밀번호'
+									value={password || ''}
+									type='password'
+								/>
 							</LoginInputInnerContainer>
 						</LoginInputContainer>
-						<LoginButton>로그인</LoginButton>
+						<LoginButton onClick={loginHandler}>로그인</LoginButton>
 					</LoginForm>
 					<Text>
 						회원이 아닌신가요? &nbsp;

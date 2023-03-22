@@ -26,7 +26,36 @@ import axios from 'axios';
 const queryClient = new QueryClient();
 
 function App() {
-	const { isLogin, setIsLogin } = useIsLoginStore((state) => state);
+	const { setIsLogin } = useIsLoginStore((state) => state);
+
+	useEffect(() => {
+		if (localStorage.getItem('accesstoken')) {
+			return setIsLogin(true);
+		}
+	}, [setIsLogin]);
+
+	// const accessToken = localStorage.getItem('accessToken');
+	// const refreshToken = localStorage.getItem('refreshToken');
+
+	// useEffect(() => {
+	// 	if (refreshToken) {
+	// 		setIsLogin(true);
+	// 		axios
+	// 			.get(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+	// 				headers: {
+	// 					'Content-Type': 'application/json',
+	// 					Authorization: `Bearer ${accessToken}`,
+	// 					Refresh: refreshToken,
+	// 				},
+	// 			})
+	// 			.then((response) => {
+	// 				localStorage.setItem(
+	// 					'accessToken',
+	// 					response.headers.get('Authorization').split(' ')[1],
+	// 				);
+	// 			});
+	// 	}
+	// }, []);
 
 	return (
 		<QueryClientProvider client={queryClient}>
