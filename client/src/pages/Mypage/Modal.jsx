@@ -14,7 +14,7 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-	width: 600px;
+	width: 480px;
 	height: fit-content;
 	border-radius: 15px;
 	background-color: #fff;
@@ -31,33 +31,56 @@ const CloseButton = styled.div`
 	margin: 20px;
 	cursor: pointer;
 	i {
-		color: #5d5d5d;
+		color: #f40909;
 		font-size: 30px;
 	}
 `;
-
+//모달창
 const Contents = styled.div`
 	margin: 50px 30px;
+
 	h1 {
 		font-size: 30px;
 		font-weight: 600;
 		margin-bottom: 60px;
-	}
-	img {
-		margin-top: 60px;
-		width: 300px;
+		/* gap: 12px 32px; */
 	}
 `;
+
 const Button = styled.button`
+	margin-left: 200px;
+	/* gap: 120px 32px; */
+`;
+
+const Button1 = styled.button`
+	margin-right: 20px;
 	font-size: 14px;
 	padding: 10px 20px;
 	border: none;
-	background-color: #ababab;
+	background-color: white;
+	border-radius: 10px;
+	color: black;
+	border: 1px solid black;
+
+	font-weight: 800;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #898989;
+	}
+`;
+
+const Button2 = styled.button`
+	font-size: 14px;
+	padding: 10px 20px;
+	border: none;
+	background-color: blue;
 	border-radius: 10px;
 	color: white;
-	font-style: italic;
-	font-weight: 200;
+
+	font-weight: 800;
 	cursor: pointer;
+
 	&:hover {
 		background-color: #898989;
 	}
@@ -70,12 +93,13 @@ function Modal({ onClose }) {
 	return (
 		<Overlay>
 			<ModalWrap>
-				<CloseButton onClick={handleClose}>
-					{/* <i className='fa-solid fa-xmark'></i> */}
-				</CloseButton>
+				<CloseButton onClick={handleClose}></CloseButton>
 				<Contents>
-					<h1>This is a Modal Dialog</h1>
-					<Button onClick={handleClose}>Close</Button>
+					<h1>수정사항을 저장 하시겠습니까?</h1>
+					<Button>
+						<Button1 onClick={handleClose}>취소</Button1>
+						<Button2 onClick={handleClose}>확인</Button2>
+					</Button>
 				</Contents>
 			</ModalWrap>
 		</Overlay>

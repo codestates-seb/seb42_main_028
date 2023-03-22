@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
-import Modal from './Modal';
+import Rename from './Rename';
+
 // import Button from '../../components/Button';
 import profile from '../../assets/profile.png';
 
 const Container = styled.div`
 	display: flex;
-	width: 500px;
+	width: 540px;
     width:100% 
     width: max-content;
 	padding: 1rem;
@@ -40,31 +41,39 @@ const Name = styled.div`
 	align-items: center;
 	text-align: center;
 `;
-
+//이름변경버튼 4개 묶음
 const NavBox = styled.div`
 justify-content: center;
     align-items: center;
-	width: 500px;
+	width: 516px;
     width:100% 
     width: max-content;
-	display: grid;
+	display: flex;
 	margin: 2.5rem auto 2.5rem auto;
 	padding: 0.2rem;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 12px 32px;
-	
-`;
+	`;
 
-const Nav = styled.div`
-	display: grid;
-	width:100% 
+// 회원탈퇴, 이름변경 ...버튼
+const NavButton = styled.div`
+display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 2.5rem auto 2.5rem auto;
-	padding: 0.8rem;
-	/* grid-template-columns: repeat(4, 1fr); */
-	gap: 12px 32px;
-	/* align-items: center;
-	text-align: center; */
-`;
+	width:100% 
+	width: max-content;
+	height: 35px;
+	background-color: white;
+	color:black;
+	font-size: 1.2rem;
+	font-weight: 600;
+	border-radius: 5px;
+	/* box-shadow: inset 0 1px 0 0 #e4e4e4; */
+	&:hover {
+		cursor: pointer;
+	}
+	`;
 
 const ChangeName = styled.div`
 	display: flex;
@@ -79,24 +88,8 @@ const Input = styled.input`
 	padding-left: 8px;
 `;
 
-const Button = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-	width: 15%;
-	height: 35px;
-	background-color: #fd8e0d;
-	color: #fff;
-	font-size: 1.2rem;
-	font-weight: 600;
-	border: 1px solid #fd8e0d;
-	border-radius: 5px;
-	box-shadow: inset 0 1px 0 0 #e4e4e4;
-	&:hover {
-		cursor: pointer;
-	}
-`;
+//변경 버튼
+//
 
 function Mypage() {
 	// const navigate = useNavigate();
@@ -117,24 +110,32 @@ function Mypage() {
 				<ProfileImg src={profile} />
 				<Name>김코딩</Name>
 				<NavBox>
-					<Nav>이름변경</Nav>
-					<Nav>내가 쓴 글</Nav>
-					<Nav>캘린더</Nav>
-					<Nav>회원탈퇴</Nav>
+					<NavButton onClick={onClickButton}>이름변경</NavButton>
+					{isOpen && (
+						<Rename
+							open={isOpen}
+							onClose={() => {
+								setIsOpen(false);
+							}}
+						/>
+					)}
+					<NavButton>내가 쓴 글</NavButton>
+					<NavButton>캘린더</NavButton>
+					<NavButton>회원탈퇴</NavButton>
 				</NavBox>
 
 				<ChangeName>이름</ChangeName>
 
 				<Input />
-				<Button onClick={onClickButton}>Click Me !</Button>
-				{isOpen && (
+				{/* <Button onClick={onClickButton}>변경</Button> */}
+				{/* {isOpen && (
 					<Modal
 						open={isOpen}
 						onClose={() => {
-							setIsOpen(false);
+							setIsOpen(false); 
 						}}
 					/>
-				)}
+				)} */}
 				{/* <Button
 					onClick={() => {
 						navigate('/mypage');
