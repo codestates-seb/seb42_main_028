@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
-import Rename from './Rename';
-
+import Modal from './Modal';
 // import Button from '../../components/Button';
 import profile from '../../assets/profile.png';
 
@@ -68,6 +67,7 @@ display: flex;
 	color:black;
 	font-size: 1.2rem;
 	font-weight: 600;
+	/*   */
 	border-radius: 5px;
 	/* box-shadow: inset 0 1px 0 0 #e4e4e4; */
 	&:hover {
@@ -88,8 +88,24 @@ const Input = styled.input`
 	padding-left: 8px;
 `;
 
-//변경 버튼
-//
+const Button = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+	width: 15%;
+	height: 35px;
+	background-color: #fd8e0d;
+	color: #fff;
+	font-size: 1.2rem;
+	font-weight: 600;
+	border: 1px solid #fd8e0d;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 0 0 #e4e4e4;
+	&:hover {
+		cursor: pointer;
+	}
+`;
 
 function Mypage() {
 	// const navigate = useNavigate();
@@ -110,15 +126,7 @@ function Mypage() {
 				<ProfileImg src={profile} />
 				<Name>김코딩</Name>
 				<NavBox>
-					<NavButton onClick={onClickButton}>이름변경</NavButton>
-					{isOpen && (
-						<Rename
-							open={isOpen}
-							onClose={() => {
-								setIsOpen(false);
-							}}
-						/>
-					)}
+					<NavButton>이름변경</NavButton>
 					<NavButton>내가 쓴 글</NavButton>
 					<NavButton>캘린더</NavButton>
 					<NavButton>회원탈퇴</NavButton>
@@ -127,15 +135,15 @@ function Mypage() {
 				<ChangeName>이름</ChangeName>
 
 				<Input />
-				{/* <Button onClick={onClickButton}>변경</Button> */}
-				{/* {isOpen && (
+				<Button onClick={onClickButton}>변경</Button>
+				{isOpen && (
 					<Modal
 						open={isOpen}
 						onClose={() => {
-							setIsOpen(false); 
+							setIsOpen(false);
 						}}
 					/>
-				)} */}
+				)}
 				{/* <Button
 					onClick={() => {
 						navigate('/mypage');
