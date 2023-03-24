@@ -6,6 +6,7 @@ import Mywriting from './Mywriting';
 import Calender from './Calender';
 import Membership from './Membership';
 import profile from '../../assets/profile.png';
+// import axios from 'axios';
 // import Button from '../../components/Button';
 
 const Container = styled.div`
@@ -91,16 +92,39 @@ const ChangeName = styled.div`
 // `;
 
 //변경 버튼
-//
+// async function getUser() {
+// 	// async, await을 사용하는 경우
+// 	try {
+// 		// GET 요청은 params에 실어 보냄
+// 		const response = await axios.get('/user', {
+// 			params: {
+// 				ID: 12345,
+// 			},
+// 		});
+
+// 		// 응답 결과(response)를 변수에 저장하거나.. 등 필요한 처리를 해 주면 된다.
+
+// 		await axios.get('/user?ID=12345'); // 위의 요청과 동일
+
+// 		var userId = 12345;
+// 		await axios.get(`/user?ID=${userId}`); // Backtick(`)을 이용해 이렇게 요청할 수도 있다.
+
+// 		console.log(response);
+// 	} catch (e) {
+// 		// 실패 시 처리
+// 		console.error(e);
+// 	}
+// }
 
 function Mypage() {
-	const [menu, setMenu] = useState('달력');
+	const [menu, setMenu] = useState('');
 	// const navigate = useNavigate();
 	// const [isOpen, setIsOpen] = useState(false);
 
 	// const onClickButton = () => {
 	// 	setIsOpen(true);
 	// };
+
 	return (
 		<>
 			{/* <profileButton name='sss' event>
@@ -123,7 +147,9 @@ function Mypage() {
 						/>
 					)} */}
 
-					<NavButton onClick={() => setMenu('이름수정')}>이름수정</NavButton>
+					<NavButton onClick={() => setMenu('비밀번호 수정')}>
+						비밀번호 수정
+					</NavButton>
 
 					<NavButton onClick={() => setMenu('내가 쓴 글')}>
 						내가 쓴 글
@@ -134,7 +160,7 @@ function Mypage() {
 					<NavButton onClick={() => setMenu('회원탈퇴')}>회원탈퇴</NavButton>
 				</NavBox>
 
-				{menu === '이름수정' && <Rename />}
+				{menu === '비밀번호 수정' && <Rename />}
 				{menu === '내가 쓴 글' && <Mywriting />}
 				{menu === '달력' && <Calender />}
 				{menu === '회원탈퇴' && <Membership />}
