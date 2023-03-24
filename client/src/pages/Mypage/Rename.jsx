@@ -3,13 +3,13 @@ import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
 
-// const Input = styled.input`
-// 	width: 100%;
-// 	height: 36px;
-// 	border: 1px solid #babbba;
-// 	border-radius: 4px;
-// 	padding-left: 8px;
-// `;
+const Input = styled.input`
+	width: 100%;
+	height: 36px;
+	border: 1px solid #babbba;
+	border-radius: 4px;
+	padding-left: 8px;
+`;
 
 //변경 버튼
 const Button = styled.div`
@@ -40,6 +40,8 @@ function Rename() {
 	};
 	return (
 		<>
+			{' '}
+			<Input />
 			<Button onClick={onClickButton}>변경</Button>
 			{isOpen && (
 				<Modal
