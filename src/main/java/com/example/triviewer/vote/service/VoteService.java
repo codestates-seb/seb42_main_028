@@ -91,7 +91,7 @@ public class VoteService {
             }
         }
 
-        int commentVoteCount = comment.getCommentLikeCount();
+        long commentVoteCount = comment.getCommentLikeCount();
         commentVoteCount += commentVoteStatus;
         comment.setCommentLikeCount(commentVoteCount);
         commentRepository.save(comment);

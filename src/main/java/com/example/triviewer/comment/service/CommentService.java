@@ -1,6 +1,7 @@
 package com.example.triviewer.comment.service;
 
 import com.example.triviewer.comment.entity.Comment;
+import com.example.triviewer.comment.entity.SortOption;
 import com.example.triviewer.comment.repository.CommentRepository;
 import com.example.triviewer.review.service.ReviewService;
 import com.example.triviewer.user.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -37,10 +40,21 @@ public class CommentService {
     }
     // 댓글 전체 찾기
 
-    public Page<Comment> findComments(int page, int size) {
-        return commentRepository.findAll(PageRequest.of(page, size,
-                Sort.by("commentId").descending()));
+    public Page<Comment> findComments(Long reviewId,int page, int size) {
+        return commentRepository.findByReview_reviewId(reviewId, (Pageable) PageRequest.of(page, size,
+                Sort.by("reviewId").descending()));
     }
+
+//    public Page<Comment> findComments(int page, int size) {
+//        return commentRepository.findAll(PageRequest.of(page, size,
+//                Sort.by("commentId").descending()));
+//    }
+
+    public Page<Comment> findCommentsByLikes(int page, int size) {
+        return commentRepository.findAll(PageRequest.of(page, size,
+                Sort.by("commentLikeCount").and(Sort.by("commentId").descending())));
+    }
+
 
     // 댓글 수정
     public Comment updateComment(Comment comment) {
@@ -53,7 +67,7 @@ public class CommentService {
     }
 
     private void verifiedComment(Comment comment) {
-        // 회워 존재 여부 확인
+        // 회워 존재 여부 확인ㅇ
 //        userService.findVerifiedUser(comment.getUser().getUserId);
     }
 

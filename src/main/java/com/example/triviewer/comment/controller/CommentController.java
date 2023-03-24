@@ -53,9 +53,29 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity getComments(@Positive @RequestParam int page,
+    public ResponseEntity getComments(@RequestParam(name = "reviewId") Long reviewId,@Positive @RequestParam int page,
                                       @Positive @RequestParam int size) {
-        Page<Comment> pageComments = commentService.findComments(page - 1, size);
+        Page<Comment> pageComments = commentService.findComments(reviewId,page - 1, size);
+        List<Comment> comments = pageComments.getContent();
+
+        return new ResponseEntity(new MultiResponseDto<>(commentMapper.commentToCommentResponseDto(comments), pageComments),
+                HttpStatus.OK);
+    }
+
+//    @GetMapping
+//    public ResponseEntity getComments(@Positive @RequestParam int page,
+//                                      @Positive @RequestParam int size) {
+//        Page<Comment> pageComments = commentService.findComments(page - 1, size);
+//        List<Comment> comments = pageComments.getContent();
+//
+//        return new ResponseEntity(new MultiResponseDto<>(commentMapper.commentToCommentResponseDto(comments), pageComments),
+//                HttpStatus.OK);
+//    }
+
+    @GetMapping("/review/commentlikecount")
+    public ResponseEntity getCommentsLike(@Positive @RequestParam int page,
+                                          @Positive @RequestParam int size) {
+        Page<Comment> pageComments = commentService.findCommentsByLikes(page - 1, size);
         List<Comment> comments = pageComments.getContent();
 
         return new ResponseEntity(new MultiResponseDto<>(commentMapper.commentToCommentResponseDto(comments), pageComments),

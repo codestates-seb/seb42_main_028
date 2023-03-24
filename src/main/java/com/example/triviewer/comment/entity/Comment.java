@@ -6,6 +6,7 @@ import com.example.triviewer.user.entity.User;
 import com.example.triviewer.vote.entity.CommentVote;
 import com.example.triviewer.vote.entity.Vote;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,11 +29,11 @@ public class Comment extends Auditable {
 
     // 좋아요 초깃값을 0으로 설정
     @Column(nullable = false)
-    private int commentLikeCount = 0;
+    private long commentLikeCount = 0;
 
     // 리뷰 관계매핑
     @ManyToOne
-    @JoinColumn(name = "reviewId")
+    @JoinColumn(name = "review_id")
     private Review review;
 
     // 유저 관계매핑
