@@ -51,14 +51,6 @@ function Rename() {
 					}}
 				/>
 			)}
-			{/* <Button
-					onClick={() => {
-						navigate('/mypage');
-					}}
-				>
-					변경
-				</Button>
-			{/* </Container> */}
 		</>
 	);
 }

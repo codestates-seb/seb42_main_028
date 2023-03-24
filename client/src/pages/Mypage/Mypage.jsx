@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import Rename from './Rename';
 import Mywriting from './Mywriting';
 import Calender from './Calender';
-import Membership from './Membership';
+// import Membership from './Membership';
 import profile from '../../assets/profile.png';
+import Modaldelect from './Modaldelect';
 // import axios from 'axios';
 // import Button from '../../components/Button';
 
@@ -78,10 +79,10 @@ const NavButton = styled.div`
 	}
 `;
 
-const ChangeName = styled.div`
-	display: flex;
-	padding-bottom: 1rem;
-`;
+// const ChangeName = styled.div`
+// 	display: flex;
+// 	padding-bottom: 1rem;
+// `;
 
 // const Input = styled.input`
 // 	width: 100%;
@@ -148,7 +149,7 @@ function Mypage() {
 					)} */}
 
 					<NavButton onClick={() => setMenu('비밀번호 수정')}>
-						비밀번호 수정
+						비밀번호 변경
 					</NavButton>
 
 					<NavButton onClick={() => setMenu('내가 쓴 글')}>
@@ -163,9 +164,9 @@ function Mypage() {
 				{menu === '비밀번호 수정' && <Rename />}
 				{menu === '내가 쓴 글' && <Mywriting />}
 				{menu === '달력' && <Calender />}
-				{menu === '회원탈퇴' && <Membership />}
+				{menu === '회원탈퇴' && <Modaldelect />}
 
-				<ChangeName>이름</ChangeName>
+				{/* <ChangeName>이름</ChangeName> */}
 
 				{/* <Input /> */}
 				{/* <Button onClick={onClickButton}>변경</Button> */}

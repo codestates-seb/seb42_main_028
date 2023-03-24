@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const HeaderWrap = styled.div`
 	top: 0;
-	position: fixed;
+	position: sticky;
 	left: 0;
 	width: 100%;
 	height: 70px;
