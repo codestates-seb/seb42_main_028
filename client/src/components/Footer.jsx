@@ -7,8 +7,7 @@ import { useLocation } from 'react-router';
 
 const Container = styled.div`
 	display: flex;
-	width: 100vw;
-	height: 170px;
+	align-items: center;
 	background-color: #e9e9e9;
 	border-top: 1px solid #fd8e0d;
 	justify-content: space-between;
@@ -78,23 +77,27 @@ const Logoimgtwo = styled.img`
 
 const Right = styled.div`
 	display: flex;
+	min-width: 30%;
 	flex-direction: column;
-	align-items: flex-end;
-	justify-content: space-between;
-	margin-right: 20px;
-	margin-bottom: 10px;
+	align-items: flex-start;
+	justify-content: center;
+`;
 
-	> .FE {
-		margin-top: 20px;
-		font-size: 12px;
-		margin-right: 200px;
-	}
+const FE = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	font-size: 12px;
+`;
 
-	> .BE {
-		font-size: 12px;
-		margin-right: 166px;
-		margin-bottom: 40px;
-	}
+const BE = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	margin-top: 12px;
 `;
 
 const Footer = () => {
@@ -104,10 +107,9 @@ const Footer = () => {
 		location === '/' ||
 		location === '/login' ||
 		location === '/signup' ||
-		location === '/404'|| 
-    location==='/reviewwrite'
+		location === '/404' ||
+		location === '/reviewwrite'
 	)
-
 		return null;
 
 	return (
@@ -127,9 +129,11 @@ const Footer = () => {
 				</LeftLast>
 			</Left>
 			<Right>
-				&nbsp;
-				<div className='FE'>Front-end: 김나영, 김지아, 임대훈</div>
-				<div className='BE'>Back-end: 나국로, 백종민, 이두용, 황재성</div>{' '}
+				{/* &nbsp; */}
+				<FE>Front-end: 김나영, 김지아, 임대훈</FE>
+				<BE>Back-end: 나국로, 백종민, 이두용, 황재성</BE>
+				{/* <div className='FE'></div>
+				<div className='BE'>Back-end: 나국로, 백종민, 이두용, 황재성</div> */}
 			</Right>
 		</Container>
 	);

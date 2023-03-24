@@ -12,6 +12,7 @@ import Header from './components/Header';
 import Reviewlist from './pages/Review/Reviewlist';
 import Card2 from './pages/Review/Reviewlist';
 import Oauth from './pages/Oauth';
+import Mywrite from './pages/Mywirte';
 
 import Footer from './components/Footer';
 
@@ -78,6 +79,7 @@ function App() {
 						<Route path='/auth/google/callback' element={<Oauth />} />
 						<Route path='404' element={<Errorpage />} />
 						<Route path='test' element={<Card2 />} />
+						<Route path='/mywrite' element={<Mywrite />} />
 					</Routes>
 				</Layout>
 				<Footer />
