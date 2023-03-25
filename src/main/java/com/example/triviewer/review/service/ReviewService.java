@@ -20,7 +20,7 @@ public class ReviewService {
         Review savedReview = reviewRepository.save(review);
         return savedReview;
     }
-//TODO: Change form (Lambda or method reference). + Apply change in status.
+//TODO: Change form. + Change Status.
     public Review updateReview(Review review){
         Review findReview = findVerifiedReview(review.getReviewId());
 
@@ -28,8 +28,6 @@ public class ReviewService {
                 .ifPresent(content -> findReview.setContent(content));
         Optional.ofNullable(review.getTitle())
                 .ifPresent(title -> findReview.setTitle(title));
-//        Optional.ofNullable(review.getS3UpImgs())
-//                .ifPresent(image -> findReview.setS3UpImgs());
         Optional.ofNullable(review.getReviewStatus())
                 .ifPresent(reviewStatus -> findReview.setReviewStatus(reviewStatus));
 
