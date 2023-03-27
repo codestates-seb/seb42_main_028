@@ -65,9 +65,9 @@ public class CommentService {
         Comment findComment = findVerifiedComment(comment.getCommentId());
         // 2. 답변은 답변 작성자만 수정이 가능
         Optional.ofNullable(comment.getAnswerContent())
-                .ifPresent(findComment::setAnswerContent);
+                .ifPresent(answerContent -> findComment.setAnswerContent(answerContent));
 
-        return commentRepository.save(comment);
+        return commentRepository.save(findComment);
     }
 
     private void verifiedComment(Comment comment) {

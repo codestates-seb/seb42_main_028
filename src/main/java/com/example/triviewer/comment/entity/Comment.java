@@ -32,7 +32,7 @@ public class Comment extends Auditable {
     // 리뷰 관계매핑
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewId")
-    @JsonBackReference
+//    @JsonBackReference
     private Review review;
 
     // 유저 관계매핑
