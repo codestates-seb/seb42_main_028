@@ -37,9 +37,9 @@ public class CommentService {
     }
     // 댓글 전체 찾기
 
-    public Page<Comment> findComments(int page, int size) {
-        return commentRepository.findAll(PageRequest.of(page, size,
-                Sort.by("commentId").descending()));
+    public Page<Comment> findComments(Long reviewId,int page, int size) {
+        return commentRepository.findByReview_reviewId(reviewId,PageRequest.of(page, size,
+                Sort.by("reviewId").descending()));
     }
 
     // 댓글 수정

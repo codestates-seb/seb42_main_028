@@ -12,7 +12,6 @@ public class ReviewResponseDto {
     private Long reviewId;
     private String title;
     private String content;
-    private String image;
     private Review.ReviewStatus reviewStatus;
     private LocalDateTime createdAt;
 

@@ -1,11 +1,11 @@
 server:
   port: 8080
-  address: localhost
+  address:
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${RDS_ENDPOINT}:3306/triviewer
+    url: jdbc:mysql://${RDS_ENDPOINT}:3306/triviewer?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
