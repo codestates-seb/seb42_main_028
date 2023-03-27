@@ -29,7 +29,6 @@ const Button = styled.button`
 //모달창
 const Contents = styled.div`
 	margin: 50px 30px;
-
 	h1 {
 		font-size: 30px;
 		font-weight: 600;
@@ -57,10 +56,8 @@ const Button1 = styled.button`
 	border-radius: 10px;
 	color: black;
 	border: 1px solid black;
-
 	font-weight: 800;
 	cursor: pointer;
-
 	&:hover {
 		background-color: #898989;
 	}
@@ -73,10 +70,8 @@ const Button2 = styled.button`
 	background-color: blue;
 	border-radius: 10px;
 	color: white;
-
 	font-weight: 800;
 	cursor: pointer;
-
 	&:hover {
 		background-color: #898989;
 	}
@@ -98,7 +93,6 @@ function Membership() {
 		<>
 			{/* <Modal> */}
 			{/* <CloseButton onClick={onClickButton}></CloseButton>
-
 			{/* <h1>계정을 삭제 하시겠습니까?</h1>
 			<Button>
 				<Button1 onClick={() => navigate(-1)}>취소</Button1>
