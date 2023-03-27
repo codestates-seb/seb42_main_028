@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Overlay = styled.div`
 	position: fixed;
@@ -88,6 +89,7 @@ function Modaldelect({ onClose }) {
 	// const onClickButton = () => {
 	// 	setIsOpen(true);
 	// };
+	const navigate = useNavigate();
 
 	const handleClose = () => {
 		onClose?.();
@@ -99,7 +101,7 @@ function Modaldelect({ onClose }) {
 	const handleDeleteAccount = async () => {
 		try {
 			const res = await axios.delete(
-				`${process.env.REACT_APP_SERVER_URL}/users`,
+				`${process.env.REACT_APP_SERVER_URL}/users/${1}`,
 				{
 					headers: {
 						Authorization: token,
@@ -114,6 +116,7 @@ function Modaldelect({ onClose }) {
 			if (res) {
 				localStorage.removeItem('refreshToken');
 				alert('그동안 이용해주셔서 감사합니다.');
+				navigate('/main');
 			}
 		} catch (e) {
 			console.log(e);
