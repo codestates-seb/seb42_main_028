@@ -23,11 +23,11 @@ public class CommentVote extends Auditable {
     @Enumerated(value = EnumType.STRING)
     private VoteType commntVoteType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commentId")
     private Comment comment;
 

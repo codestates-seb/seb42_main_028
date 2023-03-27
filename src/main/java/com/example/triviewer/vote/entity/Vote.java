@@ -24,11 +24,11 @@ public class Vote extends Auditable {
     @Enumerated(value = EnumType.STRING)
     private VoteType voteType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reviewId")
     private Review review;
 
