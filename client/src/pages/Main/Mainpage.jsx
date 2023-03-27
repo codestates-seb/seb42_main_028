@@ -6,6 +6,7 @@ import ad3 from '../../assets/ad3.png';
 import styled, { ThemeProvider } from 'styled-components';
 import Button from '../../components/Button';
 import Star from '../../components/Star';
+import s1 from '../../assets/s1.png';
 
 //배너
 const GroupButtonImg = styled.img`
@@ -61,8 +62,13 @@ const AppBlock = styled.div`
 	/* align-content: stretch; */
 `;
 
-//✭
-// const ContainerButton = styled.div`
+const ButtonImg = styled.img`
+	&:hover {
+		cursor: pointer;
+		filter: brightness(0.7);
+	}
+`;
+
 // 	padding: 0.8rem 1rem;
 // 	grid-template-columns: repeat(3, 1fr);
 // `;
@@ -80,12 +86,13 @@ function Mainpage() {
 		>
 			<>
 				<GroupButton name='sss' event>
+					{/* 여기 */}
 					<GroupButtonImg onClick={() => navigate('/review')} src={ad} />
 				</GroupButton>
 			</>
 			<Title>서울 추천</Title>
 			<AppBlock>
-				<Button></Button>
+				<ButtonImg onClick={() => navigate('/review')} src={s1}></ButtonImg>
 				<Button></Button>
 				<Button></Button>
 				<Button size='small'>

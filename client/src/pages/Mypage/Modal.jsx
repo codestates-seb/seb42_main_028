@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Overlay = styled.div`
@@ -90,6 +91,33 @@ function Modal({ onClose }) {
 	const handleClose = () => {
 		onClose?.();
 	};
+
+	const [inputs, setInputs] = useState({
+		originPassword: '',
+		newPassword: '',
+	});
+
+	// 비밀번호 수정 요청
+	const submitPassword = async () => {
+		try {
+			return await axios
+				.patch(`${process.env.REACT_APP_SERVER_URL}/users/${5}`, {
+					originPassword: inputs.originPassword,
+					password: inputs.newPassword,
+				})
+				.then((res) => {
+					if (res) {
+						setInputs({ originPassword: '', newPassword: '' });
+						alert('비밀번호가 변경되었습니다');
+					} else {
+						alert('비밀번호를 확인해주세요');
+					}
+				});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	return (
 		<Overlay>
 			<ModalWrap>
@@ -98,7 +126,7 @@ function Modal({ onClose }) {
 					<h1>수정사항을 저장 하시겠습니까?</h1>
 					<Button>
 						<Button1 onClick={handleClose}>취소</Button1>
-						<Button2 onClick={handleClose}>확인</Button2>
+						<Button2 onClick={submitPassword}>확인</Button2>
 					</Button>
 				</Contents>
 			</ModalWrap>
