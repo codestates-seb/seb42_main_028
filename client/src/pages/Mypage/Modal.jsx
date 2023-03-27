@@ -38,7 +38,6 @@ const CloseButton = styled.div`
 //모달창
 const Contents = styled.div`
 	margin: 50px 30px;
-
 	h1 {
 		font-size: 30px;
 		font-weight: 600;
@@ -61,10 +60,8 @@ const Button1 = styled.button`
 	border-radius: 10px;
 	color: black;
 	border: 1px solid black;
-
 	font-weight: 800;
 	cursor: pointer;
-
 	&:hover {
 		background-color: #898989;
 	}
@@ -77,10 +74,8 @@ const Button2 = styled.button`
 	background-color: blue;
 	border-radius: 10px;
 	color: white;
-
 	font-weight: 800;
 	cursor: pointer;
-
 	&:hover {
 		background-color: #898989;
 	}
