@@ -16,6 +16,7 @@ public interface UserMapper {
 
     User userToUserResponseDto(User user);
 
+
     UserResponseDto userPageResponseDto(User user);
 
 }

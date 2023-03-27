@@ -2,11 +2,10 @@ package com.example.triviewer.auth.config;
 
 
 import com.example.triviewer.auth.filter.JwtAuthenticationFilter;
-import com.example.triviewer.auth.handler.UserAccessDeniedHandler;
-import com.example.triviewer.auth.handler.UserAuthenticationEntryPoint;
-import com.example.triviewer.auth.handler.UserAuthenticationFailureHandler;
-import com.example.triviewer.auth.handler.UserAuthenticationSuccessHandler;
+import com.example.triviewer.auth.handler.*;
 import com.example.triviewer.auth.jwt.JwtTokenizer;
+import com.example.triviewer.user.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,10 +26,20 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfiguration {
-    private final JwtTokenizer jwtTokenizer;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer) {
+    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+    private String clientId;
+
+    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
+    private String clientSecret;
+    private final JwtTokenizer jwtTokenizer;
+    private final UserRepository userRepository;
+
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
+                                 UserRepository userRepository) {
         this.jwtTokenizer = jwtTokenizer;
+        this.userRepository = userRepository;
     }
 
     @Bean
@@ -54,11 +63,11 @@ public class SecurityConfiguration {
                         /*
                          조건 추가
                          */
-                        .anyRequest().permitAll()
-//                        .oauth2Login()
+                        .anyRequest().permitAll())
+                        .oauth2Login(withDefaults());
 //                        .userInfoEndpoint()
 //                        .userService(customOAuth2UserService)
-                );
+
         return http.build();
     }
 

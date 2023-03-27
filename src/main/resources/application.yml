@@ -12,12 +12,20 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate # (1) ??? ?? ??  update -> create 변ㄱ
+      ddl-auto: create # (1) ??? ?? ??  update -> create 변ㄱ
     show-sql: true      # (2) SQL ?? ??
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
     database: mysql
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 838144333786-ols4gqq7crt0dv2e9iah6mnri8jh39nf.apps.googleusercontent.com           # (1)
+            clientSecret: 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  # (2)
+
 jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30

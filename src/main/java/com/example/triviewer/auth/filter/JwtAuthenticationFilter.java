@@ -1,9 +1,12 @@
 package com.example.triviewer.auth.filter;
 
 import com.example.triviewer.auth.dto.LoginDto;
+import com.example.triviewer.auth.dto.LoginResponseDto;
 import com.example.triviewer.auth.jwt.JwtTokenizer;
 import com.example.triviewer.auth.userdetails.MemberDetails;
+import com.example.triviewer.user.dto.UserResponseDto;
 import com.example.triviewer.user.entity.User;
+import com.example.triviewer.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +28,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
-//    AuthenticationManager는 로그인 인증 정보(Useremail/Password)를 전달받아 UserDetailsService와 인터랙션 한 뒤 인증 여부를 판단
+
+    //    AuthenticationManager는 로그인 인증 정보(Useremail/Password)를 전달받아 UserDetailsService와 인터랙션 한 뒤 인증 여부를 판단
 //    JwtTokenizer는 클라이언트가 인증에 성공할 경우, JWT를 생성 및 발급하는 역할
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
         this.authenticationManager = authenticationManager;
@@ -54,7 +58,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws ServletException, IOException {
 //        인증된 Authentication 객체가 생성되면서 principal 필드에 User 객체가 할당
-        User user = (User) authResult.getPrincipal();
+        MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
+        User user = memberDetails.getUser();
 
 //        Access Token을 생성
         String accessToken = delegateAccessToken(user);
@@ -64,13 +69,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("accessToken", "Bearer " + accessToken);
         response.setHeader("refreshToken", refreshToken);
 
-            this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // (1) 추가
+        // DB에 refreshToken 저장
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        UserResponseDto userInfo = new UserResponseDto();
+
+
+        ObjectMapper objectMapper = new ObjectMapper(); // 인증 정보를 DTO 클래스로 역직렬화하기 위한 인스턴스
+        String result = objectMapper.writeValueAsString(userInfo);
+
+        response.getWriter().write(result);
+
+
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // (1) 추가
 
     }
 //    Access Token과 Refresh Token을 생성하는 구체적인 로직
     private String delegateAccessToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", user.getEmail());
+        claims.put("email", user.getEmail());
         claims.put("roles", user.getRoles());
 
         String subject = user.getEmail();
