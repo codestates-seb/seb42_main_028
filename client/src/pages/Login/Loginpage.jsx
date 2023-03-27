@@ -211,10 +211,12 @@ const Loginpage = () => {
 		// localStorage.setItem('refreshToken', JSON.stringify(response.data.data));
 
 		localStorage.setItem('token', response.headers.get('accesstoken'));
+		localStorage.setItem('refreshToken', response.headers.get('refreshtoken'));
+		localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
 
 		setIsLogin(true);
 		navigate('/');
-		// console.log(response)
+
 		console.log(response.headers.get('accesstoken'));
 		console.log(response.headers.get('refreshtoken'));
 	};
