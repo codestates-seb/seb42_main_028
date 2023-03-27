@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # (1) ??? ?? ??  update -> create 변ㄱ
+      ddl-auto: validate # (1) ??? ?? ??  update -> create 변ㄱ
     show-sql: true      # (2) SQL ?? ??
     properties:
       hibernate:
@@ -22,3 +22,20 @@ jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
+cloud: #S3 업로드
+  aws:
+    credentials:
+      access-key: ${AWS_S3_ACCESSKEY}
+      secret-key: ${AWS_S3_SECRETKEY}
+    s3:
+      bucket: ${S3_BUCKET}
+#      endpoint: ${S3_ENDPOINT}
+    region:
+      static: ${S3_REGION} #ap-northeast-2
+    stack:
+      auto: false # Not using CloudFormation.
+  servlet: #S3 - Limit file size.
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
