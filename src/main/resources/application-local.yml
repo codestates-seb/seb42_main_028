@@ -1,13 +1,13 @@
 server:
   port: 8080
-  address:
+  address: localhost
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${RDS_ENDPOINT}:3306/triviewer?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: ${MYSQL_USERNAME}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://localhost:3306/triviewer
+    username: ${MYSQL_LOCAL_USERNAME}
+    password: ${MYSQL_LOCAL_PASSWORD}
 
 
   jpa:
@@ -30,7 +30,7 @@ cloud: #S3 업로드
       secret-key: ${AWS_S3_SECRETKEY}
     s3:
       bucket: ${S3_BUCKET}
-#      endpoint: ${S3_ENDPOINT}
+    #      endpoint: ${S3_ENDPOINT}
     region:
       static: ${S3_REGION} #ap-northeast-2
     stack:
