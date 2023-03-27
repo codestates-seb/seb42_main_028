@@ -27,12 +27,6 @@ public class Review extends Auditable {
     @Column(nullable = false, length = 2000)
     private String content;
 
-//    @OneToMany(mappedBy = "review")
-//    private List<S3UpImg> s3UpImgs = new ArrayList<>();
-
-    //TODO: Set visitDate, location (latitude, longitude). Option: pointer on the map?
-
-
     // 좋아요 초깃값을 0으로 설정
     @Column(nullable = false)
     private int likeCount = 0;
