@@ -74,7 +74,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         UserResponseDto userInfo = new UserResponseDto();
-
+        userInfo.setEmail(user.getEmail());
+        userInfo.setUserId(user.getUserId());
+        userInfo.setRoles(user.getRoles());
+        userInfo.setUserName(user.getUserName());
 
         ObjectMapper objectMapper = new ObjectMapper(); // 인증 정보를 DTO 클래스로 역직렬화하기 위한 인스턴스
         String result = objectMapper.writeValueAsString(userInfo);

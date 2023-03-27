@@ -12,7 +12,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # (1) ??? ?? ??  update -> create 변ㄱ
+      ddl-auto: validate # (1) ??? ?? ??  update -> create 변ㄱ
     show-sql: true      # (2) SQL ?? ??
     properties:
       hibernate:
@@ -23,8 +23,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 838144333786-ols4gqq7crt0dv2e9iah6mnri8jh39nf.apps.googleusercontent.com           # (1)
-            clientSecret: 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  # (2)
+            clientId: ${GOOGLE_OAUTH2_ID}           # (1)
+            clientSecret: ${GOOGLE_OAUTH2_PASSWORD}  # (2)
 
 jwt:
   secret-key: ${JWT_SECRET_KEY}
