@@ -95,8 +95,8 @@ const StarContainer =styled.div`
 const StarInput =styled.input`
    display: none;
 	&:checked~label{
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-	}
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+    }
 `
 const StarLabel=styled.label`
    cursor: pointer;
@@ -117,10 +117,9 @@ const { isLogin } = useIsLoginStore(state => state);
 
 const pathData = {
     content: '',
-	title: '',
-	tag:'',
-    memberId: null,
-	fileImg:''
+	 title: '',
+	 tag:'',
+	 fileImg:''
 };
 
 const [title, setTitle] = useState('');
@@ -153,7 +152,7 @@ const dateHandlerChange = e => {
 //axios
 const pathUserWriteData = async () => {
     const response = await axios
-      .post('http://', pathData)
+      .post(`${process.env.REACT_APP_SERVER_URL}/reviews/{review-id}`, pathData)
       .catch(error => {
         console.error(error);
       });
@@ -176,7 +175,6 @@ const handlerSubmit = e => {
       'pathData',
        pathData.title,
        pathData.content
-        
 	      );
     } else {
       alert('You need to Login.');
@@ -237,6 +235,7 @@ const handlerSubmit = e => {
 			)
          }
 		 <input
+       multiple={true}
 		  name='imgUpload'
          type='file'
 		 accept='image/*'
@@ -253,12 +252,6 @@ const handlerSubmit = e => {
 				/>
 			)
          }
-		 <input
-		  name='imgUpload'
-         type='file'
-		 accept='image/*'
-		 onChange={saveFileImg} 
-		  />
 		 </div>
 		 <div>
 		{
@@ -270,13 +263,6 @@ const handlerSubmit = e => {
 				/>
 			)
          }
-		 <input
-		  name='imgUpload'
-         type='file'
-		 multiple={true}
-		 accept='image/*'
-		 onChange={saveFileImg} 
-		  />
 		 </div>
 		{/* <Img style={{marginRight:'4px'}} src={이미지}/>
 		<Img style={{backgroundColor:'white',marginRight:'4px'}}src={이미지}/>
