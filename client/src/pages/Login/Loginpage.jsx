@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { React, useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useMutation } from '@tanstack/react-query';
-import { useIsLoginStore, useLoginInfoStore } from '../../store/loginstore';
+import { useIsLoginStore } from '../../store/loginstore';
 import axios from 'axios';
 
 const Logoimg = styled.img`
@@ -143,7 +143,7 @@ const Loginpage = () => {
 	const [password, setPassword] = useState();
 
 	const [errorMessageContent, setErrorMessageContent] = useState();
-	const [checked, setChecked] = useState(false);
+	// const [checked, setChecked] = useState(false);
 	const emailInputRef = useRef();
 	const passwordInputRef = useRef();
 
@@ -151,31 +151,74 @@ const Loginpage = () => {
 
 	const { setIsLogin } = useIsLoginStore((state) => state);
 
-	const { loginInfo, setLoginInfo } = useLoginInfoStore((state) => state);
-
 	const data = { email: email, password: password };
 
-	const postLoginData = () => {
+	// const postLoginData = () => {
+	// 	const headers = {
+	// 		'Access-Control-Allow-Origin': '*',
+	// 		'Content-Type': 'application/json',
+	// 	};
+
+	// 	return axios.post(
+	// 		`${process.env.REACT_APP_SERVER_URL}/auth/login`,
+	// 		data,
+	// 		headers,
+	// 		{ withCredentials: true },
+	// 	);
+	// };
+
+	// const postLoginData = async () => {
+	// 	const headers = {
+	// 		'Access-Control-Allow-Origin': '*',
+	// 		'Content-Type': 'application/json',
+	// 	};
+	// 	try {
+	// 		const result = await axios.post(
+	// 			`${process.env.REACT_APP_SERVER_URL}/auth/login`,
+	// 			data,
+	// 			headers,
+	// 			{ withCredentials: true },
+	// 		);
+	// 		console.log(result);
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// };
+
+	const postLoginData = async () => {
 		const headers = {
 			'Access-Control-Allow-Origin': '*',
 			'Content-Type': 'application/json',
 		};
-
-		return axios.post(
-			`${process.env.REACT_APP_SERVER_URL}/auth/login`,
-			data,
-			headers,
-			{ withCredentials: true },
-		);
+		try {
+			return await axios.post(
+				`${process.env.REACT_APP_SERVER_URL}/auth/login`,
+				data,
+				headers,
+				{ withCredentials: true },
+			);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const postLoginOnSuccess = (response) => {
-		localStorage.setItem('refreshToken', response.headers.get('Refresh'));
-		localStorage.setItem('accessToken', response.headers.get('Authorization'));
+		// localStorage.setItem('refreshToken', response.headers.get('Refresh'));
+		// localStorage.setItem('accessToken', response.headers.get('Authorization'));
+		// localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
+
+		// localStorage.setItem('accessToken', JSON.stringify(response.data.token));
+		// localStorage.setItem('refreshToken', JSON.stringify(response.data.data));
+
+		localStorage.setItem('token', response.headers.get('accesstoken'));
+		localStorage.setItem('refreshToken', response.headers.get('refreshtoken'));
 		localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
 
 		setIsLogin(true);
 		navigate('/');
+
+		console.log(response.headers.get('accesstoken'));
+		console.log(response.headers.get('refreshtoken'));
 	};
 
 	const postLoginOnError = (err) => {

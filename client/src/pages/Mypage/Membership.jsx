@@ -1,103 +1,44 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Modaldelect from './Modaldelect';
+import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
-import Modal from './Modal';
-// import Button from '../../components/Button';
-import profile from '../../assets/profile.png';
+import axios from 'axios';
 
-const Container = styled.div`
-	display: flex;
-	width: 540px;
-    width:100% 
-    width: max-content;
-	padding: 1rem;
-	margin: 136px auto 136px auto;
-	border: 1px solid blue;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-`;
+// async function getUser() {
+// 	// async, await을 사용하는 경우
+// 	try {
+// 		// GET 요청은 params에 실어 보냄
+// 		const response = await axios.get('/user', {
+// 			params: {
+// 				ID: 12345,
+// 			},
+// 		});
 
-const ProfileImg = styled.img`
-	width: 30%;
-	/* height: auto; */
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	padding: 0.1rem;
-	margin: 4px auto 4px auto;
-	border: 1px solid red;
-`;
+// 		// 응답 결과(response)를 변수에 저장하거나.. 등 필요한 처리를 해주면 됨.
 
-const Name = styled.div`
-	width: 100%;
-	width: 500px;
-	/* height: auto; */
-	display: flex;
-	width: max-content;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-`;
-//이름변경버튼 4개 묶음
-const NavBox = styled.div`
-justify-content: center;
-    align-items: center;
-	width: 516px;
-    width:100% 
-    width: max-content;
-	display: flex;
-	margin: 2.5rem auto 2.5rem auto;
-	padding: 0.2rem;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 12px 32px;
-	`;
+// 		await axios.get('/user?ID=12345'); // 위의 요청과 동일
 
-// 회원탈퇴, 이름변경 ...버튼
-const NavButton = styled.div`
-display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 2.5rem auto 2.5rem auto;
-	width:100% 
-	width: max-content;
-	height: 35px;
-	background-color: white;
-	color:black;
-	font-size: 1.2rem;
-	font-weight: 600;
-	/*   */
-	border-radius: 5px;
-	/* box-shadow: inset 0 1px 0 0 #e4e4e4; */
-	&:hover {
-		cursor: pointer;
-	}
-	`;
+// 		var userId = 12345;
+// 		await axios.get(`/user?ID=${userId}`); // Backtick(`)을 이용해 이렇게 요청할 수도 있다.
 
-const ChangeName = styled.div`
-	display: flex;
-	padding-bottom: 1rem;
-`;
-
-const Input = styled.input`
-	width: 100%;
-	height: 36px;
-	border: 1px solid #babbba;
-	border-radius: 4px;
-	padding-left: 8px;
-`;
+// 		console.log(response);
+// 	} catch (e) {
+// 		// 실패 시 처리
+// 		console.error(e);
+// 	}
+// }
 
 const Button = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 20px;
+	margin: 24px 0 24px 0;
 	width: 15%;
 	height: 35px;
 	background-color: #fd8e0d;
 	color: #fff;
-	font-size: 1.2rem;
+	font-size: 20px;
 	font-weight: 600;
 	border: 1px solid #fd8e0d;
 	border-radius: 5px;
@@ -107,52 +48,93 @@ const Button = styled.div`
 	}
 `;
 
-function Mypage() {
-	// const navigate = useNavigate();
+//모달창
+// const Contents = styled.div`
+// 	margin: 50px 30px;
+
+// 	h1 {
+// 		font-size: 30px;
+// 		font-weight: 600;
+// 		margin-bottom: 60px;
+// 		/* gap: 12px 32px; */
+// 	}
+// `;
+// const CloseButton = styled.div`
+// 	/* float: right;
+// 	width: 40px;
+// 	height: 40px;
+// 	margin: 20px;
+// 	cursor: pointer;
+// 	i {
+// 		color: #f40909;
+// 		font-size: 30px;
+// 	} */
+// `;
+// const Button1 = styled.button`
+// 	margin-right: 20px;
+// 	font-size: 14px;
+// 	padding: 10px 20px;
+// 	border: none;
+// 	background-color: white;
+// 	border-radius: 10px;
+// 	color: black;
+// 	border: 1px solid black;
+
+// 	font-weight: 800;
+// 	cursor: pointer;
+
+// 	&:hover {
+// 		background-color: #898989;
+// 	}
+// `;
+
+// const Button2 = styled.button`
+// 	font-size: 14px;
+// 	padding: 10px 20px;
+// 	border: none;
+// 	background-color: blue;
+// 	border-radius: 10px;
+// 	color: white;
+
+// 	font-weight: 800;
+// 	cursor: pointer;
+
+// 	&:hover {
+// 		background-color: #898989;
+// 	}
+// `;
+
+function Membership() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const onClickButton = () => {
 		setIsOpen(true);
 	};
+	// const handleClose = () => {
+	// 	onClose?.();
+	// 	setIsOpen(true);
+	// };
+	// const navigate = useNavigate();
+
 	return (
 		<>
-			{/* <profileButton name='sss' event>
-				<profileImg onClick={() => navigate('/review')} src={profile} />
-			</profileButton> */}
-
-			<Container>
-				{/* 파일업로드 부분 찾아서 
-				<ProfileImg onClick={() => navigate('/review')} src={profile} /><ProfileImg onClick={() => navigate('/review')} src={profile} /> */}
-				<ProfileImg src={profile} />
-				<Name>김코딩</Name>
-				<NavBox>
-					<NavButton>이름변경</NavButton>
-					<NavButton>내가 쓴 글</NavButton>
-					<NavButton>캘린더</NavButton>
-					<NavButton>회원탈퇴</NavButton>
-				</NavBox>
-
-				<ChangeName>이름</ChangeName>
-
-				<Input />
-				<Button onClick={onClickButton}>변경</Button>
-				{isOpen && (
-					<Modal
-						open={isOpen}
-						onClose={() => {
-							setIsOpen(false);
-						}}
-					/>
-				)}
-				{/* <Button
-					onClick={() => {
-						navigate('/mypage');
+			<Button onClick={onClickButton}>탈퇴</Button>
+			{/* <Modal>
+				<h1>계정을 삭제 하시겠습니까?</h1>
+				<Button>
+					<Button onClick={() => navigate(-1)}>취소</Button>
+					<Button onClick={onClickButton}>확인</Button>
+				</Button>
+			</Modal> */}
+			{isOpen && (
+				<Modaldelect
+					open={isOpen}
+					onClose={() => {
+						setIsOpen(false);
 					}}
-				>
-					변경
-				</Button> */}
-			</Container>
+				/>
+			)}
 		</>
 	);
 }
-export default Mypage;
+export default Membership;

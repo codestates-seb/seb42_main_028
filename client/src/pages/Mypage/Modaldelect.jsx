@@ -1,6 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Overlay = styled.div`
 	position: fixed;
@@ -82,32 +83,41 @@ const Button2 = styled.button`
 	}
 `;
 
-function Modal({ onClose }) {
+function Modaldelect({ onClose }) {
+	// const [isOpen, setIsOpen] = useState(false);
+
+	// const onClickButton = () => {
+	// 	setIsOpen(true);
+	// };
+	const navigate = useNavigate();
+
 	const handleClose = () => {
 		onClose?.();
 	};
 
-	const [inputs, setInputs] = useState({
-		originPassword: '',
-		newPassword: '',
-	});
+	const refreshToken = localStorage.getItem('refreshToken');
+	const token = localStorage.getItem('accessToken');
 
-	// 비밀번호 수정 요청
-	const submitPassword = async () => {
+	const handleDeleteAccount = async () => {
 		try {
-			return await axios
-				.patch(`${process.env.REACT_APP_SERVER_URL}/users/${5}`, {
-					originPassword: inputs.originPassword,
-					password: inputs.newPassword,
-				})
-				.then((res) => {
-					if (res) {
-						setInputs({ originPassword: '', newPassword: '' });
-						alert('비밀번호가 변경되었습니다');
-					} else {
-						alert('비밀번호를 확인해주세요');
-					}
-				});
+			const res = await axios.delete(
+				`${process.env.REACT_APP_SERVER_URL}/users/${1}`,
+				{
+					headers: {
+						Authorization: token,
+					},
+					data: {
+						accessToken: token,
+						refreshToken: refreshToken,
+					},
+				},
+			);
+
+			if (res) {
+				localStorage.removeItem('refreshToken');
+				alert('그동안 이용해주셔서 감사합니다.');
+				navigate('/main');
+			}
 		} catch (e) {
 			console.log(e);
 		}
@@ -118,10 +128,10 @@ function Modal({ onClose }) {
 			<ModalWrap>
 				<CloseButton onClick={handleClose}></CloseButton>
 				<Contents>
-					<h1>수정사항을 저장 하시겠습니까?</h1>
+					<h1>계정을 삭제 하시겠습니까?</h1>
 					<Button>
 						<Button1 onClick={handleClose}>취소</Button1>
-						<Button2 onClick={submitPassword}>확인</Button2>
+						<Button2 onClick={handleDeleteAccount}>확인</Button2>
 					</Button>
 				</Contents>
 			</ModalWrap>
@@ -129,4 +139,4 @@ function Modal({ onClose }) {
 	);
 }
 
-export default Modal;
+export default Modaldelect;

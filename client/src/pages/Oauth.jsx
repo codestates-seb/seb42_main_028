@@ -31,6 +31,7 @@ const Oauth = () => {
 
 	const getUserInfoOnSuccess = (response) => {
 		localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
+		// localStorage.setItem('token', response.headers.get('accesstoken'));
 		navigate('/');
 	};
 

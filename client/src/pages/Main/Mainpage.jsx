@@ -6,47 +6,41 @@ import ad3 from '../../assets/ad3.png';
 import styled, { ThemeProvider } from 'styled-components';
 import Button from '../../components/Button';
 import Star from '../../components/Star';
+import s1 from '../../assets/s1.png';
 
 //배너
 const GroupButtonImg = styled.img`
-	width: 125%;
+	width: 1002px;
 	object-fit: cover;
 	margin: -4px 20px 20px 20px;
 
 	/* height: 1200%; */
 `;
 const GroupButton = styled.div`
-/* 	배너 반은형 완성 */
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    width: 1000px;
-    width:100% 
-    width: max-content;
-    padding: 4rem 6.2rem 4rem 6.2rem;
-	margin: 10px  auto 0  auto;
-    /* border: 1px solid red; */
-    /* color:red;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	width: 1000px;
+	padding: 40px 96px 40px 96px;
+	margin: 10px auto 0 auto;
+	/* border: 1px solid red; */
+	/* color:red;
    font-size: 1.6rem;
    font-weight: 700; */
-   /* font-shadow:4px; */
-   /* font-shadow: 0 4px 4px 0; */
-  
+	/* font-shadow:4px; */
+	/* font-shadow: 0 4px 4px 0; */
 `;
 
 const Title = styled.div`
-
-/* justify-content: center;
+	/* justify-content: center;
     align-items: center; */
-    display: flex;
-    width: 1000px;
-    width:100% 
-    width: max-content;
-	padding: 0.4rem 0.4rem 0.4rem 1.8rem;
-	margin: 10px  auto 0  auto;
+	display: flex;
+	width: 1000px;
+	padding: 0 0 4px 8px;
+	margin: auto;
 	/* border: 1px solid red; */
 	color: black;
-	font-size: 1.6rem;
+	font-size: 28px;
 	font-weight: 900;
 `;
 
@@ -55,10 +49,10 @@ const AppBlock = styled.div`
 	display: grid;
 	width: 1000px;
 	margin: 8px auto 0 auto;
-	padding: 0.8rem;
+	padding: 8px;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 12px 32px;
-	font-size: 1.2rem;
+	font-size: 12px;
 	/* border: 1px solid red; */
 
 	/* box-shadow: 0 4px 4px 0; */
@@ -68,8 +62,13 @@ const AppBlock = styled.div`
 	/* align-content: stretch; */
 `;
 
-//✭
-// const ContainerButton = styled.div`
+const ButtonImg = styled.img`
+	&:hover {
+		cursor: pointer;
+		filter: brightness(0.7);
+	}
+`;
+
 // 	padding: 0.8rem 1rem;
 // 	grid-template-columns: repeat(3, 1fr);
 // `;
@@ -87,12 +86,13 @@ function Mainpage() {
 		>
 			<>
 				<GroupButton name='sss' event>
+					{/* 여기 */}
 					<GroupButtonImg onClick={() => navigate('/review')} src={ad} />
 				</GroupButton>
 			</>
 			<Title>서울 추천</Title>
 			<AppBlock>
-				<Button></Button>
+				<ButtonImg onClick={() => navigate('/review')} src={s1}></ButtonImg>
 				<Button></Button>
 				<Button></Button>
 				<Button size='small'>
