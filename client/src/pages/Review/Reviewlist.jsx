@@ -6,7 +6,7 @@ import {MdExpandMore}from 'react-icons/md';
 
 const Card = styled.div`
 margin-top: 20px;
-	width: 1000px;
+	width: 100%;
     height: 760px;
     border-top:solid 1px #FD8E0D ;
     background-color: white;
@@ -14,7 +14,7 @@ margin-top: 20px;
 
 `
 const List = styled.div`
-	width: 940px;
+	width: 100%;
     height: 170px;
     border:solid 1px #FD8E0D ;
     border-radius: 2px;
@@ -23,7 +23,7 @@ const List = styled.div`
 
 `
 const Input = styled.input`
-	width: 800px;
+	width: 90%;
 	height: 36px;
 	padding-left: 12px;
 	border-radius: 10px;
@@ -49,7 +49,7 @@ box-shadow: 0px 1px 1px 1px rgb(0,0,0,0.2);
 cursor: pointer;
 font-size: 12px;
 	width: 47px;
-	height: 24px;
+	height: 27px;
 	border-radius: 10px;
 	color:${(props) => props.color }; 
     margin-right:${(props) => props.margin_right };
@@ -66,14 +66,14 @@ function Reviewlist(){
 
     return <>
 <Card>
- <Container margin='0px 0 18px 0px' >
-    <Flex style={{justifyContent:'center'}}>
+ <Container style={{justifyContent:'space-between'}} margin='0px 0 18px 0px' >
+    <Flex>
      <Input type="text"  maxLength="300" placeholder='로그인 후 댓글 작성이 가능합니다'/>
     </Flex>
-    <Button background_color='white' margin_right='4px'>확인</Button>
+    <Button background_color='white' margin_right='4px'>등록</Button>
  </Container>
  <Container margin='0px 0 4px 0px' >
-    <List padding='28px 44px '>
+    <List padding='20px 40px '>
      <Container>
      <FaUserCircle size='50' color='#424242'/>
      <Flex>
