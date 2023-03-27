@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
+import axios from 'axios';
 
 const Input = styled.input`
-	width: 100%;
-	height: 36px;
+	width: 60%;
+	height: 40px;
 	border: 1px solid #babbba;
 	border-radius: 4px;
 	padding-left: 8px;
+	font-size: 20px;
 `;
 
 //변경 버튼
@@ -16,12 +18,12 @@ const Button = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 20px;
+	margin: 24px 0 24px 0;
 	width: 15%;
 	height: 35px;
 	background-color: #fd8e0d;
 	color: #fff;
-	font-size: 1.2rem;
+	font-size: 20px;
 	font-weight: 600;
 	border: 1px solid #fd8e0d;
 	border-radius: 5px;
@@ -31,7 +33,7 @@ const Button = styled.div`
 	}
 `;
 
-function Rename() {
+function Password() {
 	// const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -54,4 +56,4 @@ function Rename() {
 		</>
 	);
 }
-export default Rename;
+export default Password;
