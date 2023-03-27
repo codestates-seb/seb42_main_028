@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Overlay = styled.div`
 	position: fixed;
@@ -87,24 +88,52 @@ const Button2 = styled.button`
 `;
 
 function Modaldelect({ onClose }) {
-	const [isOpen, setIsOpen] = useState(false);
+	// const [isOpen, setIsOpen] = useState(false);
 
-	const onClickButton = () => {
-		setIsOpen(true);
-	};
+	// const onClickButton = () => {
+	// 	setIsOpen(true);
+	// };
 
 	const handleClose = () => {
 		onClose?.();
 	};
+
+	const refreshToken = localStorage.getItem('refreshToken');
+	const token = localStorage.getItem('accessToken');
+
+	const handleDeleteAccount = async () => {
+		try {
+			const res = await axios.delete(
+				`${process.env.REACT_APP_SERVER_URL}/users`,
+				{
+					headers: {
+						Authorization: token,
+					},
+					data: {
+						accessToken: token,
+						refreshToken: refreshToken,
+					},
+				},
+			);
+
+			if (res) {
+				localStorage.removeItem('refreshToken');
+				alert('그동안 이용해주셔서 감사합니다.');
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	return (
 		<Overlay>
 			<ModalWrap>
-				<CloseButton onClick={onClickButton}></CloseButton>
+				<CloseButton onClick={handleClose}></CloseButton>
 				<Contents>
 					<h1>계정을 삭제 하시겠습니까?</h1>
 					<Button>
 						<Button1 onClick={handleClose}>취소</Button1>
-						<Button2 onClick={onClickButton}>확인</Button2>
+						<Button2 onClick={handleDeleteAccount}>확인</Button2>
 					</Button>
 				</Contents>
 			</ModalWrap>
