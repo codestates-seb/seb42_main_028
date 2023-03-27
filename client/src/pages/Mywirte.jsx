@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import defaultimg from '../assets/defaultimg.png';
+import food from '../assets/food.png';
 
 const Container = styled.div`
 	display: flex;
@@ -25,22 +27,22 @@ const Second = styled.div`
 const Imgon = styled.div`
 	display: flex;
 `;
-const Imgon2 = styled.div`
-	width: 80px;
-	height: 50px;
-	text-align: center;
-	background-color: gray;
-`;
+// const Imgon2 = styled.div`
+// 	width: 80px;
+// 	height: 50px;
+// 	text-align: center;
+// 	background-color: gray;
+// `;
 
 const Imgoff = styled.div`
 	display: flex;
 `;
-const Imgon3 = styled.div`
-	width: 80px;
-	height: 50px;
-	text-align: center;
-	background-color: gray;
-`;
+// const Imgon3 = styled.div`
+// 	width: 80px;
+// 	height: 50px;
+// 	text-align: center;
+// 	background-color: gray;
+// `;
 const TitleContainer = styled.div`
 	width: 500px;
 	height: 100px;
@@ -79,13 +81,32 @@ const Content2 = styled.div`
 	padding-top: 4px;
 `;
 
+const Img1 = styled.img`
+	width: 80px;
+	height: 60px;
+	&:hover {
+		cursor: pointer;
+		filter: brightness(0.7);
+	}
+`;
+
+const Img2 = styled.img`
+	width: 80px;
+	height: 60px;
+	&:hover {
+		cursor: pointer;
+		filter: brightness(0.7);
+	}
+`;
+
 const Mywrite = () => {
 	return (
 		<>
 			<Container>
 				<Fitst>
 					<Imgon>
-						<Imgon2>사진이 있는 경우</Imgon2>
+						<Img1 src={food}></Img1>
+						{/* <Imgon2>사진이 있는 경우</Imgon2> */}
 					</Imgon>
 					<TitleContainer>
 						<Title>글 제목입니다!!</Title>
@@ -94,7 +115,8 @@ const Mywrite = () => {
 				</Fitst>
 				<Second>
 					<Imgoff>
-						<Imgon3>기본 이미지</Imgon3>
+						<Img2 src={defaultimg}></Img2>
+						{/* <Imgon3>기본 이미지</Imgon3> */}
 					</Imgoff>
 					<TitleContainer2>
 						<Title2>글 제목입니다!!</Title2>
