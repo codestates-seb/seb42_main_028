@@ -101,7 +101,7 @@ function Modaldelect({ onClose }) {
 	const handleDeleteAccount = async () => {
 		try {
 			const res = await axios.delete(
-				`${process.env.REACT_APP_SERVER_URL}/users/${1}`,
+				`${process.env.REACT_APP_SERVER_URL}/users/${user - id}`,
 				{
 					headers: {
 						Authorization: token,

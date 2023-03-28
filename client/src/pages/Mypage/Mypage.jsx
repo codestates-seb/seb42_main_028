@@ -5,6 +5,7 @@ import Password from './Password';
 import Mywriting from './Mywriting';
 import Calender from './Calender';
 import Membership from './Membership';
+import Profile from './Profile';
 import profile from '../../assets/profile.png';
 // import axios from 'axios';
 
@@ -17,16 +18,37 @@ const Container = styled.div`
 	flex-direction: column;
 	/* border: 1px solid blue; */
 `;
-
-const ProfileImg = styled.img`
-	width: 30%;
-	/* height: auto; */
+const Box = styled.div`
+	width: 200px;
+	height: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	margin: 4px auto 4px auto;
-	/* border: 1px solid red; */
+	border: 1px solid blue;
+`;
+
+const ProfileImg = styled.img`
+	width: 180px;
+	height: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 4px auto 4px auto;
+	border: 1px solid black;
+`;
+
+const ProfileButton = styled.div`
+	width: 180px;
+	height: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 4px auto 4px auto;
+	border: 1px solid red;
 `;
 
 const Name = styled.div`
@@ -39,6 +61,7 @@ const Name = styled.div`
 	align-items: center;
 	text-align: center;
 	font-size: 16px;
+	border: 1px solid blue;
 `;
 //이름변경버튼 4개 묶음
 const NavBox = styled.div`
@@ -76,6 +99,14 @@ const NavButton = styled.div`
 
 function Mypage() {
 	const [menu, setMenu] = useState('');
+
+	// const [fileImg, setFileimg] = useState();
+
+	// const saveFileImg = (e) => {
+	// 	//파일 저장
+	// 	setFileimg(URL.createObjectURL(e.target.files[0]));
+	// };
+
 	// const navigate = useNavigate();
 	// const [isOpen, setIsOpen] = useState(false);
 
@@ -94,7 +125,7 @@ function Mypage() {
 					: '없음'}
 			</ProfileImg> */}
 			<Container>
-				{/* 파일업로드 부분 찾아서 
+				{/* 안도면 이거 살려서 파일업로드 부분 찾아서 
 				<ProfileImg onClick={() => navigate('/review')} src={profile} /><ProfileImg onClick={() => navigate('/review')} src={profile} /> */}
 
 				{/* <ProfileImg
@@ -102,8 +133,20 @@ function Mypage() {
 				></ProfileImg> */}
 
 				{/* <ProfileImg onClick={onClickProfileImg}>변경</ProfileImg> */}
+				{/* <ProfileImgButton> */}
+				<Box>
+					<ProfileImg src={profile} />
+					{/* </ProfileImgButton> */}
 
-				<ProfileImg src={profile} />
+					{/* <ProfileImg
+					onClick={() => setMenu('프로필 이미지 변경')}
+					src={profile}
+				/> */}
+
+					<ProfileButton
+						onClick={() => setMenu('프로필 이미지 변경')}
+					></ProfileButton>
+				</Box>
 				<Name>김코딩</Name>
 				<NavBox>
 					<NavButton onClick={() => setMenu('비밀번호 수정')}>
@@ -118,7 +161,7 @@ function Mypage() {
 
 					<NavButton onClick={() => setMenu('회원탈퇴')}>회원탈퇴</NavButton>
 				</NavBox>
-
+				{menu === '프로필 이미지 변경' && <Profile />}
 				{menu === '비밀번호 수정' && <Password />}
 				{menu === '내가 쓴 글' && <Mywriting />}
 				{menu === '달력' && <Calender />}
