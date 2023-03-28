@@ -9,6 +9,8 @@ spring:
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
+  main:
+    allow-circular-references: true
 
   jpa:
     hibernate:

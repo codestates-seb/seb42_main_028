@@ -8,6 +8,7 @@ import com.example.triviewer.user.dto.UserResponseDto;
 import com.example.triviewer.user.entity.User;
 import com.example.triviewer.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,19 +25,25 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
 
+    private final UserRepository userRepository;
+
+
 
     //    AuthenticationManager는 로그인 인증 정보(Useremail/Password)를 전달받아 UserDetailsService와 인터랙션 한 뒤 인증 여부를 판단
 //    JwtTokenizer는 클라이언트가 인증에 성공할 경우, JWT를 생성 및 발급하는 역할
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
+        this.userRepository = userRepository;
     }
 
-//    인증시도 로직
+    //    인증시도 로직
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
@@ -70,6 +77,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("refreshToken", refreshToken);
 
         // DB에 refreshToken 저장
+
+        // DB에 refreshToken 저장
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

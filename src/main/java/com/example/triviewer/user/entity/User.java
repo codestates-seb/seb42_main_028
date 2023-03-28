@@ -77,7 +77,9 @@ public class User extends Auditable {
 //    return  userEntity;
 //    }
 
-
+    public User(String email) {
+        this.email = email;
+    }
     public enum Role {
         USER("ROLE_USER"),
         ADMIN("ROLE_ADMIN");
