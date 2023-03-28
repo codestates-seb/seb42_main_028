@@ -212,7 +212,7 @@ const Loginpage = () => {
 
 		localStorage.setItem('token', response.headers.get('accesstoken'));
 		localStorage.setItem('refreshToken', response.headers.get('refreshtoken'));
-		localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
+		localStorage.setItem('userInfoStorage', JSON.stringify(response.data));
 
 		setIsLogin(true);
 		navigate('/');
