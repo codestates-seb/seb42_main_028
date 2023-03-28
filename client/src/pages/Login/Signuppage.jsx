@@ -285,7 +285,7 @@ const Signuppage = () => {
 		email: email,
 		password: password,
 		userName: userName,
-		// roles: 'USER',
+		roles: 'USER',
 	};
 
 	const postSignupData = () => {
