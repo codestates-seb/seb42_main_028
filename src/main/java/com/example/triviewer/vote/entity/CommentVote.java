@@ -1,7 +1,7 @@
 package com.example.triviewer.vote.entity;
 
+import com.example.triviewer.comment.entity.Comment;
 import com.example.triviewer.global.audit.Auditable;
-import com.example.triviewer.review.entity.Review;
 import com.example.triviewer.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,35 +15,34 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Vote extends Auditable {
-
+public class CommentVote extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long voteId;
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private VoteType voteType;
+    private VoteType commntVoteType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reviewId")
-    private Review review;
+    @JoinColumn(name = "commentId")
+    private Comment comment;
 
-    public Vote(User user, Review review) {
+    public CommentVote(User user, Comment comment) {
         this.user = user;
-        this.review = review;
+        this.comment = comment;
     }
 
     public void addUser(User user) {
         this.user = user;
-        user.addVote(this);
+        user.addCommentVote(this);
     }
 
-    public void addReview(Review review) {
-        this.review = review;
-        review.addVote(this);
+    public void addComment(Comment comment) {
+        this.comment = comment;
+        comment.addVote(this);
     }
 }

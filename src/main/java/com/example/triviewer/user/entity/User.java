@@ -3,6 +3,7 @@ package com.example.triviewer.user.entity;
 import com.example.triviewer.audit.Auditable;
 import com.example.triviewer.comment.entity.Comment;
 import com.example.triviewer.review.entity.Review;
+import com.example.triviewer.vote.entity.CommentVote;
 import com.example.triviewer.vote.entity.Vote;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -68,6 +69,9 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Vote> votes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<CommentVote> commentVotes = new ArrayList<>();
+
 //dto를 entity변환
 //    public  static UserEntity toSaveEntity(UserDTO userDTO){
 //    UserEntity userEntity = new UserEntity();
@@ -93,7 +97,11 @@ public class User extends Auditable {
 
     public void addVote(Vote vote) {
         votes.add(vote);
-        }
+    }
+
+    public void addCommentVote(CommentVote commentVote) {
+        commentVotes.add(commentVote);
+    }
 
     public enum UserRole {
         ROLE_USER,

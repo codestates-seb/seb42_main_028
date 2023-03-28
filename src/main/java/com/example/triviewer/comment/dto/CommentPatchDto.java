@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 public class CommentPatchDto {
 
     private long commentId;
+    private long userId;
+    private long reviewId;
     @NotBlank(message = "댓글은 공백일 수 없습니다.")
     private String answerContent;
 
