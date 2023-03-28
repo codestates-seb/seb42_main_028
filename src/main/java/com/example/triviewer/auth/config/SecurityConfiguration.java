@@ -74,7 +74,9 @@ public class SecurityConfiguration {
                          */
                         .anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, userService))  // (1)
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, userService))
+                        .authorizationEndpoint()
+                        .baseUri("/auth/login/oauth2")// (1)
                 );
 //                        .userInfoEndpoint()
 //                        .userService(customOAuth2UserService)
