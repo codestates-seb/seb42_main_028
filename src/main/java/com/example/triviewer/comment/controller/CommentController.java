@@ -11,6 +11,7 @@ import com.example.triviewer.global.dto.SingleResponseDto;
 import com.example.triviewer.review.entity.Review;
 import com.example.triviewer.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.*;
@@ -44,7 +45,6 @@ public class CommentController {
                 new SingleResponseDto<>(commentMapper.commentToCommentResponseDto(comment)), HttpStatus.CREATED);
     }
 
-    // 댓글 조회 및 댓글 수정 코드 수정 필요
     // 댓글 조회
     @GetMapping("/{comment-id}/check")
     public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId) {
@@ -66,17 +66,17 @@ public class CommentController {
 
     // 댓글 최신순 조회
     @GetMapping("/newest")
-    public List<CommentListResponseDto> getCommentsNew(@RequestParam("id") long id) {
+    public List<CommentListResponseDto> getCommentsNew(@RequestParam("id") long id, Pageable pageable) {
 
-        return commentRepository.findByReviewOrderByCreatedAtDesc(reviewService.findVerifiedReview(id)).stream().map((ele) ->
+        return commentRepository.findByReviewOrderByCreatedAtDesc(reviewService.findVerifiedReview(id), pageable).stream().map((ele) ->
                 CommentListResponseDto.commentListResponseDto(ele)).collect(Collectors.toList());
     }
 
     // 댓글 좋아요 많은 순 조회
     @GetMapping("/likes")
-    public List<CommentListResponseDto> getCommentsLike(@RequestParam("id") long id) {
+    public List<CommentListResponseDto> getCommentsLike(@RequestParam("id") long id, Pageable pageable) {
 
-        return commentRepository.findByReviewOrderByCommentLikeCountDesc(reviewService.findVerifiedReview(id)).stream().map((ele) ->
+        return commentRepository.findByReviewOrderByCommentLikeCountDesc(reviewService.findVerifiedReview(id), pageable).stream().map((ele) ->
                 CommentListResponseDto.commentListResponseDto(ele)).collect(Collectors.toList());
     }
 

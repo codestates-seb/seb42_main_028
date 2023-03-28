@@ -32,11 +32,6 @@ public class CommentService {
         comment.setReview(review);
 
         return commentRepository.save(comment);
-
-//        comment.addReview(reviewService.findReview(reviewId));
-//        Comment savedComment = commentRepository.save(comment);
-
-//        return savedComment;
     }
 
     // 댓글 찾기
@@ -47,10 +42,10 @@ public class CommentService {
     }
     // 댓글 전체 찾기
 
-    public Page<Comment> findComments(int page, int size) {
-        return commentRepository.findAll(PageRequest.of(page, size,
-                Sort.by("reviewId").descending()));
-    }
+//    public Page<Comment> findComments(int page, int size) {
+//        return commentRepository.findAll(PageRequest.of(page, size,
+//                Sort.by("reviewId").descending()));
+//    }
 
 //    public Page<Comment> findComments(int page, int size) {
 //        return commentRepository.findAll(PageRequest.of(page, size,
@@ -70,10 +65,10 @@ public class CommentService {
         return commentRepository.save(findComment);
     }
 
-    private void verifiedComment(Comment comment) {
-        // 회워 존재 여부 확인
-        userService.findUser(comment.getUser().getUserId());
-    }
+//    private void verifiedComment(Comment comment) {
+//        // 회워 존재 여부 확인
+//        userService.findUser(comment.getUser().getUserId());
+//    }
 
     // 댓글 삭제
     public void deleteComment(long commentId) {
