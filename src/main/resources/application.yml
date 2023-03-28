@@ -9,6 +9,8 @@ spring:
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
+  main:
+    allow-circular-references: true
 
   jpa:
     hibernate:
@@ -18,6 +20,14 @@ spring:
       hibernate:
         format_sql: true  # (3) SQL pretty print
     database: mysql
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${GOOGLE_OAUTH2_ID}           # (1)
+            clientSecret: ${GOOGLE_OAUTH2_PASSWORD}  # (2)
+
 jwt:
   secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30

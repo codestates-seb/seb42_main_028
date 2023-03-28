@@ -40,8 +40,12 @@ public class User extends Auditable {
     private String userName;
     @Column(length = 100)
     private String userMobile;
-
+    @Column
     private String profileImage;
+
+    @Column
+    private String  refreshToken;
+
 
     // (1) User의 권한 정보 테이블과 매핑되는 정보
     @ElementCollection(fetch = FetchType.EAGER)
@@ -77,7 +81,9 @@ public class User extends Auditable {
 //    return  userEntity;
 //    }
 
-
+    public User(String email) {
+        this.email = email;
+    }
     public enum Role {
         USER("ROLE_USER"),
         ADMIN("ROLE_ADMIN");

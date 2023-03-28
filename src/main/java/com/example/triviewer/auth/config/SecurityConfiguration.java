@@ -2,11 +2,15 @@ package com.example.triviewer.auth.config;
 
 
 import com.example.triviewer.auth.filter.JwtAuthenticationFilter;
-import com.example.triviewer.auth.handler.UserAccessDeniedHandler;
-import com.example.triviewer.auth.handler.UserAuthenticationEntryPoint;
-import com.example.triviewer.auth.handler.UserAuthenticationFailureHandler;
-import com.example.triviewer.auth.handler.UserAuthenticationSuccessHandler;
+import com.example.triviewer.auth.filter.JwtVerificationFilter;
+import com.example.triviewer.auth.handler.*;
 import com.example.triviewer.auth.jwt.JwtTokenizer;
+import com.example.triviewer.auth.userdetails.MemberDetailService;
+import com.example.triviewer.auth.utils.CustomAuthorityUtils;
+import com.example.triviewer.user.repository.UserRepository;
+import com.example.triviewer.user.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +19,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -26,12 +31,25 @@ import java.util.Arrays;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfiguration {
-    private final JwtTokenizer jwtTokenizer;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer) {
-        this.jwtTokenizer = jwtTokenizer;
-    }
+    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+    private String clientId;
+
+    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
+    private String clientSecret;
+    private final JwtTokenizer jwtTokenizer;
+    private final UserRepository userRepository;
+    private final CustomAuthorityUtils authorityUtils;
+    private final MemberDetailService memberDetailService;
+
+
+    private final UserService userService;
+
+
+
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -54,16 +72,20 @@ public class SecurityConfiguration {
                         /*
                          조건 추가
                          */
-                        .anyRequest().permitAll()
-//                        .oauth2Login()
+                        .anyRequest().permitAll())
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, userService))
+                        .authorizationEndpoint()
+                        .baseUri("/auth/login/oauth2")// (1)
+                );
 //                        .userInfoEndpoint()
 //                        .userService(customOAuth2UserService)
-                );
+
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder(){ //static으로 순환참조 해결
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -86,7 +108,7 @@ public class SecurityConfiguration {
         public void configure(HttpSecurity builder) throws Exception {  // (2-2)
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);  // (2-3)
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);  // (2-4)
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, userRepository);  // (2-4)
 //            디폴트 request URL변경
             jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");          // (2-5)
 
@@ -95,9 +117,14 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationFailureHandler(
                     new UserAuthenticationFailureHandler());
 
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils, memberDetailService);
 
-            builder.addFilter(jwtAuthenticationFilter);  // (2-6)
+
+            builder.addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
+
     }
 
 
