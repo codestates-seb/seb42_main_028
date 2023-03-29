@@ -7,8 +7,14 @@ import styled, { ThemeProvider } from 'styled-components';
 import Button from './Button';
 import Star from '../../components/Star';
 import s1 from '../../assets/s1.png';
-import s2 from '../../assets/s1.png';
-import j2 from '../../assets/s1.png';
+import s2 from '../../assets/s2.png';
+import s3 from '../../assets/s3.png';
+import J1 from '../../assets/J1.png';
+import J2 from '../../assets/J2.png';
+import J3 from '../../assets/J3.png';
+import H1 from '../../assets/H1.png';
+import H2 from '../../assets/H2.png';
+import H3 from '../../assets/H3.png';
 
 //배너
 const GroupButtonImg = styled.img`
@@ -86,9 +92,9 @@ function Mainpage() {
 		<ThemeProvider
 			theme={{
 				palette: {
-					blue: '#d3f4f3',
+					blue: '#f9fcfb',
 					gray: '#e5e9ed',
-					pink: '#f4e2e8',
+					pink: '#fefcfd',
 				},
 			}}
 		>
@@ -102,19 +108,19 @@ function Mainpage() {
 			<AppBlock>
 				<ButtonImg onClick={() => navigate('/review')} src={s1}></ButtonImg>
 				<ButtonnImg onClick={() => navigate('/review')} src={s2}></ButtonnImg>
-				<Button></Button>
-				<Button size='small'>
+				<ButtonnImg onClick={() => navigate('/review')} src={s3}></ButtonnImg>
+				<Button color='pink' size='small'>
 					<span>
-						서울 경복궁
+						종로 경복궁
 						<br />
 						<div>
 							<Star />
 						</div>
 					</span>
 				</Button>
-				<Button size='small'>
+				<Button color='pink' size='small'>
 					<span>
-						서울 카페
+						성수동 카페
 						<br />
 						<div>
 							<Star />
@@ -122,9 +128,9 @@ function Mainpage() {
 					</span>
 				</Button>
 
-				<Button size='small'>
+				<Button color='pink' size='small'>
 					<span>
-						신라호텔
+						강남 조선 팰리스
 						<br />
 						<div>
 							<Star />
@@ -138,13 +144,13 @@ function Mainpage() {
 			</GroupButton>
 			<Title>일본 추천</Title>
 			<AppBlock>
-				<ButtonImg onClick={() => navigate('/review')} src={j2}></ButtonImg>
-				<Button color='pink'></Button>
-				<Button color='pink'></Button>
+				<ButtonImg onClick={() => navigate('/review')} src={J1}></ButtonImg>
+				<ButtonImg onClick={() => navigate('/review')} src={J2}></ButtonImg>
+				<ButtonImg onClick={() => navigate('/review')} src={J3}></ButtonImg>
 
 				<Button color='pink' size='small'>
 					<span>
-						일본 도쿄
+						도쿄
 						<br />
 						<div>
 							<Star />
@@ -176,13 +182,13 @@ function Mainpage() {
 			</GroupButton>
 			<Title>제주도 추천</Title>
 			<AppBlock>
-				<Button color='blue'></Button>
-				<Button color='blue'></Button>
-				<Button color='blue'></Button>
+				<ButtonImg onClick={() => navigate('/review')} src={H1}></ButtonImg>
+				<ButtonImg onClick={() => navigate('/review')} src={H2}></ButtonImg>
+				<ButtonImg onClick={() => navigate('/review')} src={H3}></ButtonImg>
 
 				<Button color='blue' size='small'>
 					<span>
-						제주 성산일출봉
+						서귀포 성산일출봉
 						<br />
 						<div>
 							<Star />
@@ -200,13 +206,12 @@ function Mainpage() {
 				</Button>
 				<Button color='blue' size='small'>
 					<span>
-						제주 호텔
+						서귀포 신라호텔
 						<br />
 						<div>
 							<Star />
 						</div>
 					</span>
-					제주 호텔
 				</Button>
 			</AppBlock>
 		</ThemeProvider>
