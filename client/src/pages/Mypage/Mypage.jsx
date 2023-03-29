@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import { React, useEffect, useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
 import Password from './Password';
 import Mywriting from './Mywriting';
 import Calender from './Calender';
 import Membership from './Membership';
+import Profile from './Profile';
 import profile from '../../assets/profile.png';
-// import axios from 'axios';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import mypagestore from '../../store/mypagestore';
 
 const Container = styled.div`
 	display: flex;
@@ -17,16 +21,37 @@ const Container = styled.div`
 	flex-direction: column;
 	/* border: 1px solid blue; */
 `;
-
-const ProfileImg = styled.img`
-	width: 30%;
-	/* height: auto; */
+const Box = styled.div`
+	width: 200px;
+	height: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	margin: 4px auto 4px auto;
-	/* border: 1px solid red; */
+	/* border: 1px solid blue; */
+`;
+
+const ProfileImg = styled.img`
+	width: 180px;
+	height: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 4px auto 4px auto;
+	/* border: 1px solid black; */
+`;
+
+const ProfileButton = styled.div`
+	width: 180px;
+	height: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 4px auto 4px auto;
+	border: 1px solid red;
 `;
 
 const Name = styled.div`
@@ -39,6 +64,7 @@ const Name = styled.div`
 	align-items: center;
 	text-align: center;
 	font-size: 16px;
+	/* border: 1px solid blue; */
 `;
 //이름변경버튼 4개 묶음
 const NavBox = styled.div`
@@ -76,34 +102,48 @@ const NavButton = styled.div`
 
 function Mypage() {
 	const [menu, setMenu] = useState('');
-	// const navigate = useNavigate();
-	// const [isOpen, setIsOpen] = useState(false);
+	const { profileData, setProfileData } = mypagestore((state) => state);
+	const navigate = useNavigate();
+	const params = useParams();
+	const fetchData = () => {
+		return {
+			method: 'get',
+			url: `/mypage/users/${params.id}`,
+		};
+	};
 
-	// const onClickButton = () => {
-	// 	setIsOpen(true);
-	// };
+	const fetchDataOnSuccess = (response) => {
+		setProfileData(response.data && response.data);
+	};
+	const fetchDataOnError = (error) => {
+		if (error.response.status === 400) {
+			navigate('/404');
+		} else if (error.response.status === 404) {
+			navigate('/404');
+		}
+	};
+	const { isLoading } = useQuery({
+		queryKey: ['fetchUserProfileData'],
+		queryFn: fetchData,
+		keepPreviousData: true,
+		onSuccess: fetchDataOnSuccess,
+		onError: fetchDataOnError,
+		retry: false,
+	});
 
 	return (
 		<>
-			{/* <profileButton name='sss' event>
-				<profileImg onClick={() => navigate('/review')} src={profile} />
-			</profileButton> */}
-			{/* <ProfileImg>
-				{profileData && profileData.profile[0].address
-					? profileData && profileData.profile[0].address
-					: '없음'}
-			</ProfileImg> */}
 			<Container>
-				{/* 파일업로드 부분 찾아서 
-				<ProfileImg onClick={() => navigate('/review')} src={profile} /><ProfileImg onClick={() => navigate('/review')} src={profile} /> */}
-
-				{/* <ProfileImg
-					onClick={() => src = { profile }}
-				></ProfileImg> */}
-
-				{/* <ProfileImg onClick={onClickProfileImg}>변경</ProfileImg> */}
-
-				<ProfileImg src={profile} />
+				<Box>
+					<ProfileImg src={profile} />
+					{/* <ProfileImg
+						alt='dummy profile'
+						src={profileData && profileData.profile[0].image}
+					/> */}
+					{/* <ProfileButton
+						onClick={() => setMenu('프로필 이미지 변경')}
+					></ProfileButton> */}
+				</Box>
 				<Name>김코딩</Name>
 				<NavBox>
 					<NavButton onClick={() => setMenu('비밀번호 수정')}>
@@ -118,7 +158,7 @@ function Mypage() {
 
 					<NavButton onClick={() => setMenu('회원탈퇴')}>회원탈퇴</NavButton>
 				</NavBox>
-
+				{menu === '프로필 이미지 변경' && <Profile />}
 				{menu === '비밀번호 수정' && <Password />}
 				{menu === '내가 쓴 글' && <Mywriting />}
 				{menu === '달력' && <Calender />}
