@@ -4,9 +4,11 @@ import ad from '../../assets/ad.png';
 import ad2 from '../../assets/ad2.png';
 import ad3 from '../../assets/ad3.png';
 import styled, { ThemeProvider } from 'styled-components';
-import Button from '../../components/Button';
+import Button from './Button';
 import Star from '../../components/Star';
 import s1 from '../../assets/s1.png';
+import s2 from '../../assets/s1.png';
+import j2 from '../../assets/s1.png';
 
 //배너
 const GroupButtonImg = styled.img`
@@ -68,6 +70,12 @@ const ButtonImg = styled.img`
 		filter: brightness(0.7);
 	}
 `;
+const ButtonnImg = styled.img`
+	&:hover {
+		cursor: pointer;
+		filter: brightness(0.7);
+	}
+`;
 
 // 	padding: 0.8rem 1rem;
 // 	grid-template-columns: repeat(3, 1fr);
@@ -93,7 +101,7 @@ function Mainpage() {
 			<Title>서울 추천</Title>
 			<AppBlock>
 				<ButtonImg onClick={() => navigate('/review')} src={s1}></ButtonImg>
-				<Button></Button>
+				<ButtonnImg onClick={() => navigate('/review')} src={s2}></ButtonnImg>
 				<Button></Button>
 				<Button size='small'>
 					<span>
@@ -130,7 +138,7 @@ function Mainpage() {
 			</GroupButton>
 			<Title>일본 추천</Title>
 			<AppBlock>
-				<Button color='pink'></Button>
+				<ButtonImg onClick={() => navigate('/review')} src={j2}></ButtonImg>
 				<Button color='pink'></Button>
 				<Button color='pink'></Button>
 

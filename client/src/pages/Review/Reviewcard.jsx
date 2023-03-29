@@ -10,11 +10,13 @@ import Reviewlist from './Reviewlist';
 import Layout from '../../layout/Layout';
 
 const UserReview = styled.div`
+    /* max-width:950px ; */
     width: 100%;
     height: 330px;
 `
 const Card = styled.div`
     width: 100%;
+    max-width:950px ;
     min-width:360px;
     border-top:solid 1px #FD8E0D ;
     background-color: white;
@@ -44,7 +46,7 @@ const Text = styled.div`
 `
 const Img = styled.div`
    margin-left: ${(props) => props.margin_left };
-   width:75px;
+   min-width: 90px;
    height: 84px;
    background-color: #424242;
 `
@@ -91,7 +93,7 @@ return <>
          <Text marginbuttom='12px' fontsize= '13px' color='#808080'>
         방문날짜:4월7일
         </Text>
-        <Text>내용ddddddddddddddddddddddddddddddddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</Text>
+        <Text>내용dddㅇㅇ</Text>
     </Container>
     <Container margin_left='48px' margin_right='48px' margin_Top='4px'>
     <Img/>
@@ -105,7 +107,7 @@ return <>
      </Text>
      </Flex>
      <button onClick={()=>{
-     }}><MdExpandMore size='30' color='#FD8E0D'/></button>
+     }}><MdExpandMore style={{height:'auto'}} size='28' color='#FD8E0D'/></button>
     </Container>
 </Card>
 </UserReview>

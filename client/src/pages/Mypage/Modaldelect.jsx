@@ -89,19 +89,22 @@ function Modaldelect({ onClose }) {
 	// const onClickButton = () => {
 	// 	setIsOpen(true);
 	// };
+
+	// const params = useParams();
+
 	const navigate = useNavigate();
 
 	const handleClose = () => {
 		onClose?.();
 	};
-
 	const refreshToken = localStorage.getItem('refreshToken');
 	const token = localStorage.getItem('accessToken');
+	const userId = localStorage.getItem('userId');
 
 	const handleDeleteAccount = async () => {
 		try {
 			const res = await axios.delete(
-				`${process.env.REACT_APP_SERVER_URL}/users/${user - id}`,
+				`${process.env.REACT_APP_SERVER_URL}/users/${userId}`,
 				{
 					headers: {
 						Authorization: token,
