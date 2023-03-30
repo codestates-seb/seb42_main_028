@@ -28,7 +28,7 @@ const Modal = styled.div`
    padding: 10px;
    min-width: 380px;
    width: 37%;
-   height:680px;
+   height:700px;
 /* text-align: center; */
    padding :16px;
    background-color:  rgb(245, 245, 245);
@@ -118,8 +118,6 @@ const { isLogin } = useIsLoginStore(state => state);
 const pathData = {
     content: '',
 	 title: '',
-	 tag:'',
-	 fileImg:''
 };
 
 const [title, setTitle] = useState('');
@@ -130,6 +128,10 @@ const [date, setDate] = useState('');
 const navigate = useNavigate();
 
 const [fileImg,setFileimg] = useState(이미지);
+const [uploadedImg, setUploadedImg] = useState({
+   fileName: "",
+   fillPath: ""
+});
 
 //Handler
 const titleHandlerChange = e => {
@@ -167,7 +169,6 @@ const handlerSubmit = e => {
       e.preventDefault();
       pathData.title = title;
       pathData.content = content;
-      pathData.memberId = userInfo.memberId;
       const currentTime = new Date();
       pathData.createdAt = currentTime.toString();
       pathUserWriteData();
@@ -176,12 +177,29 @@ const handlerSubmit = e => {
        pathData.title,
        pathData.content
 	      );
-    } else {
+    } 
+    else {
       alert('You need to Login.');
       navigate('/login');
     }
   };
 
+  const imgSubmit = (e) => {
+   e.preventDefault();
+   const formData = new FormData();
+   formData.append("img",content);
+   axios
+       .post(`${process.env.REACT_APP_SERVER_URL}/images/image`, formData)
+       .then(res => {
+           const { fileName } = res.data;
+           console.log(fileName);
+           setUploadedImg({ fileName });
+           alert("The file is successfully uploaded");
+       })
+       .catch(error => {
+           console.error(error);
+       });
+};
 
 	// const [ previewImg, setPreviewImg ] = useState([]);
 
@@ -207,7 +225,7 @@ const handlerSubmit = e => {
 
 	const saveFileImg=(e)=>{ //파일 저장
 		setFileimg(URL.createObjectURL(e.target.files[0]));
-
+ console.log(e.target.files[0]);
 	}
 
 	// const deleteFileImg=()=>{ //파일 삭제
@@ -222,7 +240,7 @@ const handlerSubmit = e => {
 	<UserID >사용자아이디</UserID>
 	</Container>
 	<Container style={{display:'flex',justifyContent:'center'}}>
-		
+		<form onSubmit={imgSubmit}>
 		<div>
 		{
 			
@@ -241,8 +259,8 @@ const handlerSubmit = e => {
 		 accept='image/*'
 		 onChange={saveFileImg} 
 		  />
-		 </div>
-		 <div>
+		 {/* </div> */}
+		 {/* <div>
 		{
 			fileImg && (
 				<Img
@@ -262,11 +280,13 @@ const handlerSubmit = e => {
 				style={{margin:'auto'}} 
 				/>
 			)
-         }
+         } */}
 		 </div>
 		{/* <Img style={{marginRight:'4px'}} src={이미지}/>
 		<Img style={{backgroundColor:'white',marginRight:'4px'}}src={이미지}/>
 		<Img src={이미지}/> */}
+      <Button type='submit'>확인</Button>
+      </form>
 	</Container>
 	<StarContainer>
      <StarInput type='radio' name='star' value='5' id='5-star' />
