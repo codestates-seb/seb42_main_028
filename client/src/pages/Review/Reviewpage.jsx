@@ -27,7 +27,7 @@ const Review= styled.div`
    margin-top: 150px;
    min-width: 350px;
    /* width: 1000px; */
-   border: solid 1px red;
+   /* border: solid 1px red; */
    padding: 8px;
 `
 const TittleText=styled.div`
@@ -158,8 +158,8 @@ function Reviewpage() {
 			 </Button>
 			 </div>
 			</Container>
-			   {/* <Reviewcard/> */}
-               <DefaultReviewCard/>
+			   <Reviewcard/>
+               {/* <DefaultReviewCard/> */}
 			   <Reviewlist/>
           </Review>
 		</ReviewPage>
