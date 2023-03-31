@@ -36,18 +36,44 @@ const Button = styled.div`
 function Password() {
 	// const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
+	const userId = JSON.parse(localStorage.getItem('userInfoStorage'))?.userId;
+	const [inputs, setInputs] = useState('');
+
+	//비밀번호 수정 요청
+	const submitPassword = async () => {
+		console.log('비밀번호 수정');
+		setIsOpen(false);
+		if (userId)
+			try {
+				return await axios
+					.patch(`$(process. env.REACT_APP_SERVER_URL)/users/${userId}`, {
+						password: inputs.newPassword,
+					})
+					.then((res) => {
+						if (res) {
+							setInputs({ originPassword: '', newPassword: '' });
+							alert('비밀번호가 변경되었습니다');
+						} else {
+							alert('비밀번호를 확인해주세요');
+						}
+					});
+			} catch (e) {
+				console.log(e);
+			}
+	};
 
 	const onClickButton = () => {
 		setIsOpen(true);
 	};
+
 	return (
 		<>
-			{' '}
 			<Input />
 			<Button onClick={onClickButton}>변경</Button>
 			{isOpen && (
 				<Modal
 					open={isOpen}
+					handleSubmit={submitPassword}
 					onClose={() => {
 						setIsOpen(false);
 					}}
