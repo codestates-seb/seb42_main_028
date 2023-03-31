@@ -1,3 +1,4 @@
+//프로필
 import { React, useEffect, useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
@@ -11,94 +12,10 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import mypagestore from '../../store/mypagestore';
-
-const Container = styled.div`
-	display: flex;
-	width: 540px;
-	margin: 136px auto 136px auto;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	/* border: 1px solid blue; */
-`;
-const Box = styled.div`
-	width: 200px;
-	height: 200px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 4px auto 4px auto;
-	/* border: 1px solid blue; */
-`;
-
-const ProfileImg = styled.img`
-	width: 180px;
-	height: 180px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 4px auto 4px auto;
-	/* border: 1px solid black; */
-`;
-
-const ProfileButton = styled.div`
-	width: 180px;
-	height: 180px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 4px auto 4px auto;
-	border: 1px solid red;
-`;
-
-const Name = styled.div`
-	/* width: 100%; */
-	width: 50px;
-	/* height: auto; */
-	display: flex;
-	/* width: max-content; */
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	font-size: 16px;
-	/* border: 1px solid blue; */
-`;
-//이름변경버튼 4개 묶음
-const NavBox = styled.div`
-	justify-content: center;
-	align-items: center;
-	width: 520px;
-	/* width:100% 
-    width: max-content; */
-	display: flex;
-	margin: 24px auto 28px auto;
-	padding: 20px;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 1200px 32px;
-`;
-
-// 회원탈퇴, 이름변경 ...버튼
-const NavButton = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 10px;
-	margin: auto;
-	width: max-content;
-	height: 35px;
-	background-color: white;
-	color: black;
-	font-size: 20px;
-	font-weight: 600;
-	border-radius: 5px;
-	/* box-shadow: inset 0 1px 0 0 #e4e4e4; */
-	&:hover {
-		cursor: pointer;
-	}
-`;
+// import userStore from '../../store/userStore';
+import userInfo from '../../store/userInfo';
+import { userInfoStore } from '../../store/userInfo';
+import { isLoginStore } from '../../store/loginstore';
 
 function Mypage() {
 	const [menu, setMenu] = useState('');
@@ -108,7 +25,7 @@ function Mypage() {
 	const fetchData = () => {
 		return {
 			method: 'get',
-			url: `/mypage/users/${params.id}`,
+			url: `/mypage/users/${params.Id}`,
 		};
 	};
 
@@ -122,7 +39,7 @@ function Mypage() {
 			navigate('/404');
 		}
 	};
-	const { isLoading } = useQuery({
+	const { isLogin } = useQuery({
 		queryKey: ['fetchUserProfileData'],
 		queryFn: fetchData,
 		keepPreviousData: true,
@@ -130,6 +47,97 @@ function Mypage() {
 		onError: fetchDataOnError,
 		retry: false,
 	});
+
+	const userInfoStorage = localStorage.getItem('userInfoStorage');
+	const userInfo = JSON.parse(userInfo);
+
+	const Container = styled.div`
+		display: flex;
+		width: 540px;
+		margin: 136px auto 136px auto;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		/* border: 1px solid blue; */
+	`;
+	const Box = styled.div`
+		width: 200px;
+		height: 200px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		margin: 4px auto 4px auto;
+		/* border: 1px solid blue; */
+	`;
+
+	const ProfileImg = styled.img`
+		width: 180px;
+		height: 180px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		margin: 4px auto 4px auto;
+		/* border: 1px solid black; */
+	`;
+
+	// const ProfileButton = styled.div`
+	// 	width: 180px;
+	// 	height: 180px;
+	// 	display: flex;
+	// 	justify-content: center;
+	// 	align-items: center;
+	// 	text-align: center;
+	// 	margin: 4px auto 4px auto;
+	// 	border: 1px solid red;
+	// `;
+
+	const Name = styled.div`
+		/* width: 100%; */
+		width: 50px;
+		/* height: auto; */
+		display: flex;
+		/* width: max-content; */
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		font-size: 16px;
+		/* border: 1px solid blue; */
+	`;
+	//이름변경버튼 4개 묶음
+	const NavBox = styled.div`
+		justify-content: center;
+		align-items: center;
+		width: 520px;
+		/* width:100% 
+    width: max-content; */
+		display: flex;
+		margin: 24px auto 28px auto;
+		padding: 20px;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1200px 32px;
+	`;
+
+	// 회원탈퇴, 이름변경 ...버튼
+	const NavButton = styled.div`
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 10px;
+		margin: auto;
+		width: max-content;
+		height: 35px;
+		background-color: white;
+		color: black;
+		font-size: 20px;
+		font-weight: 600;
+		border-radius: 5px;
+		/* box-shadow: inset 0 1px 0 0 #e4e4e4; */
+		&:hover {
+			cursor: pointer;
+		}
+	`;
 
 	return (
 		<>
