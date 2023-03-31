@@ -8,6 +8,8 @@ import {MdExpandMore} from 'react-icons/md'
 import Star from '../../components/Star';
 import Reviewlist from './Reviewlist';
 import Layout from '../../layout/Layout';
+import Kame1 from '../../assets/후기1.png';
+import Kame2 from '../../assets/후기2.png'
 
 const UserReview = styled.div`
     /* max-width:950px ; */
@@ -44,7 +46,7 @@ const Text = styled.div`
    font-weight:  ${(props) => props.font_weight };
    color:${(props) => props.color }; ;
 `
-const Img = styled.div`
+const Img = styled.img`
    margin-left: ${(props) => props.margin_left };
    min-width: 90px;
    height: 84px;
@@ -72,7 +74,7 @@ return <>
         </Icon>
          <UserInfoContainer >
            <UserText>
-              사용자닉네임
+              김코딩
            </UserText>
              <Text marginbuttom='20px' color='#808080' fontsize='13px'>
                2023-03-13
@@ -88,17 +90,16 @@ return <>
          </Container>
        <Container display='block' margin_left='48px' margin_right='48px' >
          <Text marginbuttom='4px' fontsize= '16px' font_weight= 'bold' >
-           제목
+           카메스시 좋아요
          </Text>
          <Text marginbuttom='12px' fontsize= '13px' color='#808080'>
         방문날짜:4월7일
         </Text>
-        <Text>내용dddㅇㅇ</Text>
+        <Text>올해 갔다왔었는데 맛있었습니다</Text>
     </Container>
     <Container margin_left='48px' margin_right='48px' margin_Top='4px'>
-    <Img/>
-    <Img  margin_left='12px'/>
-    <Img  margin_left='12px'/>
+    <Img src={Kame1} />
+    <Img  src={Kame2} margin_left='12px'/>
     </Container>
     <Container margin_left='48px' margin_right='48px' margin_Top='4px'>
     <Flex >

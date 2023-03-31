@@ -30,7 +30,7 @@ function Card2(){
         위치
         </Text>
         <Text color='#424242'>
-            ddㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+        2 Chome-14-2 Sonezaki, Kita Ward, Osaka, 530-0057 일본
         </Text>
     </Container>
     <Container margin_top='20px' >
@@ -38,7 +38,7 @@ function Card2(){
         인근지역
         </Text>
         <Text color='#424242'>
-            dd
+            히가시우메다 역 근처
         </Text>
     </Container>
   </Cardbox>

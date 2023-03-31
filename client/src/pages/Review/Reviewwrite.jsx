@@ -10,6 +10,8 @@ import 이미지 from '../../assets/default.jpg'
 import { useUserInfoStore } from '../../store/userInfo';
 import { useIsLoginStore } from '../../store/loginstore';
 
+import Reviewpage from './Reviewpage';
+
 const Review = styled.div`
    position : absolute;
    top:0 ;
@@ -113,7 +115,7 @@ const StarLabel=styled.label`
 
 function Reviewwrite() {
 const { userInfo } = useUserInfoStore(state => state);
-const { isLogin } = useIsLoginStore(state => state);
+const { isLogin,setIsLogin } = useIsLoginStore((state) => state);
 
 const pathData = {
     content: '',
@@ -123,7 +125,7 @@ const pathData = {
 const [title, setTitle] = useState('');
 const [content, setContent] = useState('');
 const [tag, setTag] = useState('');
-const [date, setDate] = useState('');
+const [visitDate, setVisitDate] = useState('');
 
 const navigate = useNavigate();
 
@@ -146,15 +148,16 @@ const tagHandlerChange = e => {
     console.log(e.target.value);
     setTag(e.target.value);
   };
-const dateHandlerChange = e => {
-    console.log(e.target.value);
-    setDate(e.target.value);
-  };
+
+  const dateHandlerChange = e => {
+   console.log(e.target.value);
+   setVisitDate(e.target.value);
+ };
 
 //axios
 const pathUserWriteData = async () => {
     const response = await axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/reviews/{review-id}`, pathData)
+      .post(`${process.env.REACT_APP_SERVER_URL}/reviews`, pathData)
       .catch(error => {
         console.error(error);
       });
@@ -169,8 +172,8 @@ const handlerSubmit = e => {
       e.preventDefault();
       pathData.title = title;
       pathData.content = content;
-      const currentTime = new Date();
-      pathData.createdAt = currentTime.toString();
+      // const currentTime = new Date();
+      // pathData.createdAt = currentTime.toString();
       pathUserWriteData();
       console.log(
       'pathData',
@@ -178,10 +181,10 @@ const handlerSubmit = e => {
        pathData.content
 	      );
     } 
-    else {
-      alert('You need to Login.');
-      navigate('/login');
-    }
+   //  else {
+   //    alert('You need to Login.');
+   //    // navigate('/login');
+   //  }
   };
 
   const imgSubmit = (e) => {
@@ -237,7 +240,7 @@ const handlerSubmit = e => {
 	<Modal>
 	<Container style={{display:'flex',paddingLeft:'74px'}}>
     <FaUserCircle size="60" color='#BDBDBD'/>
-	<UserID >사용자아이디</UserID>
+	<UserID >김코딩</UserID>
 	</Container>
 	<Container style={{display:'flex',justifyContent:'center'}}>
 		<form onSubmit={imgSubmit}>
@@ -307,7 +310,7 @@ const handlerSubmit = e => {
 	<Text>리뷰 제목을 달아주세요</Text>
 	<Input type='text' value={title} onChange={titleHandlerChange} />
 	<Text >방문한 날짜를 선택해주세요</Text>
-	<Input type='date' value={date} onChange={dateHandlerChange}/>
+	<Input type='date' />
 	<Text >태그를 작성해주세요</Text>
 	<Input value={tag} onChange={tagHandlerChange}/>
 </Container>
