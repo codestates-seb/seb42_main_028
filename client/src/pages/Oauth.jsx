@@ -24,15 +24,15 @@ const Oauth = () => {
 		const headers = {
 			Authorization: `Bearer ${accessToken}`,
 		};
-		return axios.get(`${process.env.REACT_APP_SERVER_URI}/`, {
+		return axios.get(`${process.env.REACT_APP_SERVER_URL}/auth/login/oauth2`, {
 			headers,
 		});
 	};
 
 	const getUserInfoOnSuccess = (response) => {
-		localStorage.setItem('userInfoStorage', JSON.stringify(response.data.data));
-		// localStorage.setItem('token', response.headers.get('accesstoken'));
-		navigate('/');
+		localStorage.setItem('userInfoStorage', JSON.stringify(response.data));
+		localStorage.setItem('token', response.headers.get('accesstoken'));
+		navigate('/main');
 	};
 
 	useQuery({

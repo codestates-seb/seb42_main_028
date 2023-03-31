@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -6,6 +6,7 @@ import search from '../assets/search.png';
 import profile from '../assets/profile.png';
 import { useIsLoginStore } from '../store/loginstore';
 import axios from 'axios';
+import userStore from '../store/userStore';
 
 const HeaderWrap = styled.div`
 	top: 0;
@@ -100,6 +101,9 @@ const Header = () => {
 	const location = useLocation().pathname;
 	const navigate = useNavigate();
 	const { isLogin, setIsLogin } = useIsLoginStore((state) => state);
+	const [userInfo, setUserInfo] = useState(null);
+	// const isLogin = !!localStorage.getItem('token');
+	const userInfoStorgae = JSON.parse(localStorage.getItem('userInfoStorage'));
 
 	if (location === '/' || location === '/404') return null;
 
@@ -113,13 +117,31 @@ const Header = () => {
 		};
 
 		return axios
-			.get(`${process.env.REACT_APP_SERVER_URI}/auth/logout`, { headers })
+			.get(`${process.env.REACT_APP_SERVER_URL}/auth/logout`, { headers })
 			.finally((response) => {
 				localStorage.clear();
 				window.alert('로그아웃 되었습니다!');
 				window.location.reload();
 			});
 	};
+
+	// const fetchUserInfo = () => {
+	// 	const userId = JSON.parse(localStorage.getItem('userInfoStorage')).userId;
+	// 	return instance.get(`/users/${userId}`);
+	// };
+
+	// const fetchUserInfoOnSuccess = (res) => {
+	// 	const data = res.data;
+	// 	setUserInfo(data);
+	// };
+
+	// useQuery({
+	// 	queryKey: ['fetchUserInfo', isLogin],
+	// 	queryFn: fetchUserInfo,
+	// 	enabled: isLogin,
+	// 	onSuccess: fetchUserInfoOnSuccess,
+	// 	refetchOnWindowFocus: false,
+	// });
 
 	return (
 		<>
@@ -128,6 +150,7 @@ const Header = () => {
 					<HeaderWrap>
 						<Wrapper>
 							<LogoImg onClick={() => navigate('/')} src={logo} />
+
 							<SearchWrap>
 								<SearchBox />
 								<SearchImg src={search} />
@@ -137,7 +160,7 @@ const Header = () => {
 									로그아웃
 								</LoginLogoutButton>
 								<UserInfo
-									onClick={() => navigate('/mypage')}
+									onClick={() => navigate(`/mypage/${userInfoStorgae?.userId}`)}
 									src={profile}
 								></UserInfo>
 							</BtnWrapper>

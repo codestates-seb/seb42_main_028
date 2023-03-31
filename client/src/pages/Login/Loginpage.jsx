@@ -259,7 +259,9 @@ const Loginpage = () => {
 			<Container>
 				<Logoimg src={logo} />
 				<SocialLoginContainer>
-					<GoogleLogin href={`${process.env.REACT_APP_SERVER_URI}/`}>
+					<GoogleLogin
+						href={`${process.env.REACT_APP_SERVER_URL}/auth/login/oauth2`}
+					>
 						<SocialLoginIcon src={google} />
 						<SocialLoginText>Google 로그인</SocialLoginText>
 					</GoogleLogin>
