@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import search from '../assets/search.png';
 import profile from '../assets/profile.png';
 import { useIsLoginStore } from '../store/loginstore';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import userStore from '../store/userStore';
 
 const HeaderWrap = styled.div`
 	top: 0;
@@ -101,11 +101,9 @@ const Header = () => {
 	const location = useLocation().pathname;
 	const navigate = useNavigate();
 	const { isLogin, setIsLogin } = useIsLoginStore((state) => state);
-	// const [userInfo, setUserInfo] = useState(null);
-	// const isLogin = !!localStorage.getItem('accessToken');
-	// const { userId, setUserId } = userStore((state) => state);
-	const userInfoStorage = localStorage.getItem('userInfoStorage');
-	const userInfo = JSON.parse(userInfo);
+	const [userInfo, setUserInfo] = useState(null);
+	// const isLogin = !!localStorage.getItem('token');
+	const userInfoStorgae = JSON.parse(localStorage.getItem('userInfoStorage'));
 
 	if (location === '/' || location === '/404') return null;
 
@@ -127,11 +125,9 @@ const Header = () => {
 			});
 	};
 
-	// const fetchUserInfo = async () => {
-	// 	const userId = JSON.parse(localStorage.getItem('userInfoStorage')).id;
-	// 	return await axios.get(
-	// 		`${process.env.REACT_APP_SERVER_URL}/users/${userId}`,
-	// 	);
+	// const fetchUserInfo = () => {
+	// 	const userId = JSON.parse(localStorage.getItem('userInfoStorage')).userId;
+	// 	return instance.get(`/users/${userId}`);
 	// };
 
 	// const fetchUserInfoOnSuccess = (res) => {
@@ -153,11 +149,7 @@ const Header = () => {
 				<>
 					<HeaderWrap>
 						<Wrapper>
-							<LogoImg
-								// Link
-								// to={`/mypage/${userInfo?.role.toLowerCase()}/${userInfo?.id}`}
-								src={logo}
-							/>
+							<LogoImg onClick={() => navigate('/')} src={logo} />
 
 							<SearchWrap>
 								<SearchBox />
@@ -168,7 +160,7 @@ const Header = () => {
 									로그아웃
 								</LoginLogoutButton>
 								<UserInfo
-									onClick={() => navigate('/mypage')}
+									onClick={() => navigate(`/mypage/${userInfoStorgae?.userId}`)}
 									src={profile}
 								></UserInfo>
 							</BtnWrapper>
