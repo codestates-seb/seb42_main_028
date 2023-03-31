@@ -78,7 +78,7 @@ function Reviewlist(){
      <FaUserCircle size='50' color='#424242'/>
      <Flex>
       <Text font_size='13px' margin_buttom='8px' margin_left='12px' font_weight='bold' >
-       유저닉네임
+       박자바
       </Text>
       <Text font_size='10px' margin_left='12px' color='gray'>
        시간
@@ -90,11 +90,10 @@ function Reviewlist(){
      </div>
      </Container>
      <Text margin_top='12px' >
-      내용
+      카메스시 몇시에가야 웨이팅 없나요?
      </Text>
     </List>
  </Container>
- <MdExpandMore transform='rotate'/>
 </Card>
     </>
 }
