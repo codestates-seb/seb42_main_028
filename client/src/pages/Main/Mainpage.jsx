@@ -100,11 +100,11 @@ function Mainpage() {
 		>
 			<>
 				<GroupButton name='sss' event>
-					{/* 여기 */}
 					<GroupButtonImg onClick={() => navigate('/review')} src={ad} />
 				</GroupButton>
 			</>
 			<Title>서울 추천</Title>
+			{/* 여기 바꿈*/}
 			<AppBlock>
 				<ButtonImg onClick={() => navigate('/review')} src={s1}></ButtonImg>
 				<ButtonnImg onClick={() => navigate('/review')} src={s2}></ButtonnImg>

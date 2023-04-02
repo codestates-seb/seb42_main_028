@@ -1,3 +1,4 @@
+//프로필
 import { React, useEffect, useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
@@ -11,6 +12,8 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import mypagestore from '../../store/mypagestore';
+// import userStore from '../../store/userStore';
+import userInfo from '../../store/userInfo';
 
 const Container = styled.div`
 	display: flex;
@@ -43,16 +46,16 @@ const ProfileImg = styled.img`
 	/* border: 1px solid black; */
 `;
 
-const ProfileButton = styled.div`
-	width: 180px;
-	height: 180px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 4px auto 4px auto;
-	border: 1px solid red;
-`;
+// const ProfileButton = styled.div`
+// 	width: 180px;
+// 	height: 180px;
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	text-align: center;
+// 	margin: 4px auto 4px auto;
+// 	border: 1px solid red;
+// `;
 
 const Name = styled.div`
 	/* width: 100%; */
@@ -99,7 +102,6 @@ const NavButton = styled.div`
 		cursor: pointer;
 	}
 `;
-
 function Mypage() {
 	const [menu, setMenu] = useState('');
 	const { profileData, setProfileData } = mypagestore((state) => state);
@@ -108,7 +110,7 @@ function Mypage() {
 	const fetchData = () => {
 		return {
 			method: 'get',
-			url: `/mypage/users/${params.id}`,
+			url: `/mypage/users/${params.Id}`,
 		};
 	};
 
@@ -122,7 +124,7 @@ function Mypage() {
 			navigate('/404');
 		}
 	};
-	const { isLoading } = useQuery({
+	const { isLogin } = useQuery({
 		queryKey: ['fetchUserProfileData'],
 		queryFn: fetchData,
 		keepPreviousData: true,
@@ -130,6 +132,9 @@ function Mypage() {
 		onError: fetchDataOnError,
 		retry: false,
 	});
+
+	const userInfoStorage = localStorage.getItem('userInfoStorage');
+	// const userInfo = JSON.parse(userInfo);
 
 	return (
 		<>
