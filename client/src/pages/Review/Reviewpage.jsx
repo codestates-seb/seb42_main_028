@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import Reviewcard from './Reviewcard';
 import Card from './card';
@@ -8,6 +10,13 @@ import Card2 from './card2';
 import Star from '../../components/Star';
 import Reviewlist from '../Review/Reviewlist';
 import DefaultReviewCard from './DefaultReviewCard';
+import Kame from '../../assets/food.png';
+import Kame2 from '../../assets/카메스시.png';
+import Kame3 from '../../assets/카메스시2.png'
+import Kame4 from '../../assets/카메스시 위치.png'
+
+import { useUserInfoStore } from '../../store/userInfo';
+import { useIsLoginStore } from '../../store/loginstore';
 
 import 이미지 from '../../assets/default.jpg'
 
@@ -106,8 +115,32 @@ display: flex;
     flex-direction: column;
 }
 `
+ 
 function Reviewpage() {
-   const navigate = useNavigate();
+   const { isLogin, setIsLogin } = useIsLoginStore((state) => state);
+  const [errorMessage, setErrorMessage] = useState('');
+
+   const navigate=useNavigate();
+
+   //axios
+//    const reviewwriteHandler = () => {
+//    axios
+//      .get(
+//        'http://localhost:3000/reviewwrite',
+//      )
+//      .then(res => {
+//        setIsLogin(true);
+//       //  localStorage.removeItem('token');
+//        console.log(res.data);
+//        navigate('/reviewwrite');
+//      })
+//      .catch(err => {
+//        if (err.response.status === 401) {
+//          setErrorMessage('실패');
+//          console.log(errorMessage);
+//        }
+//      });
+//  };
 	return <div>
 		<ReviewPage>
 			<Review>
@@ -126,23 +159,23 @@ function Reviewpage() {
          
 			<Container>
          <Media>
-				<MainImg src={이미지} style={{flexGrow:1}}/>
+				<MainImg src={Kame} style={{flexGrow:1}}/>
             {/* <Media> */}
 				<ImgContainer>
-				 <Img src={이미지} style={{flexGrow:1}} />
-				 <Img src={이미지} style={{flexGrow:1}}/>
+				 <Img src={Kame2} style={{flexGrow:1}} />
+				 <Img src={Kame3} style={{flexGrow:1}}/>
 				</ImgContainer>
             <Card/>
             </Media>
 			</Container>
 			<div >
          <Media>
-				<MapImg style={{marginRight:'8px'}}/>
+				<MapImg src={Kame4}style={{marginRight:'8px'}}/>
 				<Card2/>
          </Media>
 			</div>
          
-			<Container >
+			<Container style={{marginTop:'40px'}} >
 			    <TittleText >
 				리뷰
 			   </TittleText>
@@ -150,7 +183,7 @@ function Reviewpage() {
 			<Container style={{justifyContent:'space-between'}}>
 			 <Search placeholder='로그인 후 리뷰 작성이 가능합니다' type='text' readOnly />
 			 <div>
-			  <Button onClick={()=>navigate('/login')} background_color='white' margin_right='4px'>
+			  <Button onClick={() => navigate('/reviewwrite')} background_color='white' margin_right='4px'>
 				리뷰쓰기
 			 </Button>  
 			 <Button style={{flex:2}}>
