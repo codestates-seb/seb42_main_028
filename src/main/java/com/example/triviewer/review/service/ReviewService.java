@@ -4,7 +4,11 @@ import com.example.triviewer.exception.BusinessLogicException;
 import com.example.triviewer.exception.ExceptionCode;
 import com.example.triviewer.review.entity.Review;
 import com.example.triviewer.review.repository.ReviewRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 //TODO: Insert Transactional.
@@ -36,6 +40,11 @@ public class ReviewService {
 
     public Review findReview(long reviewId) {
         return findVerifiedReview(reviewId);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Review> findReviews(int page, int size) {
+        return reviewRepository.findAll(PageRequest.of(page, size, Sort.by("reviewId").descending()));
     }
 
     //findReviews??

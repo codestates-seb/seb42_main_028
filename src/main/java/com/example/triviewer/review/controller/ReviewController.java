@@ -1,14 +1,17 @@
 package com.example.triviewer.review.controller;
 
+import com.example.triviewer.global.dto.MultiResponseDto;
 import com.example.triviewer.global.dto.SingleResponseDto;
 import com.example.triviewer.review.dto.ReviewPatchDto;
 import com.example.triviewer.review.dto.ReviewPostDto;
+import com.example.triviewer.review.dto.ReviewResponseDto;
 import com.example.triviewer.review.entity.Review;
 import com.example.triviewer.review.mapper.ReviewMapper;
 import com.example.triviewer.review.service.ReviewService;
 import com.example.triviewer.user.entity.User;
 import com.example.triviewer.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,6 +61,15 @@ public class ReviewController {
 //            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 //        }
 //    }
+
+    @GetMapping
+    public ResponseEntity getMembers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size) {
+        Page<Review> reviews = reviewService.findReviews(page - 1, size);
+        List<Review> content = reviews.getContent();
+        return new ResponseEntity(new MultiResponseDto(mapper.reviewsToReviewResponseDto(content), reviews), HttpStatus.OK);
+    }
+
 
     @PatchMapping("/{review-id}/edit")
     public ResponseEntity patchReview(@PathVariable("review-id") @Positive long reviewId,
