@@ -12,6 +12,8 @@ public class ReviewPatchDto {
 
     private String content;
 
+    private String visitDate;
+
     //Any better options?
     public void setReviewId(long reviewId){this.reviewId = reviewId;}
 }
