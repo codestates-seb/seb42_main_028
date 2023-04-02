@@ -62,7 +62,6 @@ public class ReviewService {
         Review findReview = findVerifiedReview(reviewId);
 //        TODO: Change status.
 //        findReview.setReviewStatus(Review.ReviewStatus.Review_DELETE);
-
 //        reviewRepository.save(findReview);
         reviewRepository.delete(findReview);
     }

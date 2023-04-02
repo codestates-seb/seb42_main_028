@@ -7,6 +7,7 @@ import com.example.triviewer.vote.entity.Vote;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,6 +27,16 @@ public class Review extends Auditable {
 
     @Column(nullable = false, length = 2000)
     private String content;
+
+    //방문일자
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String visitDate;
+
+//    @Column(nullable = false)
+//    private List<String> image;
+
+    // 지도API용 location. longitude, latitude.
 
     // 좋아요 초깃값을 0으로 설정
     @Column(nullable = false)
@@ -48,7 +59,7 @@ public class Review extends Auditable {
             comment.setReview(this);
         }
     }
-
+    //TODO: visitDate 등 포함해 수정.
     public Review(String title, String content){
         this.title = title;
         this.content = content;
