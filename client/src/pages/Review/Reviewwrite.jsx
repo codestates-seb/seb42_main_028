@@ -120,6 +120,7 @@ const { isLogin,setIsLogin } = useIsLoginStore((state) => state);
 const pathData = {
     content: '',
 	 title: '',
+    visitDate: '',
 };
 
 const [title, setTitle] = useState('');
@@ -141,7 +142,7 @@ const titleHandlerChange = e => {
     setTitle(e.target.value);
   };
 const contentHandlerChange = e => {
-    console.log(e.target.value);
+    console.log("contentHandlerChange: ", e.target.value);
     setContent(e.target.value);
   };
 const tagHandlerChange = e => {
@@ -150,7 +151,6 @@ const tagHandlerChange = e => {
   };
 
   const dateHandlerChange = e => {
-   console.log(e.target.value);
    setVisitDate(e.target.value);
  };
 
@@ -158,6 +158,7 @@ const tagHandlerChange = e => {
 const pathUserWriteData = async () => {
     const response = await axios
       .post(`${process.env.REACT_APP_SERVER_URL}/reviews`, pathData)
+      .then((_) => navigate('/review'))
       .catch(error => {
         console.error(error);
       });
@@ -172,6 +173,7 @@ const handlerSubmit = e => {
       e.preventDefault();
       pathData.title = title;
       pathData.content = content;
+      pathData.visitDate = visitDate;
       // const currentTime = new Date();
       // pathData.createdAt = currentTime.toString();
       pathUserWriteData();
@@ -180,7 +182,7 @@ const handlerSubmit = e => {
        pathData.title,
        pathData.content
 	      );
-    } 
+    }
    //  else {
    //    alert('You need to Login.');
    //    // navigate('/login');
@@ -208,16 +210,16 @@ const handlerSubmit = e => {
 
 	// const insertImg = (e) => {
 	// 	let reader = new FileReader()
-	  
+
 	// 	if(e.target.files[0]) {
 	// 	  reader.readAsDataURL(e.target.files[0])
-		  
+
 	// 	  setFileimg([...fileImg, e.target.files[0]])
 	// 	}
-	  
+
 	// 	reader.onloadend = () => {
 	// 	  const previewImgUrl = reader.result
-	  
+
 	// 	  if(previewImgUrl) {
 	// 		setPreviewImg([...previewImg, previewImgUrl])
 	// 	  }
@@ -246,12 +248,12 @@ const handlerSubmit = e => {
 		<form onSubmit={imgSubmit}>
 		<div>
 		{
-			
+
 			fileImg && (
 				<Img
 				alt='simple'
 				src={fileImg}
-				style={{margin:'auto'}} 
+				style={{margin:'auto'}}
 				/>
 			)
          }
@@ -260,7 +262,7 @@ const handlerSubmit = e => {
 		  name='imgUpload'
          type='file'
 		 accept='image/*'
-		 onChange={saveFileImg} 
+		 onChange={saveFileImg}
 		  />
 		 {/* </div> */}
 		 {/* <div>
@@ -269,7 +271,7 @@ const handlerSubmit = e => {
 				<Img
 				alt='simple'
 				src={fileImg}
-				style={{margin:'auto'}} 
+				style={{margin:'auto'}}
 				/>
 			)
          }
@@ -280,7 +282,7 @@ const handlerSubmit = e => {
 				<Img
 				alt='simple'
 				src={fileImg}
-				style={{margin:'auto'}} 
+				style={{margin:'auto'}}
 				/>
 			)
          } */}
@@ -310,12 +312,14 @@ const handlerSubmit = e => {
 	<Text>리뷰 제목을 달아주세요</Text>
 	<Input type='text' value={title} onChange={titleHandlerChange} />
 	<Text >방문한 날짜를 선택해주세요</Text>
-	<Input type='date' />
+	<Input type='date' onChange={dateHandlerChange} />
 	<Text >태그를 작성해주세요</Text>
 	<Input value={tag} onChange={tagHandlerChange}/>
 </Container>
 <Container >
-	<Button style={{backgroundColor:'white',marginRight:'8px'}}>취소</Button>
+	<Button style={{backgroundColor:'white',marginRight:'8px'}} onClick={() => navigate('/review')}>
+      취소
+   </Button>
 	<Button onClick={handlerSubmit}>게시</Button>
 </Container>
 	</Modal>
