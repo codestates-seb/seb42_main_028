@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 // import { useNavigate } from 'react-router-dom';
 import Modal from './Modal';
@@ -36,14 +36,43 @@ const Button = styled.div`
 function Password() {
 	// const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
+	const [password, setPassword] = useState('');
+
+	const userId = useMemo(() => JSON.parse(localStorage.getItem('userInfoStorage'))?.userId, []);
+
+	// 비밀번호 수정 요청
+	const submitPassword = async () => {
+		try {
+			if (!userId) {
+				throw new Error('유저ID가 존재하지 않습니다.');
+			}
+
+			return await axios
+				.patch(
+					`${process.env.REACT_APP_SERVER_URL}/users/${userId}`,
+					{ password }
+				)
+				.then((res) => {
+					if (res) {
+						setPassword('');
+						alert('비밀번호가 변경되었습니다');
+					} else {
+						alert('비밀번호를 확인해주세요');
+					}
+				});
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	const onClickButton = () => {
 		setIsOpen(true);
 	};
+
 	return (
 		<>
 			{' '}
-			<Input />
+			<Input onChange={(e) => setPassword(e.target.value)} />
 			<Button onClick={onClickButton}>변경</Button>
 			{isOpen && (
 				<Modal
@@ -51,6 +80,7 @@ function Password() {
 					onClose={() => {
 						setIsOpen(false);
 					}}
+					onConfirm={submitPassword}
 				/>
 			)}
 		</>
