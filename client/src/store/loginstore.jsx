@@ -7,7 +7,7 @@ const useErrorMessageStore = create((set) => ({
 }));
 
 const useIsLoginStore = create((set) => ({
-	isLogin: false,
+	isLogin: Boolean(window.localStorage.getItem('userInfoStorage')),
 	setIsLogin: (loginstate) => set(() => ({ isLogin: loginstate })),
 }));
 

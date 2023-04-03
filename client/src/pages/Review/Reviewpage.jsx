@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -73,10 +73,10 @@ const Button = styled.button`
    width: 60px;
    height: 33px;
    border-radius: 10px;
-   color:${(props) => props.color }; 
+   color:${(props) => props.color };
    text-align: center;
    background-color: ${(props) => props.background_color || '#FD8E0D' };
-   margin-right: ${(props) => props.margin_right }; 
+   margin-right: ${(props) => props.margin_right };
    white-space: nowrap;
 `
 const MainImg = styled.img`
@@ -115,12 +115,43 @@ display: flex;
     flex-direction: column;
 }
 `
- 
+
 function Reviewpage() {
    const { isLogin, setIsLogin } = useIsLoginStore((state) => state);
   const [errorMessage, setErrorMessage] = useState('');
+  const [page, setPage] = useState(0);
+  const [maxPage, setMaxPage] = useState(1);
+  const [reviewList, setReviewList] = useState([]);
 
    const navigate=useNavigate();
+
+   const PAGE_SIZE = 5;
+
+   const fetchList = async () => {
+      if (!page) {
+         return;
+      }
+
+      await axios
+         .get(`${process.env.REACT_APP_SERVER_URL}/reviews?page=${page}&size=${PAGE_SIZE}`)
+         .then((res) => {
+            const newList = res?.data?.data || [];
+            setReviewList((curr) => ([...curr, ...newList]));
+            setMaxPage(res?.data?.pageInfo?.totalPages || maxPage);
+         });
+   };
+
+   const handleLoadMore = () => {
+      setPage(page + 1);
+   };
+
+   useEffect(() => {
+      handleLoadMore();
+   }, []);
+
+   useEffect(() => {
+      fetchList();
+   }, [ page ]);
 
    //axios
 //    const reviewwriteHandler = () => {
@@ -156,7 +187,7 @@ function Reviewpage() {
 				리뷰쓰기
 			   </Text>
 			</TittleContainer>
-         
+
 			<Container>
          <Media>
 				<MainImg src={Kame} style={{flexGrow:1}}/>
@@ -174,7 +205,7 @@ function Reviewpage() {
 				<Card2/>
          </Media>
 			</div>
-         
+
 			<Container style={{marginTop:'40px'}} >
 			    <TittleText >
 				리뷰
@@ -183,17 +214,28 @@ function Reviewpage() {
 			<Container style={{justifyContent:'space-between'}}>
 			 <Search placeholder='로그인 후 리뷰 작성이 가능합니다' type='text' readOnly />
 			 <div>
-			  <Button onClick={() => navigate('/reviewwrite')} background_color='white' margin_right='4px'>
-				리뷰쓰기
-			 </Button>  
+			  {isLogin && (
+            <Button onClick={() => navigate('/reviewwrite')} background_color='white' margin_right='4px'>
+               리뷰쓰기
+            </Button>
+           )}
 			 <Button style={{flex:2}}>
 				정렬
 			 </Button>
 			 </div>
 			</Container>
-			   <Reviewcard/>
-               {/* <DefaultReviewCard/> */}
-			   <Reviewlist/>
+         {reviewList.map((review) =>
+            <Reviewcard key={review.reviewId} review={review} />
+         )}
+         {maxPage > page && (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+               <Button style={{ margin: '60px auto 30px' }} onClick={handleLoadMore}>
+                  더보기
+               </Button>
+            </div>
+         )}
+            {/* <DefaultReviewCard/> */}
+         <Reviewlist/>
           </Review>
 		</ReviewPage>
 		

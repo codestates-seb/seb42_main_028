@@ -14,7 +14,6 @@ import Kame2 from '../../assets/후기2.png'
 const UserReview = styled.div`
     /* max-width:950px ; */
     width: 100%;
-    height: 330px;
 `
 const Card = styled.div`
     width: 100%;
@@ -35,7 +34,7 @@ const Icon = styled.div`
 const Container = styled.div`
    margin-left: ${(props) => props.margin_left };
    margin-right: ${(props) => props.margin_right };
-   margin-Top: ${(props) => props.margin_Top };
+   margin-top: ${(props) => props.margin_Top };
    display: ${(props) => props.display ||'flex' };
    align-items: ${(props) => props.align_items ||'center' }
 `
@@ -61,42 +60,31 @@ const UserInfoContainer =styled.div`
     flex: 4;
 `
 
-function Reviewcard(){
+function Reviewcard({ review }){
   const [like,setLick] = useState(0);
+
+  const {
+    title,
+    content,
+    createdAt,
+    reviewId,
+    reviewStatus,
+    visitDate,
+  } = review;
 
 return <>
  <Layout>
    <UserReview>
      <Card>
-      <Container>
-        <Icon>
-         <FaUserCircle size="74" color='gray'/>
-        </Icon>
-         <UserInfoContainer >
-           <UserText>
-              김코딩
-           </UserText>
-             <Text marginbuttom='20px' color='#808080' fontsize='13px'>
-               2023-03-13
-             </Text>
-               <div>
-                 <Star/>
-               </div>
-          </UserInfoContainer>
-           <Flex text_align='center'>
-             <button onClick={()=>{}}><AiOutlineLike size="30" color='#424242'/></button>
-             <Flex text_align='center' >{like}</Flex>
-            </Flex>
-         </Container>
-       <Container display='block' margin_left='48px' margin_right='48px' >
-         <Text marginbuttom='4px' fontsize= '16px' font_weight= 'bold' >
-           카메스시 좋아요
-         </Text>
-         <Text marginbuttom='12px' fontsize= '13px' color='#808080'>
-        방문날짜:4월7일
+      <Container display='block' margin_left='48px' margin_right='48px' margin_Top='20px' >
+        <Text marginbuttom='4px' fontsize= '16px' font_weight= 'bold' >
+          {title}
         </Text>
-        <Text>올해 갔다왔었는데 맛있었습니다</Text>
-    </Container>
+        <Text marginbuttom='12px' fontsize= '13px' color='#808080'>
+          방문날짜: {visitDate}
+        </Text>
+        <Text>{content}</Text>
+      </Container>
     <Container margin_left='48px' margin_right='48px' margin_Top='4px'>
     <Img src={Kame1} />
     <Img  src={Kame2} margin_left='12px'/>
